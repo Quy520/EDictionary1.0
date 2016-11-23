@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.qsd.edictionary.MainActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_main"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+         />
+    <RadioGroup
+        android:id="@+id/radio_main"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <RadioButton
+            android:layout_width="0dp"
+            android:button="@null"
+            android:text="记忆法"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:button="@null"
+            android:text="记单词"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:button="@null"
+            android:text="已订阅"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:layout_width="0dp"
+            android:button="@null"
+            android:text="我的"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:layout_weight="1"
+            android:layout_height="match_parent" />
+
+    </RadioGroup>
+</LinearLayout>
