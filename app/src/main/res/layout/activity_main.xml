@@ -9,17 +9,18 @@
     tools:context="com.example.qsd.edictionary.MainActivity">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/view_main"
+        android:id="@+id/viewpage_main"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
          />
     <RadioGroup
-        android:id="@+id/radio_main"
+        android:id="@+id/radiogroup_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
         <RadioButton
+            android:id="@+id/rb_memory"
             android:layout_width="0dp"
             android:button="@null"
             android:text="记忆法"
@@ -28,6 +29,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent" />
         <RadioButton
+            android:id="@+id/rb_words"
             android:layout_width="0dp"
             android:button="@null"
             android:text="记单词"
@@ -36,6 +38,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent" />
         <RadioButton
+            android:id="@+id/rb_subscribe"
             android:layout_width="0dp"
             android:button="@null"
             android:text="已订阅"
@@ -44,6 +47,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent" />
         <RadioButton
+            android:id="@+id/rb_mine"
             android:layout_width="0dp"
             android:button="@null"
             android:text="我的"

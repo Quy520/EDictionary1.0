@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,9 +21,10 @@ import com.example.qsd.edictionary.MainActivity;
 import com.example.qsd.edictionary.R;
 
 public class LoginActivity extends AppCompatActivity {
-    private ImageView imageView;
+    private ImageView imageView,eyes;
     private Button login;
     private TextView register,froget;
+    private EditText username,password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,9 @@ public class LoginActivity extends AppCompatActivity {
         login= (Button) findViewById(R.id.login);
         register=(TextView) findViewById(R.id.register);
         froget= (TextView) findViewById(R.id.forget);
+        username= (EditText) findViewById(R.id.username);
+        password= (EditText) findViewById(R.id.password);
+        eyes= (ImageView) findViewById(R.id.eyes);
         int width=getWindowManager().getDefaultDisplay().getWidth();
         int heigh=getWindowManager().getDefaultDisplay().getHeight();
         LinearLayout.LayoutParams para= (LinearLayout.LayoutParams) imageView.getLayoutParams();
