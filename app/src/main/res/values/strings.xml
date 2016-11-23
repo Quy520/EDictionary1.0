@@ -9,4 +9,7 @@
     <string name="register_pass">密  码</string>
     <string name="register_study">互学码</string>
     <string name="new_pass">新密码</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
