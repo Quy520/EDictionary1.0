@@ -11,6 +11,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.activitys.AboutActivity;
+import com.example.qsd.edictionary.activitys.GameActivity;
+import com.example.qsd.edictionary.activitys.NoticeActivity;
+import com.example.qsd.edictionary.activitys.RechargeActivity;
+import com.example.qsd.edictionary.activitys.SettingActivity;
+import com.example.qsd.edictionary.activitys.StudyCodeActivity;
 import com.example.qsd.edictionary.activitys.UserinfoActivity;
 
 /**
@@ -77,22 +83,33 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     break;
                 case R.id.mine_study:
                     Toast.makeText(getActivity(), "学习豆", Toast.LENGTH_SHORT).show();
-
+                    Intent intent2=new Intent(getActivity(), RechargeActivity.class);
+                    startActivity(intent2);
                     break;
                 case R.id.mine_game:
                     Toast.makeText(getActivity(), "游戏", Toast.LENGTH_SHORT).show();
+                    Intent intent3=new Intent(getActivity(), GameActivity.class);
+                    startActivity(intent3);
                     break;
                 case R.id.mine_code:
                     Toast.makeText(getActivity(), "学习", Toast.LENGTH_SHORT).show();
+                    Intent intent4=new Intent(getActivity(), StudyCodeActivity.class);
+                    startActivity(intent4);
                     break;
                 case R.id.mine_notice:
                     Toast.makeText(getActivity(), "通知", Toast.LENGTH_SHORT).show();
+                    Intent intent5=new Intent(getActivity(), NoticeActivity.class);
+                    startActivity(intent5);
                     break;
                 case R.id.mine_about:
                     Toast.makeText(getActivity(), "关于", Toast.LENGTH_SHORT).show();
+                    Intent intent6=new Intent(getActivity(), AboutActivity.class);
+                    startActivity(intent6);
                     break;
                 case R.id.mine_setting:
                     Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
+                    Intent intent7=new Intent(getActivity(), SettingActivity.class);
+                    startActivity(intent7);
                     break;
             }
 
