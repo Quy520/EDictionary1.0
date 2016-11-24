@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.example.qsd.edictionary.R;
 
+/**
+ * 注册界面
+ */
 public class RegisterActivity extends AppCompatActivity {
 
     @Override

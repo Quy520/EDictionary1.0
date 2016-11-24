@@ -23,9 +23,239 @@
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
-    <TextView
+
+    <RelativeLayout
+        android:id="@+id/mine_user"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/userimage"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/userinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名字+电话号码"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userimage"
+            android:layout_toEndOf="@+id/userimage"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mine_study"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/study"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学习豆"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/study"
+            android:layout_toEndOf="@+id/study"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="充值"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mine_game"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/gameimage"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/gamename"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="记忆法小游戏"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/gameimage"
+            android:layout_toEndOf="@+id/gameimage"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mine_code"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/study_code"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="互助共进步"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/study_code"
+            android:layout_toEndOf="@+id/study_code"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="互学码：Y12324"
+            android:layout_toLeftOf="@+id/setting"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            />
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mine_notice"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/im_notice"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/tv_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="通知"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/im_notice"
+            android:layout_toEndOf="@+id/im_notice"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mine_about"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/im_about"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/tv_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="关于我们"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/im_about"
+            android:layout_toEndOf="@+id/im_about"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/mine_setting"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/im_setting"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/im_setting"
+            android:layout_toEndOf="@+id/im_setting"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+
 
 </LinearLayout>

@@ -30,12 +30,13 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button button;
     private SharedPreferences sharedPreferences;
     private MypageAdapter mypageAdapter;
-    private int[] images=new int[]{R.mipmap.welcom,R.mipmap.welcom2,R.mipmap.welcome3,R.mipmap.welcom};
+    private int[] images=new int[]{R.mipmap.welcom,R.mipmap.welcom2,R.mipmap.welcome3,R.mipmap.welcome4};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //在页面初始化之前进行判断是否第一次安装
+
         sharedPreferences = getSharedPreferences("ED", context.MODE_PRIVATE);
         Boolean flag=sharedPreferences.getBoolean("FIRST",false);
         if (flag){

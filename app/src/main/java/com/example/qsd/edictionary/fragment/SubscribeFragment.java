@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.qsd.edictionary.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 订阅界面
  */
 public class SubscribeFragment extends Fragment {
 

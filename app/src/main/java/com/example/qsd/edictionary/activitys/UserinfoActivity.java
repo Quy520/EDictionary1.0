@@ -6,13 +6,13 @@ import android.os.Bundle;
 import com.example.qsd.edictionary.R;
 
 /**
- * 忘记密码界面
+ * 用户修改信息界面
  */
-public class ForgetActivity extends AppCompatActivity {
+public class UserinfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget);
+        setContentView(R.layout.activity_userinfo);
     }
 }

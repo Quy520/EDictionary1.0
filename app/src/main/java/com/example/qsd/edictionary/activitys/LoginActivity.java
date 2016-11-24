@@ -20,6 +20,9 @@ import android.widget.TextView;
 import com.example.qsd.edictionary.MainActivity;
 import com.example.qsd.edictionary.R;
 
+/**
+ * 登陆界面
+ */
 public class LoginActivity extends AppCompatActivity {
     private ImageView imageView,eyes;
     private Button login;

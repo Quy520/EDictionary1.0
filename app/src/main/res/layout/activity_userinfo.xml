@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_userinfo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.qsd.edictionary.activitys.UserinfoActivity">
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_title"
+                android:text="更新资料"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:textColor="#000"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:id="@+id/info_user"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="手机号码"
+            android:id="@+id/userphone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/userinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1312873889"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userphone"
+            android:layout_toEndOf="@+id/userphone"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <TextView
+            android:text="重新绑定"
+            android:textColor="#FF8247"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/setting"/>
+        <ImageView
+            android:id="@+id/setting"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/info_pass"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="密码"
+            android:id="@+id/infopass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:text="修改"
+            android:textColor="#FF8247"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/setting2"/>
+
+        <ImageView
+            android:id="@+id/setting2"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/info_image"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="头像"
+            android:id="@+id/et_image"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+
+
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:text="重新绑定"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_toLeftOf="@+id/setting3"/>
+        <ImageView
+            android:id="@+id/setting3"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/info_name"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="昵称"
+            android:id="@+id/infoname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小明"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/infoname"
+            android:layout_toEndOf="@+id/infoname"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+
+        <ImageView
+            android:id="@+id/setting4"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/rigth_setting"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

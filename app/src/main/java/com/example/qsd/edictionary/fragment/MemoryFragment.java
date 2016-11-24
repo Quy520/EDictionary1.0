@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.qsd.edictionary.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 记忆法界面
  */
 public class MemoryFragment extends Fragment {
 
