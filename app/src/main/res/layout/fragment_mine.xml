@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.qsd.edictionary.fragment.MineFragment">
     <android.support.v7.widget.Toolbar
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -16,7 +17,7 @@
                 android:text="我 的"
                 android:textSize="20sp"
                 android:drawablePadding="5dp"
-                android:textColor="#000"
+                android:textColor="@color/color_white"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -30,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/text1"
             android:id="@+id/userimage"
             android:layout_width="35dp"
             android:layout_height="35dp" />
@@ -63,7 +64,7 @@
         android:layout_height="wrap_content">
         <ImageView
 
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/text2"
             android:id="@+id/study"
             android:layout_width="35dp"
             android:layout_height="35dp" />
@@ -95,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/text3"
             android:id="@+id/gameimage"
             android:layout_width="35dp"
             android:layout_height="35dp" />
@@ -127,7 +128,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/text4"
             android:id="@+id/study_code"
             android:layout_width="35dp"
             android:layout_height="35dp" />
@@ -168,7 +169,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/text5"
             android:id="@+id/im_notice"
             android:layout_width="35dp"
             android:layout_height="35dp" />
@@ -200,7 +201,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/text9"
             android:id="@+id/im_about"
             android:layout_width="35dp"
             android:layout_height="35dp" />
@@ -231,7 +232,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/text10"
             android:id="@+id/im_setting"
             android:layout_width="35dp"
             android:layout_height="35dp" />

@@ -1,0 +1,70 @@
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.example.qsd.edictionary.fragment.VideoFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_margin="20dp"
+        >
+
+        <com.example.qsd.edictionary.videoview.VideoSuperPlayer
+            android:id="@+id/video"
+            android:visibility="visible"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true" >
+
+            <ImageView
+                android:scaleType="fitXY"
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:src="@mipmap/night_biz_media_bg"
+                android:layout_centerVertical="true"
+                android:layout_alignLeft="@+id/video"
+                android:layout_alignStart="@+id/video" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/biz_video_list_play_icon_big"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/imageView" />
+        </com.example.qsd.edictionary.videoview.VideoSuperPlayer>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无视屏"
+
+        android:layout_gravity="center"
+        />
+
+
+    <Button
+        android:background="@color/gold_button"
+        android:layout_marginTop="20dp"
+        android:id="@+id/sub_word"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:text="去订阅记忆法"
+        android:textColor="@color/color_white"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_marginTop="10dp"
+        android:background="@color/gold_button"
+        android:id="@+id/sub_view"
+        android:text="去订阅单词视屏"
+        android:textColor="@color/color_white"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

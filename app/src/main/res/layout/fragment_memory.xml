@@ -6,6 +6,7 @@
     android:orientation="vertical"
     tools:context="com.example.qsd.edictionary.fragment.MemoryFragment">
 <android.support.v7.widget.Toolbar
+    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
@@ -16,17 +17,17 @@
             android:text="易词典"
             android:textSize="20sp"
             android:drawablePadding="5dp"
-            android:textColor="#000"
+            android:textColor="@color/color_white"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
-
 </android.support.v7.widget.Toolbar>
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/memory_recy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="记忆法" />
+</android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

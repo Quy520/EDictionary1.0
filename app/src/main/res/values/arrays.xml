@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <string-array name="date">
+        <item>word</item>
+        <item>ai</item>
+        <item>item</item>
+        <item>zhou</item>
+        <item>zheng</item>
+        <item>long</item>
+        <item>hong</item>
+        <item>wang</item>
+        <item>fei</item>
+        <item>ying</item>
+        <item>wei</item>
+        <item>you</item>
+        <item>hua</item>
+        <item>yuan</item>
+        <item>shui</item>
+        <item>bai</item>
+        <item>cheng</item>
+        <item>li</item>
+        <item>ha</item>
+        <item>jing</item>
+        <item>lei</item>
+        <item>yu</item>
+        <item>na</item>
+        <item>xing</item>
+        <item>kang</item>
+        <item>theme</item>
+        <item>dimes</item>
+        <item>style</item>
+        <item>map</item>
+        <item>bitmap</item>
+        <item>wei</item>
+
+    </string-array>
+
+</resources>

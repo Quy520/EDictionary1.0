@@ -1,13 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_study_code"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.qsd.edictionary.activitys.StudyCodeActivity">
+    <android.support.v7.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_title"
+                android:text="互助共进步"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/color_white"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+        android:layout_height="wrap_content"
+        android:text="您的互学码"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button_code"
+        android:text="YCD234"
+        android:layout_width="100dp"
+        android:layout_height="33dp"
+        android:background="@drawable/buttonstyle3"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/send_button"
+        android:text="点击发给好友"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:background="@drawable/buttonstyle3"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/button_code"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/copy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击可复制"
+        android:layout_alignBottom="@+id/button_code"
+        android:layout_toRightOf="@+id/button_code"
+        android:layout_toEndOf="@+id/button_code"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp" />
 
 </RelativeLayout>
+    <TextView
+        android:layout_margin="10dp"
+        android:text="邀请好友加入易词典，每位好友通过该助学码注册后，双方都可以获得5学豆的奖励"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_margin="10dp"
+        android:textColor="@color/yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="奖励记录"/>
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+
+</LinearLayout>

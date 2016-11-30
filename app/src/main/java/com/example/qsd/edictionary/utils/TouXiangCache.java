@@ -27,6 +27,11 @@ public class TouXiangCache {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try{
+            fileOutputStream.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
     public static Bitmap getphoto(String pic_path){
         Bitmap bitmap= BitmapFactory.decodeFile(pic_path);

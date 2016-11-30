@@ -24,10 +24,12 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private ViewPager viewPager;
     private long timeMillis;
+    public static MainActivity mMainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mMainActivity = this;
         initData();//填充数据
         initView();//填充布局
     }
@@ -97,4 +99,10 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode,event);
     }
+
+    public void changeSkinMode(boolean isNight) {
+
+       // changeFragmentMode(isNight);
+    }
+
 }

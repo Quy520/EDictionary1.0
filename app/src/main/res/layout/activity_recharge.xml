@@ -1,13 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_recharge"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.qsd.edictionary.activitys.RechargeActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_title"
+                android:text="充值"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/color_white"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:id="@+id/mine_user"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/yuedu"
+            android:id="@+id/userimage"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+            android:id="@+id/usermoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学习豆："
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userimage"
+            android:layout_toEndOf="@+id/userimage"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+        <TextView
+            android:id="@+id/usercount"
+            android:layout_toRightOf="@+id/usermoney"
+            android:text="100"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+        <TextView
+            android:layout_toRightOf="@+id/usercount"
+            android:text="个"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+    </RelativeLayout>
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="充值金额 :"/>
+    <RelativeLayout
+        android:id="@+id/money_50"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/yuedu"
+            android:id="@+id/userimage2"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="50学习豆"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userimage2"
+            android:layout_toEndOf="@+id/userimage2"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+
+        <Button
+            android:background="@drawable/buttonstyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/yellow"
+            android:text="5元"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+        />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/money_100"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/yuedu"
+            android:id="@+id/userimage3"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="100学习豆"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userimage3"
+            android:layout_toEndOf="@+id/userimage3"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+
+
+        />
+        <Button
+            android:background="@drawable/buttonstyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/yellow"
+            android:text="10元"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/money_150"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/yuedu"
+            android:id="@+id/userimage4"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <Button
+            android:background="@drawable/buttonstyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/yellow"
+            android:text="15元"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150学习豆"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userimage4"
+            android:layout_toEndOf="@+id/userimage4"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+
+
+        />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/money_200"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/yuedu"
+            android:id="@+id/userimage5"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <Button
+            android:background="@drawable/buttonstyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/yellow"
+            android:text="20元"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200学习豆"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userimage5"
+            android:layout_toEndOf="@+id/userimage5"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+
+
+        />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/money_500"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/yuedu"
+            android:id="@+id/userimage6"
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
+        <Button
+            android:background="@drawable/buttonstyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/yellow"
+            android:text="50元"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500学习豆"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/userimage6"
+            android:layout_toEndOf="@+id/userimage6"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/money_1000"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:src="@mipmap/yuedu"
+        android:id="@+id/userimage7"
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
+        <Button
+            android:background="@drawable/buttonstyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:textColor="@color/yellow"
+            android:text="100元"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1000学习豆"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/userimage7"
+        android:layout_toEndOf="@+id/userimage7"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp" />
+    </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:text="充值问题,点击请联系客服"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:textColor="#EEAD0E"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

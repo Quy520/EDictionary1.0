@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EDictionary.iml" filepath="$PROJECT_DIR$/EDictionary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib_flashview/lib_flashview.iml" filepath="$PROJECT_DIR$/lib_flashview/lib_flashview.iml" />
     </modules>
   </component>
 </project>
