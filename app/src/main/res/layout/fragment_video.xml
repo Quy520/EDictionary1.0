@@ -4,26 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.example.qsd.edictionary.fragment.VideoFragment">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:layout_margin="20dp"
         >
-
-        <com.example.qsd.edictionary.videoview.VideoSuperPlayer
-            android:id="@+id/video"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/icon_layout"
             android:visibility="visible"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true" >
+            android:layout_height="wrap_content"
+            android:minHeight="180dp">
 
             <ImageView
+                android:id="@+id/video_icon"
                 android:scaleType="fitXY"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:src="@mipmap/night_biz_media_bg"
                 android:layout_centerVertical="true"
@@ -36,8 +33,16 @@
                 android:src="@mipmap/biz_video_list_play_icon_big"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/imageView" />
+                android:id="@+id/vedio_play" />
+
+        <com.example.qsd.edictionary.videoview.VideoSuperPlayer
+            android:id="@+id/video"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true" >
         </com.example.qsd.edictionary.videoview.VideoSuperPlayer>
+        </RelativeLayout>
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"

@@ -3,11 +3,13 @@ package com.example.qsd.edictionary.videoview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.qsd.edictionary.R;
@@ -52,6 +54,7 @@ public class VideoMediaController extends FrameLayout implements
             mMediaControl.onPlayTurn();
         } else if (view.getId() == R.id.expand) {
             mMediaControl.onPageTurn();
+            Log.i("qsd","VideoCtroller"+"最大化");
         } else if (view.getId() == R.id.shrink) {
             mMediaControl.onPageTurn();
         }
