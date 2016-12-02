@@ -6,6 +6,7 @@
     android:id="@+id/activity_photo_change"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context="com.example.qsd.edictionary.activitys.PhotoChange">
     <android.support.v7.widget.Toolbar
         android:background="@color/colorPrimary"

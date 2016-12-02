@@ -62,7 +62,7 @@ public class SettingActivity extends AppCompatActivity {
             textColor = getResources().getColor(R.color.text_night);
         } else {
             linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_day));
-            textColor = getResources().getColor(R.color.text_night);
+            textColor = getResources().getColor(R.color.text_day);
         }
         if (allTextViewList != null && textColor != 0) {
             for (TextView textView : allTextViewList) {

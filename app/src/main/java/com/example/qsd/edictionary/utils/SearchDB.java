@@ -2,6 +2,7 @@ package com.example.qsd.edictionary.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 
 /**
  * Created by Administrator on 2015/11/16.

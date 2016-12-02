@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mine_fragemnt"
     tools:context="com.example.qsd.edictionary.fragment.MineFragment">
     <android.support.v7.widget.Toolbar
         android:background="@color/colorPrimary"
@@ -40,6 +41,7 @@
             android:id="@+id/userinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="名字+电话号码"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/userimage"
@@ -70,6 +72,7 @@
             android:layout_height="35dp" />
 
         <TextView
+
             android:id="@+id/money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,6 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="记忆法小游戏"
+
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/gameimage"
             android:layout_toEndOf="@+id/gameimage"

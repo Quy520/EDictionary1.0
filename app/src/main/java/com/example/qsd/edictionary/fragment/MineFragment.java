@@ -3,32 +3,50 @@ package com.example.qsd.edictionary.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.activitys.AboutActivity;
 import com.example.qsd.edictionary.activitys.GameActivity;
+import com.example.qsd.edictionary.activitys.NightModelApplication;
 import com.example.qsd.edictionary.activitys.NoticeActivity;
 import com.example.qsd.edictionary.activitys.RechargeActivity;
 import com.example.qsd.edictionary.activitys.SettingActivity;
 import com.example.qsd.edictionary.activitys.StudyCodeActivity;
 import com.example.qsd.edictionary.activitys.UserinfoActivity;
+import com.example.qsd.edictionary.utils.ViewUtil;
+
+import java.util.List;
 
 /**
  * 我的界面
  */
 public class MineFragment extends Fragment implements View.OnClickListener {
         View view;
+        LinearLayout linearLayout;
         RelativeLayout name,study,game,code,notice,about,setting;
+        private List<TextView>  allTextViewList;
+        boolean isNight;
 
         public MineFragment() {
 
         }
+    @Override
+    public void  onCreate(@Nullable Bundle saveInstanceState){
+        super.onCreate(saveInstanceState);
+
+
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,10 +65,37 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         private View inFlater(LayoutInflater inflater) {
             view=inflater.inflate(R.layout.fragment_mine,null,false);
             initView(view);
+            if (NightModelApplication.appConfig.getNightModeSwitch()) {
+               // getContext().setTheme(R.style.Theme_setting_night);
+                isNight = true;
+                changeSkinMode(isNight);
+
+            } else {
+               // getContext().setTheme(R.style.Theme_setting_day);
+                isNight = false;
+                changeSkinMode(isNight);
+            }
             return view;
         }
-
+    private void changeSkinMode(boolean isNight) {
+        //changeMainActivity(isNight);
+        allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
+        int textColor = 0;
+        if (isNight) {
+            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_night));
+            textColor = getResources().getColor(R.color.text_night);
+        } else {
+            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_day));
+            textColor = getResources().getColor(R.color.text_day);
+        }
+        if (allTextViewList != null && textColor != 0) {
+            for (TextView textView : allTextViewList) {
+                textView.setTextColor(textColor);
+            }
+        }
+    }
         private void initView(View view) {
+            linearLayout= (LinearLayout) view.findViewById(R.id.mine_fragemnt);
             name= (RelativeLayout) view.findViewById(R.id.mine_user);
             study= (RelativeLayout) view.findViewById(R.id.mine_study);
             game= (RelativeLayout) view.findViewById(R.id.mine_game);
@@ -58,6 +103,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             notice= (RelativeLayout) view.findViewById(R.id.mine_notice);
             about= (RelativeLayout) view.findViewById(R.id.mine_about);
             setting= (RelativeLayout) view.findViewById(R.id.mine_setting);
+           // allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
             initOnClick();
 
         }
@@ -110,6 +156,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
                     Intent intent7=new Intent(getActivity(), SettingActivity.class);
                     startActivity(intent7);
+                    getActivity().finish();
                     break;
             }
 
