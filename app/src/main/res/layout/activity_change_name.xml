@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/name_commit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="确认"
@@ -34,6 +35,7 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
     <EditText
+        android:id="@+id/changename"
         android:layout_margin="20dp"
         android:hint="请输入新昵称"
         android:layout_width="match_parent"

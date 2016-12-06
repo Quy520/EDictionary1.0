@@ -28,7 +28,7 @@
     </android.support.v7.widget.Toolbar>
     <ImageView
         android:id="@+id/userimage"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/user_default_image"
         android:layout_marginTop="20dp"
         android:layout_width="100dp"
         android:layout_height="100dp"

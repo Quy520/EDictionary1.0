@@ -113,7 +113,7 @@
 
         <ImageView
             android:id="@+id/image_head"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/user_default_image"
             android:text="重新绑定"
             android:layout_width="38dp"
             android:layout_height="38dp"

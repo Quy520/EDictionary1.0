@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_vedio_play"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.qsd.edictionary.activitys.VedioPlayActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/icon_layout"
+            android:visibility="visible"
+            android:layout_height="wrap_content"
+            android:minHeight="180dp">
+
+            <ImageView
+                android:id="@+id/video_icon"
+                android:scaleType="fitXY"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@mipmap/night_biz_media_bg"
+                android:layout_centerVertical="true"
+                android:layout_alignLeft="@+id/video"
+                android:layout_alignStart="@+id/video" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/biz_video_list_play_icon_big"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/vedio_play" />
+
+            <com.example.qsd.edictionary.videoview.VideoSuperPlayer
+                android:id="@+id/video"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true" >
+            </com.example.qsd.edictionary.videoview.VideoSuperPlayer>
+
+            <TextView
+                android:textColor="#A2CD5A"
+                android:text="需要花费200个学习豆"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/video_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="13dp" />
+            <TextView
+                android:textColor="#A2CD5A"
+                android:text="我想看"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/video_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="1dp" />
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/vedioplay"
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </android.support.design.widget.TabLayout>
+        <TextView
+            android:text="分享"
+            android:layout_gravity="center"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <ImageView
+            android:id="@+id/vedio_share"
+            android:layout_gravity="center"
+            android:src="@mipmap/share"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_vedioplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v4.view.ViewPager>
+
+
+
+</LinearLayout>

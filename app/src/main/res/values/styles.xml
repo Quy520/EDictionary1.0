@@ -23,4 +23,9 @@
         <item name="android:minWidth">43.0dip</item>
         <item name="android:minHeight">43.0dip</item>
     </style>
+
+    <style name="MenuAnimationFade">
+        <item name="android:windowEnterAnimation">@anim/menu_fadein</item>
+        <item name="android:windowExitAnimation">@anim/menu_fadeout</item>
+    </style>
 </resources>

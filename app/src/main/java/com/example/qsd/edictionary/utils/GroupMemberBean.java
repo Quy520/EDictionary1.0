@@ -2,8 +2,8 @@ package com.example.qsd.edictionary.utils;
 
 public class GroupMemberBean {
 
-	private String name;   //��ʾ������
-	private String sortLetters;  //��ʾ����ƴ��������ĸ
+	private String name;
+	private String sortLetters;
 	
 	public String getName() {
 		return name;

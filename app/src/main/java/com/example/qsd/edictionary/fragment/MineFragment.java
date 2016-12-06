@@ -2,12 +2,15 @@ package com.example.qsd.edictionary.fragment;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +25,8 @@ import com.example.qsd.edictionary.activitys.RechargeActivity;
 import com.example.qsd.edictionary.activitys.SettingActivity;
 import com.example.qsd.edictionary.activitys.StudyCodeActivity;
 import com.example.qsd.edictionary.activitys.UserinfoActivity;
+import com.example.qsd.edictionary.utils.SearchDB;
+import com.example.qsd.edictionary.utils.TouXiangCache;
 import com.example.qsd.edictionary.utils.ViewUtil;
 
 import java.util.List;
@@ -35,6 +40,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         RelativeLayout name,study,game,code,notice,about,setting;
         private List<TextView>  allTextViewList;
         boolean isNight;
+        private ImageView imageView;
+        private static final String IMAGE_FILE_NAME = "head_image.jpg";
 
         public MineFragment() {
 
@@ -65,35 +72,41 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         private View inFlater(LayoutInflater inflater) {
             view=inflater.inflate(R.layout.fragment_mine,null,false);
             initView(view);
-            if (NightModelApplication.appConfig.getNightModeSwitch()) {
-               // getContext().setTheme(R.style.Theme_setting_night);
-                isNight = true;
-                changeSkinMode(isNight);
-
-            } else {
-               // getContext().setTheme(R.style.Theme_setting_day);
-                isNight = false;
-                changeSkinMode(isNight);
+            //获取头像
+            String pic_path = SearchDB.TouXiangDb(getContext(), IMAGE_FILE_NAME);
+            if (pic_path!=null){
+                Log.i("qsd","pic_path"+pic_path);
+                Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
+                imageView.setImageBitmap(getphoto);
             }
+//            if (NightModelApplication.appConfig.getNightModeSwitch()) {
+//               // getContext().setTheme(R.style.Theme_setting_night);
+//                isNight = true;
+//                changeSkinMode(isNight);
+//            } else {
+//               // getContext().setTheme(R.style.Theme_setting_day);
+//                isNight = false;
+//                changeSkinMode(isNight);
+//            }
             return view;
         }
-    private void changeSkinMode(boolean isNight) {
-        //changeMainActivity(isNight);
-        allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
-        int textColor = 0;
-        if (isNight) {
-            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_night));
-            textColor = getResources().getColor(R.color.text_night);
-        } else {
-            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_day));
-            textColor = getResources().getColor(R.color.text_day);
-        }
-        if (allTextViewList != null && textColor != 0) {
-            for (TextView textView : allTextViewList) {
-                textView.setTextColor(textColor);
-            }
-        }
-    }
+//    private void changeSkinMode(boolean isNight) {
+//        //changeMainActivity(isNight);
+//        allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
+//        int textColor = 0;
+//        if (isNight) {
+//            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_night));
+//            textColor = getResources().getColor(R.color.text_night);
+//        } else {
+//            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_day));
+//            textColor = getResources().getColor(R.color.text_day);
+//        }
+//        if (allTextViewList != null && textColor != 0) {
+//            for (TextView textView : allTextViewList) {
+//                textView.setTextColor(textColor);
+//            }
+//        }
+//    }
         private void initView(View view) {
             linearLayout= (LinearLayout) view.findViewById(R.id.mine_fragemnt);
             name= (RelativeLayout) view.findViewById(R.id.mine_user);
@@ -103,6 +116,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             notice= (RelativeLayout) view.findViewById(R.id.mine_notice);
             about= (RelativeLayout) view.findViewById(R.id.mine_about);
             setting= (RelativeLayout) view.findViewById(R.id.mine_setting);
+            imageView= (ImageView) view.findViewById(R.id.mine_userimage);
            // allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
             initOnClick();
 
@@ -156,7 +170,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
                     Intent intent7=new Intent(getActivity(), SettingActivity.class);
                     startActivity(intent7);
-                    getActivity().finish();
+
                     break;
             }
 

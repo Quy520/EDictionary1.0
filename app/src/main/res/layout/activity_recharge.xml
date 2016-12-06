@@ -38,7 +38,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:src="@mipmap/yuedu"
-            android:id="@+id/userimage"
+            android:id="@+id/moey_image"
             android:layout_width="35dp"
             android:layout_height="35dp" />
 
@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:text="学习豆："
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/userimage"
-            android:layout_toEndOf="@+id/userimage"
+            android:layout_toRightOf="@+id/moey_image"
+            android:layout_toEndOf="@+id/moey_image"
             android:layout_marginLeft="25dp"
             android:layout_marginStart="25dp" />
         <TextView
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:src="@mipmap/yuedu"
-            android:id="@+id/userimage2"
+            android:id="@+id/moey_image2"
             android:layout_width="35dp"
             android:layout_height="35dp" />
 
@@ -94,8 +94,8 @@
             android:layout_height="wrap_content"
             android:text="50学习豆"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/userimage2"
-            android:layout_toEndOf="@+id/userimage2"
+            android:layout_toRightOf="@+id/moey_image2"
+            android:layout_toEndOf="@+id/moey_image2"
             android:layout_marginLeft="25dp"
             android:layout_marginStart="25dp" />
 
@@ -280,13 +280,18 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/problem"
         android:text="充值问题,点击请联系客服"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:textColor="#EEAD0E"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/hideview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
 
 
 </RelativeLayout>

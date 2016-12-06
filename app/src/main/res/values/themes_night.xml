@@ -3,7 +3,7 @@
     <style name="BaseNight">
         <item name="BackgroundColor">@color/bg_night</item>
         <item name="TextColor">@color/text_night</item>
-        <item name="ActionbarColor">@color/actionbar_night</item>
+        <item name="ActionbarColor">@color/actionbar_day</item>
     </style>
     <style name="Theme.setting.night" parent="BaseNight">
     </style>

@@ -2,6 +2,7 @@ package com.example.qsd.edictionary.fragment;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import android.view.ViewGroup.MarginLayoutParams;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.activitys.VedioPlayActivity;
 import com.example.qsd.edictionary.adapter.SortGroupMemberAdapter;
 import com.example.qsd.edictionary.sortList.SideBar;
 import com.example.qsd.edictionary.utils.CharacterParser;
@@ -117,7 +119,8 @@ public class WordFragment extends Fragment {
                         activity,
                         ((GroupMemberBean) adapter.getItem(position)).getName(),
                         Toast.LENGTH_SHORT).show();
-
+                Intent intent=new Intent(getContext(), VedioPlayActivity.class);
+                startActivity(intent);
             }
         });
 

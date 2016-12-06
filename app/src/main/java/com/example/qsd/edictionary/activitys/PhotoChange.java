@@ -1,5 +1,6 @@
 package com.example.qsd.edictionary.activitys;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.utils.PermisionUtils;
 import com.example.qsd.edictionary.utils.SearchDB;
 import com.example.qsd.edictionary.utils.TouXiangCache;
 
@@ -48,10 +50,11 @@ public class PhotoChange extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //获取头像
+        PermisionUtils.verifyStoragePermissions(this);
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
         if (pic_path!=null){
             Log.i("qsd","pic_path"+pic_path);
-            Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
+            Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/image"+ pic_path);
             headImage.setImageBitmap(getphoto);
         }
         setContentView(R.layout.activity_photo_change);
@@ -171,6 +174,7 @@ public class PhotoChange extends AppCompatActivity {
             bp=photo;
             pic_path=IMAGE_FILE_NAME;
             //把图片保存到sd卡中
+            PermisionUtils.verifyStoragePermissions(this);
             TouXiangCache.saveMyBitmap(bp,pic_path);
             Log.i("qsd","保存成功1");
             String touxiang = SearchDB.TouXiangDb(this, pic_path);

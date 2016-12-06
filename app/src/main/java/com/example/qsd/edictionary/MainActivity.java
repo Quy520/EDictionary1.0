@@ -1,20 +1,32 @@
 package com.example.qsd.edictionary;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qsd.edictionary.activitys.NightModelApplication;
+import com.example.qsd.edictionary.broadcastReceiver.NetReceiver;
 import com.example.qsd.edictionary.fragment.MemoryFragment;
 import com.example.qsd.edictionary.fragment.MineFragment;
 import com.example.qsd.edictionary.fragment.SubscribeFragment;
 import com.example.qsd.edictionary.fragment.WrodsFragment;
+import com.example.qsd.edictionary.utils.NetUtils;
+import com.example.qsd.edictionary.utils.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +37,51 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private long timeMillis;
     public static MainActivity mMainActivity;
+    private boolean isNight;
+    private List<TextView>  allTextViewList;
+    private NetReceiver netReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        checkNetState();
+        IntentFilter intentFilter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        netReceiver=new NetReceiver();
+        registerReceiver(netReceiver,intentFilter);
+
         mMainActivity = this;
         initData();//填充数据
         initView();//填充布局
     }
+
+    /**
+     * 检查网络是否连接
+     */
+    private void checkNetState() {
+        if(!NetUtils.isNetWork(this)){
+            AlertDialog.Builder builder=new AlertDialog.Builder(this)
+                    .setTitle("网络状态提醒")
+                    .setMessage("当前网络状态不可以，是否打开网络设置？？")
+                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (android.os.Build.VERSION.SDK_INT>10){
+                                startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+                            }else {
+                                startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+                            }
+                        }
+                    })
+                    .setNeutralButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    builder.create().show();
+        }
+    }
+
 
     private void initView() {
         if(fragmentlist ==null){
@@ -49,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return fragmentlist.size();
-            }
+                    return fragmentlist.size();
+                }
         });
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -99,10 +148,11 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode,event);
     }
-
-    public void changeSkinMode(boolean isNight) {
-
-       // changeFragmentMode(isNight);
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        unregisterReceiver(netReceiver);
     }
+
 
 }

@@ -3,6 +3,8 @@ package com.example.qsd.edictionary.utils;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,17 +18,32 @@ public class TouXiangCache {
     // TODO: 2015/11/18 保存图片
 
     public static void saveMyBitmap(Bitmap mBitmap, String pic_pathload)  {
-        File f = new File( "storage/sdcard0/"+pic_pathload);
-
+        String extr = Environment.getExternalStorageDirectory().toString();
+        File f = new File( "storage/sdcard0/image");
+        if (f.exists()){
+            Log.i("qsd","saveMyBitmap存在");
+        }else{
+            f.mkdirs();// 创建文件夹
+        }
+        //String fileName = "/storage/sdcard0/"+pic_pathload;
+        File file=new File(f,pic_pathload);
+       // File f = new File( "storage/sdcard0/"+pic_pathload);
+        try {
+            file.createNewFile();
+            Log.i("createNewFile","生成文件成功"+file.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         FileOutputStream fOut = null;
         try {
-             fOut = new FileOutputStream(f);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 50, fOut);
+             fOut = new FileOutputStream(file);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 150, fOut);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         try {
+            fOut.flush();
             fOut.close();
         } catch (IOException e) {
             e.printStackTrace();
