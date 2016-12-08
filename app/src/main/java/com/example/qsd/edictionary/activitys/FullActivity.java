@@ -24,7 +24,7 @@ public class FullActivity extends Activity {
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.full_activity);
         video = (VideoSuperPlayer) findViewById(R.id.textureview);
-        video.loadAndPlay(NightModelApplication.getMediaPlayer(), "url", 0, true);
+        video.loadAndPlay(APP.getMediaPlayer(), "url", 0, true);
         video.setPageType(VideoMediaController.PageType.EXPAND);
         video.setVideoPlayCallback(new VideoSuperPlayer.VideoPlayCallbackImpl() {
 

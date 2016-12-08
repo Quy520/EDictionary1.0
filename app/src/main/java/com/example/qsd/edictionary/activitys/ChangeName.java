@@ -17,13 +17,13 @@ import com.example.qsd.edictionary.R;
 
 public class ChangeName extends AppCompatActivity {
     private EditText editText;
-    private TextView button;
+    private Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_name);
         editText= (EditText) findViewById(R.id.changename);
-        button= (TextView) findViewById(R.id.name_commit);
+        button= (Button) findViewById(R.id.name_commit);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

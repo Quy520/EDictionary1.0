@@ -1,21 +1,22 @@
 package com.example.qsd.edictionary.activitys;
 
-import android.content.ContentResolver;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.example.qsd.edictionary.MainActivity;
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.utils.NightModeUtils;
-import com.example.qsd.edictionary.utils.ViewUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SettingActivity extends AppCompatActivity {
@@ -23,12 +24,13 @@ public class SettingActivity extends AppCompatActivity {
     private List<TextView> allTextViewList;
     LinearLayout layout,linearLayout;
     private boolean isNight=false;
+    private Button button;
     //ContentResolver resolver=getContentResolver();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (NightModelApplication.appConfig.getNightModeSwitch()) {
+        if (APP.appConfig.getNightModeSwitch()) {
             isNight=true;
         } else {
             isNight = false;
@@ -38,6 +40,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        button= (Button) findViewById(R.id.out);
         night= (Switch) findViewById(R.id.night_switch);
         notice= (Switch) findViewById(R.id.notice_switch);
         down= (Switch) findViewById(R.id.dowm_switch);
@@ -49,9 +52,32 @@ public class SettingActivity extends AppCompatActivity {
         night.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                NightModelApplication.appConfig.setNightModeSwitch(isChecked);
+                APP.appConfig.setNightModeSwitch(isChecked);
                 changeSkinMode(isChecked);
 
+            }
+        });
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder=new AlertDialog.Builder(SettingActivity.this)
+                        .setTitle("提示")
+                        .setMessage("确认退出吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                Intent intent=new Intent(SettingActivity.this,LoginActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.create().show();
             }
         });
     }
@@ -73,7 +99,7 @@ public class SettingActivity extends AppCompatActivity {
                 NightModeUtils.saveBrightness(getContentResolver(),0);
                 isNight=isChecked;
             }
-            NightModelApplication.appConfig.setNightModeSwitch(isNight);
+            APP.appConfig.setNightModeSwitch(isNight);
 
         }else{
             Log.i("qsd","settingActivity"+"12314");
@@ -81,7 +107,7 @@ public class SettingActivity extends AppCompatActivity {
             //NightModeUtils.setBrightness(this,Sbright);
             NightModeUtils.saveBrightness(getContentResolver(),200);
             isNight=isChecked;
-            NightModelApplication.appConfig.setNightModeSwitch(isNight);
+            APP.appConfig.setNightModeSwitch(isNight);
 
         }
     }

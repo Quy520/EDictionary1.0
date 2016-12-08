@@ -35,19 +35,21 @@
         android:layout_gravity="center"
         />
     <Button
+        android:textColor="@color/white"
         android:id="@+id/from_phone"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
         android:background="@drawable/buttonstyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="从相册选取"/>
     <Button
+        android:textColor="@color/white"
         android:id="@+id/takephono"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
         android:background="@drawable/buttonstyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

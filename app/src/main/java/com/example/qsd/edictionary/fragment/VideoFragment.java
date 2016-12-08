@@ -18,11 +18,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.qsd.edictionary.MainActivity;
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.activitys.APP;
 import com.example.qsd.edictionary.activitys.FullActivity;
-import com.example.qsd.edictionary.activitys.NightModelApplication;
-import com.example.qsd.edictionary.activitys.SettingActivity;
 import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
 import com.lidroid.xutils.BitmapUtils;
 
@@ -115,13 +113,13 @@ public class VideoFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            NightModelApplication.setMediaPlayerNull();
+            APP.setMediaPlayerNull();
             isplaying=true;
             Log.i("qsd","打开播放器");
             videoSuperPlayer.setVisibility(View.VISIBLE);
             icon.setVisibility(View.GONE);
             play.setVisibility(View.GONE);
-            player.loadAndPlay(NightModelApplication.getMediaPlayer(),mp4url,0,false);
+            player.loadAndPlay(APP.getMediaPlayer(),mp4url,0,false);
             Log.i("qsd","mp4地址"+mp4url);
 
 
@@ -142,7 +140,7 @@ public class VideoFragment extends Fragment {
         public void onCloseVideo() {
             isplaying=false;
             superPlayer.close();
-            NightModelApplication.setMediaPlayerNull();
+            APP.setMediaPlayerNull();
             imageView.setVisibility(View.VISIBLE);
             superPlayer.setVisibility(View.GONE);
 

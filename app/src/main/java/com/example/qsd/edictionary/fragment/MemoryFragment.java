@@ -12,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.qsd.edictionary.R;
-import com.example.qsd.edictionary.activitys.NightModelApplication;
 import com.example.qsd.edictionary.adapter.MemoryAdapter;
-import com.example.qsd.edictionary.adapter.WordsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

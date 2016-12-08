@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.activitys.AboutActivity;
 import com.example.qsd.edictionary.activitys.GameActivity;
-import com.example.qsd.edictionary.activitys.NightModelApplication;
 import com.example.qsd.edictionary.activitys.NoticeActivity;
 import com.example.qsd.edictionary.activitys.RechargeActivity;
 import com.example.qsd.edictionary.activitys.SettingActivity;
@@ -27,7 +26,6 @@ import com.example.qsd.edictionary.activitys.StudyCodeActivity;
 import com.example.qsd.edictionary.activitys.UserinfoActivity;
 import com.example.qsd.edictionary.utils.SearchDB;
 import com.example.qsd.edictionary.utils.TouXiangCache;
-import com.example.qsd.edictionary.utils.ViewUtil;
 
 import java.util.List;
 
@@ -79,7 +77,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
                 imageView.setImageBitmap(getphoto);
             }
-//            if (NightModelApplication.appConfig.getNightModeSwitch()) {
+//            if (APP.appConfig.getNightModeSwitch()) {
 //               // getContext().setTheme(R.style.Theme_setting_night);
 //                isNight = true;
 //                changeSkinMode(isNight);

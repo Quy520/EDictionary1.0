@@ -13,7 +13,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,4 +31,13 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     testCompile 'junit:junit:4.12'
+
+    compile files('src/main/libs/SocialSDK_QQ_Simplify.jar')
+    compile files('src/main/libs/SocialSDK_Sina_Simplify.jar')
+    compile files('src/main/libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('src/main/libs/umeng_shareboard_widget.jar')
+    compile files('src/main/libs/umeng_social_api.jar')
+    compile files('src/main/libs/umeng_social_net.jar')
+    compile files('src/main/libs/umeng_social_shareboard.jar')
+    compile files('src/main/libs/umeng_social_shareview.jar')
 }

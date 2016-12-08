@@ -123,8 +123,9 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/out"
         android:text="退出登陆"
-        android:background="#ffcc00"
+        android:background="@drawable/buttonstyle"
         android:textColor="@color/white"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"

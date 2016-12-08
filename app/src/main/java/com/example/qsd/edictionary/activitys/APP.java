@@ -5,13 +5,15 @@ import android.content.Context;
 import android.media.MediaPlayer;
 
 import com.example.qsd.edictionary.utils.AppConfig;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 
 
 /**
  * 全局
  *
  * */
-public class NightModelApplication extends Application {
+public class APP extends Application {
     public static MediaPlayer mediaPlayer;
     public static Context mContext;
     public static AppConfig appConfig;
@@ -19,8 +21,12 @@ public class NightModelApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        UMShareAPI.get(this);
         mContext = getApplicationContext();
         appConfig = new AppConfig(mContext);
+        PlatformConfig.setQQZone("1105869116","ilDAejHB0cXzR47t");
+        PlatformConfig.setSinaWeibo("1292322940", "c1ad238284f47072b0caaf27d4d3afb3");
+        
 
     }
     public static MediaPlayer getMediaPlayer(){
