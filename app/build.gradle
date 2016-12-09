@@ -14,9 +14,24 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            // signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+//        debug {
+//            minifyEnabled true
+//            signingConfig signingConfigs.debug
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
     }
+
+//    signingConfigs {
+//        debug {
+//            storeFile file('debug.keystore')
+//            storePassword "qianshide"
+//            keyAlias "androiddebugkey"
+//            keyPassword "qianshide"
+//        }
+//    }
 }
 
 dependencies {
@@ -24,13 +39,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.umeng.analytics:analytics:latest.integration'
     compile project(':lib_flashview')
     compile files('libs/xUtils.jar')
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.android.support:support-v4:23.4.0'
-    testCompile 'junit:junit:4.12'
 
     compile files('src/main/libs/SocialSDK_QQ_Simplify.jar')
     compile files('src/main/libs/SocialSDK_Sina_Simplify.jar')
@@ -40,4 +50,10 @@ dependencies {
     compile files('src/main/libs/umeng_social_net.jar')
     compile files('src/main/libs/umeng_social_shareboard.jar')
     compile files('src/main/libs/umeng_social_shareview.jar')
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+    testCompile 'junit:junit:4.12'
 }

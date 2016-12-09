@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:layout_margin="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
-
-    <RelativeLayout
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+    >
 
         <TextView
             android:id="@+id/textView"
@@ -27,14 +22,14 @@
 
         <ImageView
             android:id="@+id/image"
-            android:src="@mipmap/home"
+            android:src="@mipmap/defule"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-        <ImageView
+    <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/rigth_setting"
@@ -49,12 +44,24 @@
             android:text="记忆法简介bg属性可以直接看看源码。接下来看模拟的bean类"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_below="@+id/imageView3"
             android:layout_alignLeft="@+id/textView"
-            android:layout_alignStart="@+id/textView" />
+            android:layout_alignStart="@+id/textView"
+            android:layout_toLeftOf="@+id/imageView3"
+            android:layout_toStartOf="@+id/imageView3" />
+
+    <Button
+        android:text="20学习豆"
+        android:textSize="10dp"
+        android:layout_width="55dp"
+        android:layout_height="20dp"
+        android:background="@drawable/buttonstyle"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:layout_marginLeft="58dp"
+        android:layout_marginStart="58dp" />
 
 
-    </RelativeLayout>
+</RelativeLayout>
 
-</LinearLayout>

@@ -5,7 +5,7 @@
         <shape>
 
             <solid android:color="#ff9900" />
-            <corners android:radius="4dp" />
+            <corners android:radius="18dp" />
         </shape>
     </item>
     <!-- 主体背景颜色值 -->
@@ -30,7 +30,7 @@
                 android:right="1dp"
                 android:top="1dp" />
             <!-- 应该是圆角 -->
-            <corners android:radius="4dp" />
+            <corners android:radius="18dp" />
         </shape>
     </item>
 </layer-list>

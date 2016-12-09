@@ -1,20 +1,16 @@
 package com.example.qsd.edictionary.activitys;
 
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -140,7 +136,8 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         tabLayout= (TabLayout) findViewById(R.id.vedioplay);
         list.add(new DetialsFragment());
         list.add(new DetialsCourse());
-        Log.i("qsd",list.size()+"");
+
+        Log.i("qsd","VedioActivity"+list.size()+"");
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
