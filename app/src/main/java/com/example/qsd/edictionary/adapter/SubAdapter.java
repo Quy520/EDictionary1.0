@@ -17,6 +17,8 @@ public class SubAdapter extends FragmentPagerAdapter {
         this.list=Fragmetlist;
     }
 
+
+
     @Override
     public Fragment getItem(int position) {
         return list.get(position);

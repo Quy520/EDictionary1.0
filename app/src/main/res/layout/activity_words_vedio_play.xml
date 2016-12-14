@@ -3,10 +3,11 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_course_vedio"
+    android:id="@+id/activity_words_vedio_play"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.qsd.edictionary.activitys.CourseVedioActivity">
+
+    tools:context="com.example.qsd.edictionary.activitys.WordsVedioPlayActivity">
     <android.support.v7.widget.Toolbar
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/txt_title"
-                android:text="第一节课"
+                android:text="单词记忆法"
                 android:textSize="20sp"
                 android:drawablePadding="5dp"
                 android:textColor="@color/color_white"
@@ -54,37 +55,35 @@
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/vedio_play" />
-
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/word_money"
+                android:textColor="#A2CD5A"
+                android:text="需要花费200个学习豆"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/vedio_play"
+                android:layout_centerHorizontal="true"
+                />
+            <TextView
+                android:textColor="#A2CD5A"
+                android:text="我想看"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/word_money"
+                android:layout_centerHorizontal="true"
+                 />
             <com.example.qsd.edictionary.videoview.VideoSuperPlayer
                 android:id="@+id/video"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_centerHorizontal="true" >
-
-                <TextView
-                    android:visibility="gone"
-                    android:textColor="#A2CD5A"
-                    android:text="需要花费200个学习豆"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="52dp" />
-
-                <TextView
-                    android:textColor="#A2CD5A"
-                    android:text="我想看"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true" />
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
             </com.example.qsd.edictionary.videoview.VideoSuperPlayer>
-
         </RelativeLayout>
-
 
 
     </RelativeLayout>
@@ -94,7 +93,7 @@
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/cours_vedioplay"
+            android:id="@+id/wordsvedioplay"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -108,22 +107,18 @@
             android:layout_height="wrap_content"
             />
         <ImageView
-            android:id="@+id/coursvedio_share"
+            android:id="@+id/vedio_share"
             android:layout_gravity="center"
             android:src="@mipmap/share"
             android:layout_width="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <android.support.v4.view.ViewPager
-        android:id="@+id/coursevp_vedioplay"
+        android:id="@+id/vp_vedioplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </android.support.v4.view.ViewPager>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/hide"/>
-
 </LinearLayout>

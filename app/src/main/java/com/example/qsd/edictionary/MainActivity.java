@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        checkNetState();
         IntentFilter intentFilter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         netReceiver=new NetReceiver();
         registerReceiver(netReceiver,intentFilter);
@@ -49,38 +48,14 @@ public class MainActivity extends AppCompatActivity {
         initView();//填充布局
     }
 
-    /**
-     * 检查网络是否连接
-     */
-    private void checkNetState() {
-        if(!NetUtils.isNetWork(this)){
-            AlertDialog.Builder builder=new AlertDialog.Builder(this)
-                    .setTitle("网络状态提醒")
-                    .setMessage("当前网络状态不可以，是否打开网络设置？？")
-                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (android.os.Build.VERSION.SDK_INT>10){
-                                startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
-                            }else {
-                                startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
-                            }
-                        }
-                    })
-                    .setNeutralButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    builder.create().show();
-        }
-    }
+
 
 
     private void initView() {
         if(fragmentlist ==null){
             return;
         }
+        radioGroup.check(R.id.rb_memory);
         viewPager= (ViewPager) findViewById(R.id.viewpage_main);
         radioGroup= (RadioGroup) findViewById(R.id.radiogroup_main);
         viewPager.setOffscreenPageLimit(4);//预加载界面个数
@@ -115,7 +90,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //默认初始状态
-        radioGroup.check(R.id.rb_memory);
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                ((RadioButton)radioGroup.getChildAt(position)).setChecked(true);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
     }
 

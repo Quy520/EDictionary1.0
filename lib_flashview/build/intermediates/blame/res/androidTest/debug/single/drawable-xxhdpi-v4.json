@@ -56,12 +56,12 @@
         "source": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
-        "source": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
-    },
-    {
         "merged": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png",
         "source": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png"
+    },
+    {
+        "merged": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
     },
     {
         "merged": "F:\\AndroidProject\\EDictionary\\lib_flashview\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",

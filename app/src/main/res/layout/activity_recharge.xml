@@ -92,7 +92,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="50学习豆"
+            android:text="5学习豆"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/moey_image2"
             android:layout_toEndOf="@+id/moey_image2"
@@ -108,7 +108,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
-
 
         />
     </RelativeLayout>
@@ -128,7 +127,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100学习豆"
+            android:text="20学习豆"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/userimage3"
             android:layout_toEndOf="@+id/userimage3"
@@ -142,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:textColor="@color/yellow"
-            android:text="10元"
+            android:text="20元"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -162,7 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:textColor="@color/yellow"
-            android:text="15元"
+            android:text="50元"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -170,7 +169,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="150学习豆"
+            android:text="50学习豆"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/userimage4"
             android:layout_toEndOf="@+id/userimage4"
@@ -195,7 +194,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:textColor="@color/yellow"
-            android:text="20元"
+            android:text="100元"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -204,7 +203,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="200学习豆"
+            android:text="100学习豆"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/userimage5"
             android:layout_toEndOf="@+id/userimage5"
@@ -229,7 +228,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:textColor="@color/yellow"
-            android:text="50元"
+            android:text="500元"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />

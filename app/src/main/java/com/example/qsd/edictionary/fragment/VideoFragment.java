@@ -127,7 +127,7 @@ public class VideoFragment extends Fragment {
         }
     }
 
-      class MyVideoCallback implements VideoSuperPlayer.VideoPlayCallbackImpl {
+      public class MyVideoCallback implements VideoSuperPlayer.VideoPlayCallbackImpl {
           ImageView imageView;
           VideoSuperPlayer superPlayer;
 
@@ -160,5 +160,10 @@ public class VideoFragment extends Fragment {
         public void onPlayFinish() {
 
         }
+    }
+    @Override
+    public void onDestroy(){
+        APP.setMediaPlayerNull();
+        super.onDestroy();
     }
 }

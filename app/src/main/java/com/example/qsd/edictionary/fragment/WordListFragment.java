@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.qsd.edictionary.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 本节单词
  */
 public class WordListFragment extends Fragment {
 

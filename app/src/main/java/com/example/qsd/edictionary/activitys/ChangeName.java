@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
-
+//我的里面的跟新昵称
 public class ChangeName extends AppCompatActivity {
     private EditText editText;
     private Button button;

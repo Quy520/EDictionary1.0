@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_game"
+    android:id="@+id/activity_fankui"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.qsd.edictionary.activitys.GameActivity">
+    tools:context="com.example.qsd.edictionary.activitys.FankuiActivity">
     <android.support.v7.widget.Toolbar
         android:background="@color/colorPrimary"
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/txt_title"
-                android:text="记忆法小游戏"
+                android:text="帮助与反馈"
                 android:textSize="20sp"
                 android:drawablePadding="5dp"
                 android:textColor="@color/color_white"
@@ -24,30 +25,27 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/text"
-        android:textSize="23dp"
-        android:layout_centerInParent="false"
-        android:layout_width="wrap_content"
-        android:text="练习题可以帮你快速掌握编码"
+    <EditText
+        android:layout_margin="20dp"
+        android:id="@+id/add_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-         />
-
+        android:enabled="true"
+        android:gravity="top"
+        android:hint="请填写你的宝贵意见"
+        android:inputType="textMultiLine"
+        android:minLines="8"
+        android:maxLines="18"
+        android:scrollbars="vertical"
+        android:background="@android:drawable/edit_text"/>
     <Button
-        android:id="@+id/play_game"
-        android:background="@drawable/buttonstyle"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
+        android:id="@+id/fankui_commit"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/color_white"
+        android:text="提交"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开始联系"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/text"/>
+        android:background="@drawable/buttonstyle"/>
 
-</RelativeLayout>
+</LinearLayout>

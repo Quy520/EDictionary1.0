@@ -1,6 +1,8 @@
 package com.example.qsd.edictionary.activitys;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,6 +22,9 @@ import com.example.qsd.edictionary.R;
 
 import com.example.qsd.edictionary.fragment.DetialsCourse;
 import com.example.qsd.edictionary.fragment.DetialsFragment;
+import com.example.qsd.edictionary.fragment.VideoFragment;
+import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
+import com.lidroid.xutils.BitmapUtils;
 import com.umeng.qq.handler.UmengQZoneHandler;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -32,6 +37,12 @@ import com.umeng.socialize.shareboard.ShareBoardConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.umeng.socialize.utils.ContextUtil.getContext;
+import static com.umeng.socialize.utils.DeviceConfig.context;
+
+/**
+ * 记忆法课程视屏页面
+ */
 public class VedioPlayActivity extends AppCompatActivity implements View.OnClickListener {
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -43,7 +54,9 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     private ImageView imageView,share_weixin,share_QQ,share_weibo,share_friend,share_kongjian;
     private String mp4url="http://flv2.bn.netease.com/videolib3/1612/01/jEyBQ0772/SD/jEyBQ0772-mobile.mp4";
     private String mp4_icom="http://vimg2.ws.126.net/image/snapshot/2016/12/2/5/VC6900J25.jpg";
-
+    private ImageView icon,play;
+    private boolean isplaying;
+    private VideoSuperPlayer videoSuperPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +67,12 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     }
 
     private void initOnClick() {
+        //视屏播放监听
+        BitmapUtils bitmapUtils=new BitmapUtils(getContext());
+        bitmapUtils.display(icon,mp4_icom);
+       play.setOnClickListener(new MyOnClick(mp4url,videoSuperPlayer));
+        videoSuperPlayer.setVideoPlayCallback(new MyVideoCallback(play,videoSuperPlayer));
+        //分享监听
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -68,12 +87,70 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
 
                 }
             });
-        share_weixin.setOnClickListener(this);
-        share_QQ.setOnClickListener(this);
-        share_weibo.setOnClickListener(this);
-        share_friend.setOnClickListener(this);
-        share_kongjian.setOnClickListener(this);
+//        share_weixin.setOnClickListener(this);
+//        share_QQ.setOnClickListener(this);
+//        share_weibo.setOnClickListener(this);
+//        share_friend.setOnClickListener(this);
+//        share_kongjian.setOnClickListener(this);
 
+    }
+    class MyOnClick implements View.OnClickListener {
+        String mp4url;
+        VideoSuperPlayer player;
+        public MyOnClick(String mp4url, VideoSuperPlayer videoSuperPlayer) {
+            this.mp4url=mp4url;
+            this.player=videoSuperPlayer;
+        }
+
+        @Override
+        public void onClick(View v) {
+            APP.setMediaPlayerNull();
+            isplaying=true;
+            Log.i("qsd","打开播放器");
+            videoSuperPlayer.setVisibility(View.VISIBLE);
+            icon.setVisibility(View.GONE);
+            play.setVisibility(View.GONE);
+            player.loadAndPlay(APP.getMediaPlayer(),mp4url,0,false);
+            Log.i("qsd","mp4地址"+mp4url);
+
+
+
+        }
+    }
+
+    class MyVideoCallback implements VideoSuperPlayer.VideoPlayCallbackImpl {
+        ImageView imageView;
+        VideoSuperPlayer superPlayer;
+
+        public MyVideoCallback(ImageView player, VideoSuperPlayer videoSuperPlayer) {
+            this.imageView=player;
+            this.superPlayer=videoSuperPlayer;
+        }
+
+        @Override
+        public void onCloseVideo() {
+            isplaying=false;
+            superPlayer.close();
+            APP.setMediaPlayerNull();
+            imageView.setVisibility(View.VISIBLE);
+            superPlayer.setVisibility(View.GONE);
+
+        }
+
+        @Override
+        public void onSwitchPageType() {
+            if (((Activity) context).getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+                Log.i("qsd","VideoplayActivity"+((Activity) context).getRequestedOrientation());
+                Intent intent = new Intent(new Intent(VedioPlayActivity.this,
+                        FullActivity.class));
+                startActivity(intent);
+            }
+        }
+
+        @Override
+        public void onPlayFinish() {
+
+        }
     }
 
     private void showShare() {
@@ -123,20 +200,22 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         imageView= (ImageView) findViewById(R.id.vedio_share);
        list=new ArrayList<>();
         mtab=new ArrayList<>();
-        LayoutInflater inflater = LayoutInflater.from(this);
+        videoSuperPlayer= (VideoSuperPlayer)findViewById(R.id.video);
+        icon= (ImageView)findViewById(R.id.video_icon);
+        play= (ImageView)findViewById(R.id.vedio_play);
+        //LayoutInflater inflater = LayoutInflater.from(this);
         // 引入窗口配置文件 - 即弹窗的界面
-        view = inflater.inflate(R.layout.menu_share, null);
-        hide= (TextView) findViewById(R.id.hide);
-        share_weixin= (ImageView)view.findViewById(R.id.share_weixin);
-        share_QQ= (ImageView) view.findViewById(R.id.share_qq);
-        share_weibo= (ImageView) view.findViewById(R.id.share_weibo);
-        share_friend= (ImageView) view.findViewById(R.id.share_weixinfriend);
-        share_kongjian= (ImageView) view.findViewById(R.id.share_kongjian);
+//        view = inflater.inflate(R.layout.menu_share, null);
+//        hide= (TextView) findViewById(R.id.hide);
+//        share_weixin= (ImageView)view.findViewById(R.id.share_weixin);
+//        share_QQ= (ImageView) view.findViewById(R.id.share_qq);
+//        share_weibo= (ImageView) view.findViewById(R.id.share_weibo);
+//        share_friend= (ImageView) view.findViewById(R.id.share_weixinfriend);
+//        share_kongjian= (ImageView) view.findViewById(R.id.share_kongjian);
         viewPager= (ViewPager) findViewById(R.id.vp_vedioplay);
         tabLayout= (TabLayout) findViewById(R.id.vedioplay);
         list.add(new DetialsFragment());
         list.add(new DetialsCourse());
-
         Log.i("qsd","VedioActivity"+list.size()+"");
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -149,8 +228,8 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
             }
         });
         tabLayout.setupWithViewPager(viewPager);
-        mtab.add("解释");
-        mtab.add("相关单词");
+        mtab.add("本节说明");
+        mtab.add("其他课程");
         for(int i=0;i<mtab.size();i++){
             TabLayout.Tab tab1=tabLayout.getTabAt(i);
             tab1.setText(mtab.get(i));

@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/txt_title"
-                android:text="单词记忆法"
+                android:text="记忆法课程"
                 android:textSize="20sp"
                 android:drawablePadding="5dp"
                 android:textColor="@color/color_white"
@@ -42,7 +42,7 @@
                 android:id="@+id/video_icon"
                 android:scaleType="fitXY"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:src="@mipmap/night_biz_media_bg"
                 android:layout_centerVertical="true"
                 android:layout_alignLeft="@+id/video"
@@ -62,24 +62,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_centerHorizontal="true" >
+                <TextView
+                    android:visibility="gone"
+                    android:textColor="#A2CD5A"
+                    android:text="需要花费200个学习豆"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
             </com.example.qsd.edictionary.videoview.VideoSuperPlayer>
 
             <TextView
                 android:textColor="#A2CD5A"
-                android:text="需要花费200个学习豆"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/video_icon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="13dp" />
-            <TextView
-                android:textColor="#A2CD5A"
                 android:text="我想看"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/video_icon"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="1dp" />
+                android:layout_marginBottom="3dp" />
         </RelativeLayout>
 
 

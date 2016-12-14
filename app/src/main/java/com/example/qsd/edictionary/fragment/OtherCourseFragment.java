@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import com.example.qsd.edictionary.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ *其他课程
+ *
  */
 public class OtherCourseFragment extends Fragment {
 

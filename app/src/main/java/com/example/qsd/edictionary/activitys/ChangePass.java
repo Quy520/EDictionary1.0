@@ -9,7 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
-
+//我的里面的更新密码
 public class ChangePass extends AppCompatActivity {
     private EditText oldpass,newpass;
     private TextView button;

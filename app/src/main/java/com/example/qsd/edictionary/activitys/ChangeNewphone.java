@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.utils.Utils;
-
+//我的里面的更新手机号
 public class ChangeNewphone extends AppCompatActivity {
     private Button button;
     private TextView commit;

@@ -17,6 +17,9 @@ import com.example.qsd.edictionary.fragment.words_VedioFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 记单词页面的详细页面
+ */
 public class WordsDetailsActivity extends AppCompatActivity {
     private List<Fragment> list;
     private List<String> mtab;

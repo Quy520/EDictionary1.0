@@ -3,6 +3,8 @@ package com.gc.flashview.effect;
 import android.support.v4.view.ViewPager.PageTransformer;
 import android.view.View;
 
+
+
 public class ZoomOutPageTransformer implements PageTransformer {
 	private static float MIN_SCALE = 0.85f;
 

@@ -7,9 +7,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
-
+//我的里面的关于界面
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
-    LinearLayout about,introduce,help,user,update;
+    LinearLayout about,introduce,user,update;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +20,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     private void initView() {
         about= (LinearLayout) findViewById(R.id.about_help);
         introduce= (LinearLayout) findViewById(R.id.about_introduce);
-        help= (LinearLayout) findViewById(R.id.about_helpandback);
         user= (LinearLayout) findViewById(R.id.about_greement);
         update= (LinearLayout) findViewById(R.id.about_update);
         initOnClick();
@@ -29,7 +28,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     private void initOnClick() {
         about.setOnClickListener(this);
         introduce.setOnClickListener(this);
-        help.setOnClickListener(this);
         user.setOnClickListener(this);
         update.setOnClickListener(this);
     }
@@ -42,9 +40,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.about_introduce:
                 Toast.makeText(this, "介绍", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.about_helpandback:
-                Toast.makeText(this, "帮助与反馈", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.about_greement:
                 Toast.makeText(this, "用户协议", Toast.LENGTH_SHORT).show();

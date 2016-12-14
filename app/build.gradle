@@ -6,10 +6,10 @@ android {
     defaultConfig {
         applicationId "com.example.qsd.edictionary"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -23,7 +23,6 @@ android {
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //        }
     }
-
 //    signingConfigs {
 //        debug {
 //            storeFile file('debug.keystore')
@@ -32,6 +31,8 @@ android {
 //            keyPassword "qianshide"
 //        }
 //    }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -41,7 +42,6 @@ dependencies {
     })
     compile project(':lib_flashview')
     compile files('libs/xUtils.jar')
-
     compile files('src/main/libs/SocialSDK_QQ_Simplify.jar')
     compile files('src/main/libs/SocialSDK_Sina_Simplify.jar')
     compile files('src/main/libs/SocialSDK_WeChat_Simplify.jar')
@@ -54,6 +54,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
-    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
     testCompile 'junit:junit:4.12'
 }

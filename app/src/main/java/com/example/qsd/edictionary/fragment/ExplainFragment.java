@@ -10,12 +10,12 @@ import android.view.ViewGroup;
 import com.example.qsd.edictionary.R;
 
 /**
- *本节说明
+ * A simple {@link Fragment} subclass.
  */
-public class IntroduceFragment extends Fragment {
+public class ExplainFragment extends Fragment {
 
 
-    public IntroduceFragment() {
+    public ExplainFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class IntroduceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_introduce, container, false);
+        return inflater.inflate(R.layout.fragment_explain, container, false);
     }
 
 }

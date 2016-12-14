@@ -2,6 +2,7 @@ package com.example.qsd.edictionary.fragment;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.activitys.VedioPlayActivity;
 import com.example.qsd.edictionary.adapter.MemoryAdapter;
 
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class MemoryFragment extends Fragment {
     private  LinearLayoutManager linearLayoutManager;
     private MemoryAdapter memoryAdapter;
     private List<String> urllist;
+    private RelativeLayout relativeLayout;
 
     public MemoryFragment() {
 
@@ -54,8 +58,20 @@ public class MemoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view=LayoutInflater.from(activity).inflate(R.layout.fragment_memory,container,false);
        recyclerView= (RecyclerView) view.findViewById(R.id.memory_recy);
+        relativeLayout= (RelativeLayout) view.findViewById(R.id.memory_item);
+        initOnClick();
         setAdapter();
         return view;
+    }
+
+    private void initOnClick() {
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(activity, VedioPlayActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setAdapter() {

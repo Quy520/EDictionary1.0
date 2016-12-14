@@ -15,16 +15,12 @@ public class InRightUpTransformer implements PageTransformer {
 			view.setTranslationY(pageHeight * -position);
 			view.setAlpha(1 + position);
 
-			// Android 3.1以下版本的用下面方法；
-			// ViewHelper.setTranslationY(view, pageHeight * -position);
-			// ViewHelper.setAlpha(view, 1 + position);
+
 		} else if (position <= 1) {
 			view.setTranslationY(view.getHeight() * -position);
 			view.setAlpha(1 - position);
 
-			// Android 3.1以下版本的用下面方法；
-			// ViewHelper.setTranslationY(view, pageHeight * -position);
-			// ViewHelper.setAlpha(view, 1 - position);
+
 		} else {
 			view.setTranslationY(0);
 			view.setAlpha(1);

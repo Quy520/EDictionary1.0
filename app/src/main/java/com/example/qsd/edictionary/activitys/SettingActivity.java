@@ -18,7 +18,7 @@ import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.utils.NightModeUtils;
 
 import java.util.List;
-
+//我的里面的设置界面
 public class SettingActivity extends AppCompatActivity {
     private Switch night,notice,down;
     private List<TextView> allTextViewList;

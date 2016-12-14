@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.activitys.AboutActivity;
+import com.example.qsd.edictionary.activitys.FankuiActivity;
 import com.example.qsd.edictionary.activitys.GameActivity;
 import com.example.qsd.edictionary.activitys.NoticeActivity;
 import com.example.qsd.edictionary.activitys.RechargeActivity;
@@ -35,9 +36,8 @@ import java.util.List;
 public class MineFragment extends Fragment implements View.OnClickListener {
         View view;
         LinearLayout linearLayout;
-        RelativeLayout name,study,game,code,notice,about,setting;
-        private List<TextView>  allTextViewList;
-        boolean isNight;
+        RelativeLayout name,study,game,code,notice,about,fankui,setting;
+
         private ImageView imageView;
         private static final String IMAGE_FILE_NAME = "head_image.jpg";
 
@@ -113,6 +113,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             code= (RelativeLayout) view.findViewById(R.id.mine_code);
             notice= (RelativeLayout) view.findViewById(R.id.mine_notice);
             about= (RelativeLayout) view.findViewById(R.id.mine_about);
+            fankui= (RelativeLayout) view.findViewById(R.id.mine_fankui);
             setting= (RelativeLayout) view.findViewById(R.id.mine_setting);
             imageView= (ImageView) view.findViewById(R.id.mine_userimage);
            // allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
@@ -127,6 +128,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             code.setOnClickListener(this);
             notice.setOnClickListener(this);
             about.setOnClickListener(this);
+            fankui.setOnClickListener(this);
             setting.setOnClickListener(this);
         }
 
@@ -164,10 +166,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     Intent intent6=new Intent(getActivity(), AboutActivity.class);
                     startActivity(intent6);
                     break;
+                case R.id.mine_fankui:
+                    Toast.makeText(getActivity(), "反馈", Toast.LENGTH_SHORT).show();
+                    Intent intent7=new Intent(getActivity(), FankuiActivity.class);
+                    startActivity(intent7);
+                    break;
                 case R.id.mine_setting:
                     Toast.makeText(getActivity(), "设置", Toast.LENGTH_SHORT).show();
-                    Intent intent7=new Intent(getActivity(), SettingActivity.class);
-                    startActivity(intent7);
+                    Intent intent8=new Intent(getActivity(), SettingActivity.class);
+                    startActivity(intent8);
 
                     break;
             }

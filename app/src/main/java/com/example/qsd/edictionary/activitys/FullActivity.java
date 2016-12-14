@@ -11,7 +11,7 @@ import com.example.qsd.edictionary.videoview.VideoMediaController;
 import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
 
 /**
- * Created by QSD on 2016/12/1.
+ * 视屏全屏
  */
 public class FullActivity extends Activity {
     VideoSuperPlayer video;
