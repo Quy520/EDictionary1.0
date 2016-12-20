@@ -34,8 +34,6 @@ public class PhotoChange extends AppCompatActivity {
     private Button button1,button2;
     Bitmap bp;
     private static final String IMAGE_FILE_NAME = "head_image.jpg";
-    private final static String ALBUM_PATH
-            = Environment.getExternalStorageDirectory() + "/download_test/";
     /* 请求识别码 */
     private static final int CODE_GALLERY_REQUEST = 0xa0;
     private static final int CODE_CAMERA_REQUEST = 0xa1;
@@ -53,7 +51,7 @@ public class PhotoChange extends AppCompatActivity {
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
         if (pic_path!=null){
             Log.i("qsd","pic_path"+pic_path);
-            Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/image"+ pic_path);
+            Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
             headImage.setImageBitmap(getphoto);
         }
         setContentView(R.layout.activity_photo_change);
@@ -160,8 +158,6 @@ public class PhotoChange extends AppCompatActivity {
         startActivityForResult(intent, CODE_RESULT_REQUEST);
     }
 
-
-
     //提取保存的图片后，设置头像
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void setImageToHeadView(Intent intent) {
@@ -170,19 +166,19 @@ public class PhotoChange extends AppCompatActivity {
         if (bundle!=null){
             final Bitmap photo=bundle.getParcelable("data");
             headImage.setImageBitmap(photo);
-            bp=photo;
-            pic_path=IMAGE_FILE_NAME;
-            //把图片保存到sd卡中
-            PermisionUtils.verifyStoragePermissions(this);
-            TouXiangCache.saveMyBitmap(bp,pic_path);
-            Log.i("qsd","保存成功1");
-            String touxiang = SearchDB.TouXiangDb(this, pic_path);
-            if (touxiang==null){
-                Log.i("qsd","保存成功2");
-                SharedPreferences sharedPreferences=this.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putString("pic_path",pic_path).commit();
-            }
+//            bp=photo;
+//            pic_path=IMAGE_FILE_NAME;
+//            //把图片保存到sd卡中
+//            PermisionUtils.verifyStoragePermissions(this);
+//            TouXiangCache.saveMyBitmap(bp,pic_path);
+//            Log.i("qsd","保存成功1");
+//            String touxiang = SearchDB.TouXiangDb(this, pic_path);
+//            if (touxiang==null){
+//                Log.i("qsd","保存成功2");
+//                SharedPreferences sharedPreferences=this.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor edit = sharedPreferences.edit();
+//                edit.putString("pic_path",pic_path).commit();
+//            }
 
 
 

@@ -32,9 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private long timeMillis;
     public static MainActivity mMainActivity;
-    private boolean isNight;
-    private List<TextView>  allTextViewList;
     private NetReceiver netReceiver;
+    private int index=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,13 +48,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     private void initView() {
         if(fragmentlist ==null){
             return;
         }
-        radioGroup.check(R.id.rb_memory);
+
         viewPager= (ViewPager) findViewById(R.id.viewpage_main);
         radioGroup= (RadioGroup) findViewById(R.id.radiogroup_main);
         viewPager.setOffscreenPageLimit(4);//预加载界面个数
@@ -70,35 +67,28 @@ public class MainActivity extends AppCompatActivity {
                     return fragmentlist.size();
                 }
         });
+        ((RadioButton)radioGroup.getChildAt(index)).setChecked(true);
+        viewPager.setCurrentItem(index);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
-                    case R.id.rb_memory:
-                        viewPager.setCurrentItem(0);
-                        break;
-                    case R.id.rb_words:
-                        viewPager.setCurrentItem(1);
-                        break;
-                    case R.id.rb_subscribe:
-                        viewPager.setCurrentItem(2);
-                        break;
-                    case R.id.rb_mine:
-                        viewPager.setCurrentItem(3);
-                        break;
-                }
+             RadioButton button= (RadioButton) radioGroup.findViewById(checkedId);
+                int index1=radioGroup.indexOfChild(button);
+                viewPager.setCurrentItem(index1);
             }
         });
-        //默认初始状态
+
+
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                ((RadioButton)radioGroup.getChildAt(position)).setChecked(true);
+
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                ((RadioButton)radioGroup.getChildAt(position)).setChecked(true);
             }
 
             @Override
@@ -106,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+//        //默认初始状态
+//        radioGroup.check(R.id.rb_memory);
+
 
     }
 

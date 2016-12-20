@@ -19,7 +19,7 @@ public class TouXiangCache {
 
     public static void saveMyBitmap(Bitmap mBitmap, String pic_pathload)  {
         String extr = Environment.getExternalStorageDirectory().toString();
-        File f = new File( "storage/sdcard0/image");
+        File f = new File( "storage/sdcard0/");
         if (f.exists()){
             Log.i("qsd","saveMyBitmap存在");
         }else{

@@ -69,6 +69,7 @@ public class SettingActivity extends AppCompatActivity {
 
                                 Intent intent=new Intent(SettingActivity.this,LoginActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {

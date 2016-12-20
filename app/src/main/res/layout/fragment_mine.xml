@@ -65,14 +65,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-
             android:src="@mipmap/text2"
             android:id="@+id/study"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
-
             android:id="@+id/money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,12 +81,46 @@
             android:layout_marginLeft="25dp"
             android:layout_marginStart="25dp" />
         <TextView
+            android:id="@+id/my_syudycode"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textColor="@color/colorPrimary"
+            android:text="1000"
+           android:layout_alignBaseline="@+id/study"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/money"
+            android:layout_alignParentTop="true" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已消耗"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/my_syudycode"
+             />
+        <TextView
+            android:id="@+id/my_costcode"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="800"
+            android:textColor="@color/yellow"
+            android:layout_alignBaseline="@+id/study"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@+id/cost"
+            android:layout_alignParentTop="true" />
+
+        <Button
+            android:background="@drawable/buttonstyle"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="55dp"
+            android:layout_height="22dp"
+            android:textColor="@color/white"
             android:text="充值"
             />
 
@@ -101,8 +133,8 @@
         <ImageView
             android:src="@mipmap/text3"
             android:id="@+id/gameimage"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/gamename"
@@ -134,8 +166,8 @@
         <ImageView
             android:src="@mipmap/text4"
             android:id="@+id/study_code"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/code"
@@ -175,8 +207,8 @@
         <ImageView
             android:src="@mipmap/text5"
             android:id="@+id/im_notice"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/tv_notice"
@@ -205,10 +237,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/text9"
+            android:src="@mipmap/text6"
             android:id="@+id/im_about"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/tv_about"
@@ -240,8 +272,8 @@
         <ImageView
             android:src="@mipmap/text10"
             android:id="@+id/im_fankui"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/tv_fankui"
@@ -270,10 +302,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@mipmap/text10"
+            android:src="@mipmap/text7"
             android:id="@+id/im_setting"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
 
         <TextView
             android:id="@+id/tv_setting"

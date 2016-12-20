@@ -7,42 +7,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.qsd.edictionary.activitys.RechargeActivity">
+
+
+    <TextView
+        android:id="@+id/problem"
+        android:text="充值问题,点击请联系客服"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:textColor="#EEAD0E"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/hideview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
 
-    <android.support.v7.widget.Toolbar
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
+        <android.support.v7.widget.Toolbar
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/txt_title"
-                android:text="充值"
-                android:textSize="20sp"
-                android:drawablePadding="5dp"
-                android:textColor="@color/color_white"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
-    <RelativeLayout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txt_title"
+                    android:text="充值"
+                    android:textSize="20sp"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/color_white"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/money_detail"
+                    android:textSize="18dp"
+                    android:layout_marginRight="20dp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:text="明细"/>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
+
+        <RelativeLayout
         android:id="@+id/mine_user"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/yuedu"
-            android:id="@+id/moey_image"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
 
-        <TextView
+            <TextView
             android:id="@+id/usermoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,49 +96,26 @@
             android:layout_height="wrap_content"
 
             />
-    </RelativeLayout>
+
+            <ImageView
+                android:src="@mipmap/text2"
+                android:id="@+id/moey_image"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
     <TextView
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="充值金额 :"/>
-    <RelativeLayout
-        android:id="@+id/money_50"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/yuedu"
-            android:id="@+id/moey_image2"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
 
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5学习豆"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/moey_image2"
-            android:layout_toEndOf="@+id/moey_image2"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp" />
-
-        <Button
-            android:background="@drawable/buttonstyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:textColor="@color/yellow"
-            android:text="5元"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        />
-    </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/money_100"
+
+        android:id="@+id/money_10"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -127,7 +129,7 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20学习豆"
+            android:text="10学习豆"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/userimage3"
             android:layout_toEndOf="@+id/userimage3"
@@ -141,13 +143,13 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:textColor="@color/yellow"
-            android:text="20元"
+            android:text="10元"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/money_150"
+        android:id="@+id/money_50"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -179,41 +181,43 @@
 
         />
     </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/money_200"
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:src="@mipmap/yuedu"
-            android:id="@+id/userimage5"
-            android:layout_width="35dp"
-            android:layout_height="35dp" />
-        <Button
-            android:background="@drawable/buttonstyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:textColor="@color/yellow"
-            android:text="100元"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
 
-        <TextView
+        <RelativeLayout
+            android:id="@+id/money_100"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/yuedu"
+                android:id="@+id/userimage5"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
+            <Button
+                android:background="@drawable/buttonstyle2"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:textColor="@color/yellow"
+                android:text="100元"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100学习豆"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/userimage5"
-            android:layout_toEndOf="@+id/userimage5"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp" />
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="100学习豆"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/userimage5"
+                android:layout_toEndOf="@+id/userimage5"
+                android:layout_marginLeft="25dp"
+                android:layout_marginStart="25dp" />
 
 
-        />
-    </RelativeLayout>
-    <RelativeLayout
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
         android:id="@+id/money_500"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
@@ -260,7 +264,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:textColor="@color/yellow"
-            android:text="100元"
+            android:text="1000元"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
@@ -277,20 +281,13 @@
         android:layout_marginStart="25dp" />
     </RelativeLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/problem"
-        android:text="充值问题,点击请联系客服"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:textColor="#EEAD0E"
+    <ImageView
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:id="@+id/hideview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@mipmap/text10" />
 
 
 </RelativeLayout>

@@ -16,6 +16,7 @@
         android:layout_weight="1"
          />
     <RadioGroup
+        android:background="@color/colorPrimary"
         android:id="@+id/radiogroup_main"
         android:layout_width="match_parent"
         android:layout_height="50dp"

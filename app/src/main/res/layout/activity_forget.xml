@@ -28,43 +28,45 @@
     </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_phone"
+            android:id="@+id/forget_phone"
             android:hint="请输入手机号"
             android:layout_width="200dp"
             android:maxLines="1"
             android:inputType="number"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/button2"
+            android:layout_toLeftOf="@+id/forget_check"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <Button
+            android:background="@drawable/buttonstyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_yanzhen"
+            android:textColor="@color/white"
             android:layout_alignBaseline="@+id/et_phone"
             android:layout_alignBottom="@+id/et_phone"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:id="@+id/button2" />
+            android:id="@+id/forget_check" />
 
 
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_pass"
-            android:hint="  请输入验证码"
+            android:id="@+id/forget_code"
+            android:hint="请输入验证码"
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,13 +77,13 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_code"
-            android:hint="  请输入新密码"
+            android:id="@+id/forget_pass"
+            android:hint="请输入新密码"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -91,8 +93,8 @@
         android:background="@drawable/buttonstyle"
         android:text="提交"
         android:textColor="@color/color_white"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/commit" />

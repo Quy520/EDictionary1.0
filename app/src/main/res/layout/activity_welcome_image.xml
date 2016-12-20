@@ -4,11 +4,10 @@
     android:id="@+id/activity_welcome_image"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.example.qsd.edictionary.welcome.WelcomeImageActivity">
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="@mipmap/welcom4"
+    android:src="@mipmap/launchimage"
     android:scaleType="fitXY"/>
 </RelativeLayout>

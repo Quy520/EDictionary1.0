@@ -14,9 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,8 +44,10 @@ import static android.R.attr.filter;
 public class LoginActivity extends AppCompatActivity {
     private ImageView imageView,eyes;
     private Button login;
+    private CheckBox checkBox;
     private TextView register,froget;
     private EditText username,password;
+    private String name,pw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //判断是否有网络
                 checkNetState();
-                String name = username.getText().toString();
-                String pw = password.getText().toString();
+                 name = username.getText().toString();
+                 pw = password.getText().toString();
                 if (TextUtils.isEmpty(name))
                 {
                     Toast.makeText(LoginActivity.this, "用户名不能为空", Toast.LENGTH_SHORT).show();
@@ -84,6 +91,24 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent=new Intent(LoginActivity.this, ForgetActivity.class);
                 startActivity(intent);
             }
+        });
+        Log.i("qsd","1"+111);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Log.i("qsd","1"+222);
+                if(isChecked){
+                    //设置为明文显示
+                    Log.i("qsd","1"+333);
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else{
+                    //设置为密文显示
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+
+
+        }
         });
 
     }
@@ -122,16 +147,14 @@ public class LoginActivity extends AppCompatActivity {
         froget= (TextView) findViewById(R.id.forget);
         username= (EditText) findViewById(R.id.username);
         password= (EditText) findViewById(R.id.password);
-        eyes= (ImageView) findViewById(R.id.eyes);
-        //password.setFilters(new InputFilter[]{filter});
-        //password.setFilters(new InputFilter[]{filter2});
-        Utils.setEditTextInhibitInputSpeChat(password);
-        Utils.setEditTextInhibitInputSpace(password);
+        checkBox= (CheckBox) findViewById(R.id.eyes);
+        Utils.setEditTextInhibitInputSpeChat(password);//密码不能有空格
+        Utils.setEditTextInhibitInputSpace(password);//对密码进行过滤
         int width=getWindowManager().getDefaultDisplay().getWidth();
         int heigh=getWindowManager().getDefaultDisplay().getHeight();
         LinearLayout.LayoutParams para= (LinearLayout.LayoutParams) imageView.getLayoutParams();
-        para.width=width/2;
-        para.height=heigh/5;
+        para.width=width/3;
+        para.height=heigh/6;
         imageView.setLayoutParams(para);
     }
 

@@ -8,10 +8,11 @@ import com.example.qsd.edictionary.utils.AppConfig;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
+import cn.smssdk.SMSSDK;
+
 
 /**
  * 全局
- *
  * */
 public class APP extends Application {
     public static MediaPlayer mediaPlayer;
@@ -24,6 +25,7 @@ public class APP extends Application {
         UMShareAPI.get(this);
         mContext = getApplicationContext();
         appConfig = new AppConfig(mContext);
+        SMSSDK.initSDK(this, "1a0a96a7aca8e", "84dcd3028b078eb4ecbe9bed5c669dec");
         PlatformConfig.setQQZone("1105869116","ilDAejHB0cXzR47t");
         PlatformConfig.setSinaWeibo("1292322940", "c1ad238284f47072b0caaf27d4d3afb3");
         

@@ -26,18 +26,18 @@
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_phone"
+            android:id="@+id/register_phone"
             android:hint="请输入手机号"
             android:layout_width="200dp"
             android:maxLines="1"
             android:inputType="number"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/button"
+            android:layout_toLeftOf="@+id/register_Check"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -50,55 +50,65 @@
             android:layout_alignBottom="@+id/et_phone"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:id="@+id/button" />
+            android:id="@+id/register_Check" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_code"
-            android:hint="  请输入验证码"
+            android:id="@+id/register_code"
+            android:hint="请输入验证码"
             android:maxLines="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
     </RelativeLayout>
+
     <RelativeLayout
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_pass"
-            android:hint="  请输入密码"
+            android:id="@+id/register_pass"
+            android:hint="请输入密码"
             android:maxLines="1"
             android:inputType="textPassword"
             android:layout_width="200dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
-        <ImageView
+        <CheckBox
             android:src="@mipmap/kejian"
+            android:button="@null"
+            android:background="@drawable/pic_eye_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register_yanzhen"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="39dp"
-            android:layout_marginEnd="39dp" />
+            android:layout_marginRight="9dp"
+            android:layout_marginEnd="9dp"
+            android:id="@+id/imageView" />
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_study"
-            android:hint="  请输入互学码（选填）"
+            android:id="@+id/register_study"
+            android:hint="请输入互学码（选填）"
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
