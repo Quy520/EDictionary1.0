@@ -27,56 +27,61 @@
     </RelativeLayout>
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/et_phone"
+            android:id="@+id/et_changephone"
             android:hint="请输入新手机号"
             android:layout_width="200dp"
             android:maxLines="1"
-            android:layout_height="wrap_content" />
+            android:inputType="number"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/Verification"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Button
+            style="?android:attr/borderlessButtonStyle"
             android:background="@drawable/buttonstyle"
             android:id="@+id/Verification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/register_yanzhen"
             android:textColor="@color/white"
-            android:layout_alignBottom="@+id/et_phone"
+            android:layout_alignBottom="@+id/et_changephone"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 
         <EditText
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:id="@+id/et_code"
-            android:hint="  请输入验证码"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/et_changecode"
+            android:hint="请输入验证码"
             android:maxLines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     <EditText
-        android:layout_margin="30dp"
-
-        android:id="@+id/et_pass"
-        android:hint="  请输入密码"
+        android:layout_margin="20dp"
+        android:id="@+id/et_changepass"
+        android:hint="请输入密码"
         android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <Button
-        android:id="@+id/phone_commit"
-        android:layout_marginLeft="33dp"
-        android:layout_marginRight="33dp"
+        style="?android:attr/borderlessButtonStyle"
+        android:id="@+id/changephone_commit"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:textColor="@color/white"
         android:text="确定"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/buttonstyle"/>
-
 
 
 </LinearLayout>

@@ -106,6 +106,10 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "手机不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!Utils.isnumber(p)){
+                    Toast.makeText(RegisterActivity.this, "手机号填写有误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 myCountDownTimer.start();
                 SMSSDK.getVerificationCode("86", p);
                 mSMSBroadcastReceiver = new SMSBroadcastReceiver();

@@ -127,6 +127,7 @@
         </RelativeLayout>
 
         <Button
+            style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/white"
             android:background="@drawable/buttonstyle"
             android:text="登陆"

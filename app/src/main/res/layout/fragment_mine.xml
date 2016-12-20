@@ -113,6 +113,7 @@
             android:layout_alignParentTop="true" />
 
         <Button
+            style="?android:attr/borderlessButtonStyle"
             android:background="@drawable/buttonstyle"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"

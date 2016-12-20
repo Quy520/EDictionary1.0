@@ -67,6 +67,10 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "用户名不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!Utils.isnumber(name)){
+                    Toast.makeText(LoginActivity.this, "手机号填写有误", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (TextUtils.isEmpty(pw))
                 {

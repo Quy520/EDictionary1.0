@@ -66,7 +66,6 @@ public class SettingActivity extends AppCompatActivity {
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
                                 Intent intent=new Intent(SettingActivity.this,LoginActivity.class);
                                 startActivity(intent);
                                 finish();
