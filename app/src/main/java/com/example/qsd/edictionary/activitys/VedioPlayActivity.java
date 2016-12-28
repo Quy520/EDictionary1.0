@@ -1,8 +1,10 @@
 package com.example.qsd.edictionary.activitys;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -48,6 +50,7 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     private TabLayout tabLayout;
     private List<Fragment> list;
     private List<String> mtab;
+    private Context context;
     View view;
     PopupWindow pop;
     private TextView hide;
@@ -70,7 +73,7 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         //视屏播放监听
         BitmapUtils bitmapUtils=new BitmapUtils(getContext());
         bitmapUtils.display(icon,mp4_icom);
-       play.setOnClickListener(new MyOnClick(mp4url,videoSuperPlayer));
+        play.setOnClickListener(new MyOnClick(mp4url,videoSuperPlayer));
         videoSuperPlayer.setVideoPlayCallback(new MyVideoCallback(play,videoSuperPlayer));
         //分享监听
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -139,8 +142,7 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
 
         @Override
         public void onSwitchPageType() {
-            if (((Activity) context).getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-                Log.i("qsd","VideoplayActivity"+((Activity) context).getRequestedOrientation());
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 Intent intent = new Intent(new Intent(VedioPlayActivity.this,
                         FullActivity.class));
                 startActivity(intent);
@@ -197,6 +199,7 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     };
 
     private void initView() {
+        context=getContext();
         imageView= (ImageView) findViewById(R.id.vedio_share);
        list=new ArrayList<>();
         mtab=new ArrayList<>();
@@ -243,6 +246,12 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         /** attention to this below ,must add this**/
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         Log.d("result","onActivityResult");
+    }
+    @Override
+    public void onDestroy(){
+        APP.setMediaPlayerNull();
+        super.onDestroy();
+
     }
 
     @Override

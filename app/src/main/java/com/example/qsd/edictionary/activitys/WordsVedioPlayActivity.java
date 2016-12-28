@@ -1,6 +1,7 @@
 package com.example.qsd.edictionary.activitys;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -28,12 +29,15 @@ import com.umeng.socialize.shareboard.ShareBoardConfig;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.umeng.socialize.utils.ContextUtil.getContext;
+
 public class WordsVedioPlayActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private List<Fragment> list;
     private List<String> mtab;
     private ImageView imageView;
+    private Context context;
     View view;
     private String mp4url = "http://flv2.bn.netease.com/videolib3/1612/01/jEyBQ0772/SD/jEyBQ0772-mobile.mp4";
     private String mp4_icom = "http://vimg2.ws.126.net/image/snapshot/2016/12/2/5/VC6900J25.jpg";
@@ -102,6 +106,7 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
     };
 
     private void initView() {
+        context=getContext();
         imageView = (ImageView) findViewById(R.id.vedio_share);
         list = new ArrayList<>();
         mtab = new ArrayList<>();

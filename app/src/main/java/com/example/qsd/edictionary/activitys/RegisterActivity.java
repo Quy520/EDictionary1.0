@@ -20,9 +20,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.bean.CodeBean;
+import com.example.qsd.edictionary.bean.LoginBean;
 import com.example.qsd.edictionary.broadcastReceiver.SMSBroadcastReceiver;
+import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.Utils;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -31,6 +36,13 @@ import java.util.regex.Pattern;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * 注册界面
@@ -40,8 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
     private Button register,check;
     private SMSBroadcastReceiver mSMSBroadcastReceiver;
     private CheckBox box;
-    String p;
-    String c;
+    String p,password;
+    String c,s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +88,10 @@ public class RegisterActivity extends AppCompatActivity {
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
                     Toast.makeText(getApplicationContext(), "提交验证码成功",
                             Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this,
-                            LoginActivity.class);
-                    startActivity(intent);
+                    Log.i("qsd","验证成功"+"register=======");
+                    Register(p,password,s);//注册
+
+
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     Toast.makeText(getApplicationContext(), "验证码已经发送",
                             Toast.LENGTH_SHORT).show();
@@ -87,12 +100,44 @@ public class RegisterActivity extends AppCompatActivity {
                 ((Throwable) data).printStackTrace();
                 Toast.makeText(RegisterActivity.this, "验证码错误",
                         Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+    Handler handler1=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x111) {
+                Log.i("qsd","是否请求1"+"register请求数据=======");
+                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this,
+                        LoginActivity.class);
+                startActivity(intent);
+                finish();
 
+            }
+            if (msg.what == 0x112) {
+                Log.i("qsd","是否请求2"+"register请求数据=======");
+                Toast.makeText(RegisterActivity.this, "手机号码重复", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x113) {
+                Log.i("qsd","是否请求3"+"register请求数据=======");
+                Toast.makeText(RegisterActivity.this, "互学码不存在", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x114) {
+                Toast.makeText(RegisterActivity.this, "参数不规范", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x115) {
+                Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                return;
             }
 
         }
 
     };
+
 
     public void initOnClick() {
         final MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
@@ -116,7 +161,9 @@ public class RegisterActivity extends AppCompatActivity {
                 mSMSBroadcastReceiver.setOnReceivedMessageListener(new SMSBroadcastReceiver.MessageListener() {
                     public void OnReceived(String message) {
                         code.setText(getDynamicPassword(message));// 截取6位验证码
+                        Log.i("qsd","register"+getDynamicPassword(message));
                         code.setSelection(getDynamicPassword(message).length());
+                        Log.i("qsd","register"+getDynamicPassword(message).length());
 
                     }
                 });
@@ -144,9 +191,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                 c=code.getText().toString();//手机验证码
-                String password=pw.getText().toString();//账号密码
-                String s=study.getText().toString();//学习密码
+                c=code.getText().toString();//手机验证码
+                password=pw.getText().toString();//账号密码
+                s=study.getText().toString();//学习密码
                 if (TextUtils.isEmpty(c))
                 {
                     Toast.makeText(RegisterActivity.this, "您的验证码没有填写", Toast.LENGTH_SHORT).show();
@@ -167,8 +214,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     SMSSDK.submitVerificationCode("86", p,c);
-                                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                                    finish();
+                                    Log.i("qsd","是否验证成功"+"register=======");
+
                                 }
                             })
                             .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -178,8 +225,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 }
                             });
                     builder.create().show();
+                }else {
+                     SMSSDK.submitVerificationCode("86", p,c);
                 }
-                SMSSDK.submitVerificationCode("86", p,c);
 
 
 
@@ -187,6 +235,52 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private void Register(String p, String password, String s) {
+        Log.i("qsd","是否请求1"+"LoginActivity请求数据");
+        OkHttpClient okHttpClient=new OkHttpClient();
+        RequestBody requestBody=new FormBody
+                .Builder()
+                .add("userName",p)
+                .add("password",password)
+                .add("studyCode",s)
+                .build();
+        Request request=new Request.Builder()
+                .url(UrlString.URL_LOGIN+"registerAPI")
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string=response.body().string();
+                CodeBean codeBean=new Gson().fromJson(string,CodeBean.class);
+                String code = codeBean.getCode();
+                Log.i("qsd",code+"RegisterActivity");
+                if (code.equals("SUCCESS")){
+                    handler1.sendEmptyMessage(0x111);//发送消息
+                }
+                if (code.equals("MOBILE_REPEAT")){
+                    //Toast.makeText(RegisterActivity.this, "MOBILE_REPEAT", Toast.LENGTH_SHORT).show();
+                    handler1.sendEmptyMessage(0x112);//发送消息
+                }
+                if (code.equals("CODE_INEXISTENCE")){
+                    handler1.sendEmptyMessage(0x113);//发送消息
+                }
+                if (code.equals("PARAERR")){
+                    handler1.sendEmptyMessage(0x114);//发送消息
+                }
+                if (code.equals("REGISTER_ERR")){
+                    handler1.sendEmptyMessage(0x115);//发送消息
+                }
+
+
+            }
+        });
+    }
 
 
     private class MyCountDownTimer extends CountDownTimer {

@@ -17,14 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.broadcastReceiver.NetReceiver;
+import com.example.qsd.edictionary.costomProgressDialog.CustomProgressDialog;
 import com.example.qsd.edictionary.fragment.MemoryFragment;
 import com.example.qsd.edictionary.fragment.MineFragment;
 import com.example.qsd.edictionary.fragment.SubscribeFragment;
 import com.example.qsd.edictionary.fragment.WrodsFragment;
+import com.example.qsd.edictionary.utils.APPManager;
 import com.example.qsd.edictionary.utils.NetUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class MainActivity extends AppCompatActivity {
     private List<Fragment> fragmentlist = null;
@@ -34,14 +38,15 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity mMainActivity;
     private NetReceiver netReceiver;
     private int index=0;
+    android.os.Handler handler=new android.os.Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        APPManager.addActivity(this);
         IntentFilter intentFilter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         netReceiver=new NetReceiver();
         registerReceiver(netReceiver,intentFilter);
-
         mMainActivity = this;
         initData();//填充数据
         initView();//填充布局
@@ -103,11 +108,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        //模拟在家数据动画
+        final CustomProgressDialog customProgressDialog=new CustomProgressDialog(this,"数据加载中....请稍后",R.drawable.donghua_frame);
+        customProgressDialog.show();
+        //LoadInfo();
         fragmentlist=new ArrayList<>();
         fragmentlist.add(new MemoryFragment());
         fragmentlist.add(new WrodsFragment());
         fragmentlist.add(new SubscribeFragment());
         fragmentlist.add(new MineFragment());
+
+    }
+
+    private void LoadInfo() {
 
     }
 

@@ -40,8 +40,21 @@ public class WelcomeActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("ED", context.MODE_PRIVATE);
         Boolean flag=sharedPreferences.getBoolean("FIRST",false);
         if (flag){
-            startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
-            finish();
+            String name=sharedPreferences.getString("userName","false");
+            String pw=sharedPreferences.getString("password","false");
+             Log.i("qsd","welcome密码获取"+pw+"用户名"+name);
+            if(name.equals("false")&&pw.equals("false")){
+                Log.i("qsd","welcom"+"第一次输密码");
+               startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+                finish();
+            }else{
+                Log.i("qsd","welcom"+"第er次输密码");
+                startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
+                finish();
+
+            }
+
+
         }
         setContentView(R.layout.activity_welcome);
         initView();

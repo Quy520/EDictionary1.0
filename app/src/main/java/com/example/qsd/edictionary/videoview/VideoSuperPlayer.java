@@ -123,7 +123,7 @@ public class VideoSuperPlayer extends RelativeLayout implements
         public void onPrepared(MediaPlayer mediaPlayer) {
             mPlayer.start();
             mProgressBarView.setVisibility(View.GONE);
-            mCloseBtnView.setVisibility(VISIBLE);
+            mCloseBtnView.setVisibility(VISIBLE);//查查是否显示
             mSuperVideoView.requestLayout();
             mSuperVideoView.invalidate();
             mediaPlayer.setOnInfoListener(new MediaPlayer.OnInfoListener() {

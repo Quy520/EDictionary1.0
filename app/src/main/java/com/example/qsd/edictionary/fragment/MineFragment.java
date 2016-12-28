@@ -1,7 +1,9 @@
 package com.example.qsd.edictionary.fragment;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,6 +41,9 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         RelativeLayout name,study,game,code,notice,about,fankui,setting;
 
         private ImageView imageView;
+        private TextView studycode,costcode;
+        private Context context;
+        private int studyBean,costStudyBean;
         private static final String IMAGE_FILE_NAME = "head_image.jpg";
 
         public MineFragment() {
@@ -105,7 +110,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 //            }
 //        }
 //    }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+             super.onViewCreated(view, savedInstanceState);
+//
+//    studycode.setText(studyBean);
+//    costcode.setText(costStudyBean);
+}
         private void initView(View view) {
+            context=getActivity();
             linearLayout= (LinearLayout) view.findViewById(R.id.mine_fragemnt);
             name= (RelativeLayout) view.findViewById(R.id.mine_user);
             study= (RelativeLayout) view.findViewById(R.id.mine_study);
@@ -116,7 +129,17 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             fankui= (RelativeLayout) view.findViewById(R.id.mine_fankui);
             setting= (RelativeLayout) view.findViewById(R.id.mine_setting);
             imageView= (ImageView) view.findViewById(R.id.mine_userimage);
-           // allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
+            studycode= (TextView) view.findViewById(R.id.my_syudycode);
+            costcode= (TextView) view.findViewById(R.id.my_costcode);
+
+            //获取保存的数值
+            SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+            studyBean = preferences.getInt("studyBean", 0);
+            costStudyBean = preferences.getInt("costStudyBean", 0);
+            Log.i("qsd",costStudyBean+"costStudyBean");
+            Log.i("qsd",studyBean+"studyBean");
+            costcode.setText(costStudyBean+"");
+            studycode.setText(studyBean+"");
             initOnClick();
 
         }

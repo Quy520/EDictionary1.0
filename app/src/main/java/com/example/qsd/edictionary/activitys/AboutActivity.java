@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.utils.APPManager;
+
 //我的里面的关于界面
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
     LinearLayout about,introduce,user,update;
@@ -14,6 +16,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
+        APPManager.addActivity(this);
         initView();
     }
 

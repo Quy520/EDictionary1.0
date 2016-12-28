@@ -69,6 +69,7 @@ public class VideoFragment extends Fragment {
     }
 
     private void initView(View view) {
+        context=getContext();
         videoSuperPlayer= (VideoSuperPlayer) view.findViewById(R.id.video);
         icon= (ImageView) view.findViewById(R.id.video_icon);
         play= (ImageView) view.findViewById(R.id.vedio_play);

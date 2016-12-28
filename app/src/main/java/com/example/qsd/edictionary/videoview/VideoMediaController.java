@@ -185,7 +185,6 @@ public class VideoMediaController extends FrameLayout implements
         void onPageTurn();
 
         void onProgressTurn(ProgressState state, int progress);
-
         void alwaysShowController();
     }
 

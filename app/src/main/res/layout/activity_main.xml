@@ -23,11 +23,10 @@
         android:orientation="horizontal">
         <RadioButton
             android:background="@drawable/content_redian_selector"
-            android:layout_marginTop="5dp"
             android:id="@+id/rb_memory"
             android:layout_width="0dp"
             android:button="@null"
-            android:drawableTop="@mipmap/redian"
+            android:drawableTop="@mipmap/memory"
             android:text="记忆法"
             android:gravity="center"
             android:textColor="@color/white"
@@ -36,8 +35,8 @@
             android:layout_height="match_parent" />
         <RadioButton
             android:background="@drawable/content_redian_selector"
-            android:layout_marginTop="5dp"
-            android:drawableTop="@mipmap/redian"
+
+            android:drawableTop="@mipmap/words"
             android:id="@+id/rb_words"
             android:layout_width="0dp"
             android:button="@null"
@@ -49,8 +48,7 @@
             android:layout_height="match_parent" />
         <RadioButton
             android:background="@drawable/content_redian_selector"
-            android:layout_marginTop="5dp"
-            android:drawableTop="@mipmap/redian"
+            android:drawableTop="@mipmap/sub2"
             android:id="@+id/rb_subscribe"
             android:layout_width="0dp"
             android:button="@null"
@@ -62,8 +60,8 @@
             android:layout_height="match_parent" />
         <RadioButton
             android:background="@drawable/content_redian_selector"
-            android:layout_marginTop="5dp"
-            android:drawableTop="@mipmap/redian"
+
+            android:drawableTop="@mipmap/my"
             android:id="@+id/rb_mine"
             android:layout_width="0dp"
             android:button="@null"

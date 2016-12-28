@@ -1,8 +1,12 @@
 package com.example.qsd.edictionary.activitys;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,38 +34,70 @@ import android.widget.Toast;
 
 import com.example.qsd.edictionary.MainActivity;
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.bean.LoginBean;
+import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.NetUtils;
 import com.example.qsd.edictionary.utils.Utils;
+import com.google.gson.Gson;
 
+import java.io.IOException;
+
+import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static android.R.attr.filter;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 /**
  * 登陆界面
  */
 public class LoginActivity extends AppCompatActivity {
-    private ImageView imageView,eyes;
+    private ImageView imageView;
     private Button login;
     private CheckBox checkBox;
     private TextView register,froget;
     private EditText username,password;
-    private String name,pw;
+    private SharedPreferences sharedPreferences;
+
+
+    Handler handler=new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            // TODO Auto-generated method stub
+            if (msg.what == 0x111) {
+                Toast.makeText(LoginActivity.this, "登陆失败,账号或密码错误", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x222) {
+                Toast.makeText(LoginActivity.this, "当前账号已在线", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                return;
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initView();
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //判断是否有网络
                 checkNetState();
-                 name = username.getText().toString();
-                 pw = password.getText().toString();
+              final String    name = username.getText().toString();
+                final String pw = password.getText().toString();
                 if (TextUtils.isEmpty(name))
                 {
                     Toast.makeText(LoginActivity.this, "用户名不能为空", Toast.LENGTH_SHORT).show();
@@ -71,15 +107,16 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "手机号填写有误", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 if (TextUtils.isEmpty(pw))
                 {
                     Toast.makeText(LoginActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                Log.i("qsd","登陆"+name+pw);
+                loginApp(name,pw);//第一次登陆
+//                Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +150,76 @@ public class LoginActivity extends AppCompatActivity {
 
 
         }
+        });
+
+    }
+
+
+    public void loginApp(final String name, final String pw) {
+        Log.i("qsd","是否请求1"+"LoginActivity请求数据");
+        OkHttpClient okHttpClient=new OkHttpClient();
+        RequestBody requestBody=new FormBody
+                .Builder()
+                .add("userName",name)
+                .add("password",pw)
+                .build();
+        Request request=new Request.Builder()
+                .url(UrlString.URL_LOGIN+"loginAPI")
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("qsd","是否请求2"+"LoginActivity请求数据");
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s=response.body().string();
+                Log.i("qsd",s+"LoginActivity请求数据");
+                LoginBean loginBean=new Gson().fromJson(s,LoginBean.class);
+                String code = loginBean.getCode();
+                int studyBean=loginBean.getData().getStudyBean();
+                String nickname=loginBean.getData().getNickName();
+                String headImageurl=loginBean.getData().getHeadImageUrl();
+                int costStudyBean=loginBean.getData().getCostStudyBean();
+                String studyCode=loginBean.getData().getStudyCode();
+                int loginStatus=loginBean.getData().getLoginStatus();
+                int userID=loginBean.getData().getUserID();
+
+                //将数据保存
+                sharedPreferences=getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putInt("studyBean",studyBean)
+                        .putInt("costStudyBean",costStudyBean)
+                        .putInt("loginStatus",loginStatus)
+                        .putInt("userID",userID)
+                        .putString("nickname",nickname)
+                        .putString("headImageurl",headImageurl)
+                        .putString("studyCode",studyCode).commit();
+
+                Log.i("qsd",code+"LoginActivity");
+                if (code.equals("SUCCESS")){//登陆成功
+                    SharedPreferences savepw=getSharedPreferences("ED", Context.MODE_PRIVATE);//保存密码
+                    SharedPreferences.Editor editsavepw = savepw.edit();
+                    editsavepw.putString("password", pw)
+                            .putString("userName",name).commit();
+                    Log.i("qsd","Logactivity登陆成功"+pw+name);
+                    Intent intent=new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                if (code.equals("USAPWERR")){
+                    handler.sendEmptyMessage(0x111);//发送消息
+
+                }
+                if (code.equals("REPEAT_LOGIN")){
+                    handler.sendEmptyMessage(0x222);//发送消息
+
+                }
+
+            }
         });
 
     }
@@ -152,8 +259,8 @@ public class LoginActivity extends AppCompatActivity {
         username= (EditText) findViewById(R.id.username);
         password= (EditText) findViewById(R.id.password);
         checkBox= (CheckBox) findViewById(R.id.eyes);
-        Utils.setEditTextInhibitInputSpeChat(password);//密码不能有空格
-        Utils.setEditTextInhibitInputSpace(password);//对密码进行过滤
+        Utils.setEditTextInhibitInputSpace(password);//密码不能有空格
+        Utils.setEditTextInhibitInputSpeChat(password);//对密码进行过滤
         int width=getWindowManager().getDefaultDisplay().getWidth();
         int heigh=getWindowManager().getDefaultDisplay().getHeight();
         LinearLayout.LayoutParams para= (LinearLayout.LayoutParams) imageView.getLayoutParams();
