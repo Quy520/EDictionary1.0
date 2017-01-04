@@ -93,7 +93,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
         money10= (RelativeLayout) findViewById(R.id.money_10);
         money50= (RelativeLayout) findViewById(R.id.money_50);
         money100= (RelativeLayout) findViewById(R.id.money_100);
-        money500= (RelativeLayout) findViewById(R.id.money_50);
+        money500= (RelativeLayout) findViewById(R.id.money_500);
         money1000= (RelativeLayout) findViewById(R.id.money_1000);
 
 
@@ -113,6 +113,7 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+
             case R.id.money_10:
                 Intent intent=new Intent(RechargeActivity.this,RechargeMoneyActivity.class);
                 Bundle b = new Bundle();
@@ -144,6 +145,14 @@ public class RechargeActivity extends AppCompatActivity implements View.OnClickL
                 b4.putString("money","500元");
                 intent4.putExtras(b4);
                 startActivity(intent4);
+                break;
+            case R.id.money_1000:
+                Intent intent5=new Intent(RechargeActivity.this,RechargeMoneyActivity.class);
+                Bundle b5 = new Bundle();
+                b5.putString("study", "1000学习豆,");
+                b5.putString("money","1000元");
+                intent5.putExtras(b5);
+                startActivity(intent5);
                 break;
         }
 

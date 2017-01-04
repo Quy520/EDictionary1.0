@@ -3,20 +3,11 @@
     android:layout_margin="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-
-
-    <ImageView
-        android:id="@+id/defult"
-        android:layout_width="78dp"
-        android:layout_height="70dp"
-        android:src="@mipmap/defule"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <TextView
-        android:id="@+id/detail"
+        android:id="@+id/coursevedio_detail"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_width="wrap_content"
@@ -25,33 +16,21 @@
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="13dp"
-        android:layout_alignTop="@+id/defult"
-        android:layout_toRightOf="@+id/defult"
-        android:layout_toEndOf="@+id/defult" />
+        android:layout_alignTop="@+id/coursevedio_im"
+        android:layout_toRightOf="@+id/coursevedio_im"
+        android:layout_toEndOf="@+id/coursevedio_im" />
 
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/coursevedio_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="27分20秒,共100词"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="11dp"
-        android:layout_alignBottom="@+id/defult"
-        android:layout_alignLeft="@+id/detail"
-        android:layout_alignStart="@+id/detail" />
-
-    <Button
-        android:text="20学习豆"
-        android:textSize="10dp"
-        android:layout_width="55dp"
-        android:layout_height="20dp"
-        android:background="@drawable/buttonstyle"
-        android:layout_alignBottom="@+id/defult"
-        android:layout_alignRight="@+id/time"
-        android:layout_alignEnd="@+id/detail"
-        android:layout_marginRight="1dp"
-        />
+        android:layout_alignBottom="@+id/coursevedio_im"
+        android:layout_alignLeft="@+id/coursevedio_detail"
+        android:layout_alignStart="@+id/coursevedio_detail" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -59,9 +38,30 @@
         android:src="@mipmap/rigth_setting"
         android:layout_marginRight="18dp"
         android:layout_marginEnd="18dp"
-        android:layout_below="@+id/detail"
+        android:layout_below="@+id/coursevedio_detail"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/coursevedio_im"
+        android:layout_width="78dp"
+        android:layout_height="70dp"
+        android:src="@mipmap/defule"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/coursevedio_button"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="20学习豆"
+        android:textSize="10dp"
+        android:layout_width="55dp"
+        android:layout_height="20dp"
+        android:background="@drawable/buttonstyle"
+        android:layout_alignBottom="@+id/coursevedio_time"
+        android:layout_alignRight="@+id/coursevedio_detail"
+        android:layout_alignEnd="@+id/coursevedio_detail" />
 
 
 </RelativeLayout>

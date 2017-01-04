@@ -6,54 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/words_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="19dp"
         android:text="UNIT1"
         />
-
-    <RelativeLayout
+    <ListView
+        android:id="@+id/onewords_listview"
         android:layout_width="match_parent"
-        android:layout_height="30dp">
-        <Button
-            android:layout_centerVertical="true"
-            android:id="@+id/cricle"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/buttonstyle2"/>
-        <TextView
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/cricle"
-            android:text="mother"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+        android:layout_height="wrap_content">
 
-        <Button
-            android:background="@drawable/buttonstyle"
-            android:text="1学豆"
-            android:textSize="11dp"
-            android:textColor="@color/white"
-            android:layout_width="55dp"
-            android:layout_height="20dp"
-            android:gravity="center"
-            android:layout_alignBaseline="@+id/cricle"
-            android:layout_alignBottom="@+id/cricle"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="60dp"
-            android:layout_marginEnd="60dp" />
-        <ImageView
+    </ListView>
 
-            android:layout_marginRight="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/rigth_setting"/>
-    </RelativeLayout>
+
 
 
 </LinearLayout>

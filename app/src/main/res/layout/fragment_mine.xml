@@ -120,8 +120,9 @@
             android:layout_gravity="center_vertical"
             android:layout_centerVertical="true"
             android:layout_width="55dp"
-            android:layout_height="22dp"
+            android:layout_height="20dp"
             android:textColor="@color/white"
+            android:textSize="15dp"
             android:text="充值"
             />
 
@@ -182,6 +183,7 @@
             android:layout_marginStart="25dp" />
 
         <TextView
+            android:id="@+id/mine_studycode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="互学码：Y12324"

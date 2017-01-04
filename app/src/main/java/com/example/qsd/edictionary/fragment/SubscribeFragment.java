@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 订阅界面
+ * 已订阅界面页面
  */
 public class SubscribeFragment extends Fragment {
     private List<Fragment> list;

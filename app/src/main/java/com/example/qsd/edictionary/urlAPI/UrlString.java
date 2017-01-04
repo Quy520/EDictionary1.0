@@ -6,6 +6,6 @@ package com.example.qsd.edictionary.urlAPI;
  */
 
 public class UrlString {
-    public static final String URL_LOGIN="http://192.168.0.201:8080/wintercamp/API/";
+    public static final String URL_LOGIN="http://www.zhongshuo.cn:8088/jyds/API/";
 
 }

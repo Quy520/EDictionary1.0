@@ -53,10 +53,11 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     private Context context;
     View view;
     PopupWindow pop;
-    private TextView hide;
+    private TextView hide,title_tv;
     private ImageView imageView,share_weixin,share_QQ,share_weibo,share_friend,share_kongjian;
     private String mp4url="http://flv2.bn.netease.com/videolib3/1612/01/jEyBQ0772/SD/jEyBQ0772-mobile.mp4";
     private String mp4_icom="http://vimg2.ws.126.net/image/snapshot/2016/12/2/5/VC6900J25.jpg";
+    private String Title;
     private ImageView icon,play;
     private boolean isplaying;
     private VideoSuperPlayer videoSuperPlayer;
@@ -201,11 +202,12 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     private void initView() {
         context=getContext();
         imageView= (ImageView) findViewById(R.id.vedio_share);
-       list=new ArrayList<>();
+        list=new ArrayList<>();
         mtab=new ArrayList<>();
         videoSuperPlayer= (VideoSuperPlayer)findViewById(R.id.video);
         icon= (ImageView)findViewById(R.id.video_icon);
         play= (ImageView)findViewById(R.id.vedio_play);
+
         //LayoutInflater inflater = LayoutInflater.from(this);
         // 引入窗口配置文件 - 即弹窗的界面
 //        view = inflater.inflate(R.layout.menu_share, null);
@@ -217,6 +219,10 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
 //        share_kongjian= (ImageView) view.findViewById(R.id.share_kongjian);
         viewPager= (ViewPager) findViewById(R.id.vp_vedioplay);
         tabLayout= (TabLayout) findViewById(R.id.vedioplay);
+        title_tv= (TextView) findViewById(R.id.txt_title);
+        Intent intent=getIntent();
+        Title = intent.getStringExtra("courseTitle");
+        title_tv.setText(Title);
         list.add(new DetialsFragment());
         list.add(new DetialsCourse());
         Log.i("qsd","VedioActivity"+list.size()+"");

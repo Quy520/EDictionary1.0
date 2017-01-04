@@ -167,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
                 .url(UrlString.URL_LOGIN+"loginAPI")
                 .post(requestBody)
                 .build();
+        Log.i("qsd","是否请求1"+UrlString.URL_LOGIN+"loginAPI");
         okHttpClient.newCall(request).enqueue(new Callback() {
 
             @Override
@@ -191,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
                 //将数据保存
                 sharedPreferences=getSharedPreferences("useInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putInt("studyBean",studyBean)
+                edit.putInt("studyBean",studyBean)//学习豆
                         .putInt("costStudyBean",costStudyBean)
                         .putInt("loginStatus",loginStatus)
                         .putInt("userID",userID)
@@ -199,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
                         .putString("headImageurl",headImageurl)
                         .putString("studyCode",studyCode).commit();
 
-                Log.i("qsd",code+"LoginActivity");
+
                 if (code.equals("SUCCESS")){//登陆成功
                     SharedPreferences savepw=getSharedPreferences("ED", Context.MODE_PRIVATE);//保存密码
                     SharedPreferences.Editor editsavepw = savepw.edit();

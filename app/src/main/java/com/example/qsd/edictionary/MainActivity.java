@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         //模拟在家数据动画
         final CustomProgressDialog customProgressDialog=new CustomProgressDialog(this,"数据加载中....请稍后",R.drawable.donghua_frame);
         customProgressDialog.show();
-        //LoadInfo();
+        LoadInfo();
         fragmentlist=new ArrayList<>();
         fragmentlist.add(new MemoryFragment());
         fragmentlist.add(new WrodsFragment());
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void LoadInfo() {
+
 
     }
 

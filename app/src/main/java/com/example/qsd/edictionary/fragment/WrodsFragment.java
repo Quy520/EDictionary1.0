@@ -2,9 +2,12 @@ package com.example.qsd.edictionary.fragment;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,16 +19,18 @@ import android.widget.Button;
 
 import com.example.qsd.edictionary.MainActivity;
 import com.example.qsd.edictionary.R;
-import com.example.qsd.edictionary.activitys.LoginActivity;
-import com.example.qsd.edictionary.activitys.SettingActivity;
-import com.example.qsd.edictionary.activitys.WordsDetailsActivity;
+
 import com.example.qsd.edictionary.adapter.WordsAdapter;
 import com.example.qsd.edictionary.bean.CodeBean;
+import com.example.qsd.edictionary.bean.WordsBean;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.APPManager;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,28 +45,36 @@ import okhttp3.Response;
  */
 public class WrodsFragment extends Fragment {
    View view;
-    private Button button;
+    private Activity activity;
+    private  List<WordsBean.DataBean> wordsBeanData;
+    private WordsAdapter wordsAdapter;
+    private RecyclerView recyclerView;
+
+
+    @Override
+    public void onCreate(@NonNull Bundle saveInstanceState){
+        super.onCreate(saveInstanceState);
+        activity=getActivity();
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
-            if (view==null){
-                view=inFlater(inflater);
-            }
-            return view;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+
+        return inflater.inflate(R.layout.fragment_wrods,container,false);
     }
-    private View inFlater(LayoutInflater inflater) {
-        view=inflater.inflate(R.layout.fragment_wrods,null,false);
-        initView(view);
-        initData();
-        return view;
+
+    @Override
+    public void onViewCreated(View  view , @Nullable Bundle saveInstanceState){
+        super.onViewCreated(view,saveInstanceState);
+
+            initView(view);
+            initData();
     }
 
     private void initData() {
+
         OkHttpClient okHttpClient=new OkHttpClient();
         RequestBody requestBody=new FormBody
                 .Builder()
@@ -78,22 +91,29 @@ public class WrodsFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
-                Log.i("qqq",s);
+                Log.i("qsd1",s+"记单词页面1");
+                WordsBean wordsBean=new Gson().fromJson(s,WordsBean.class);
+                wordsBeanData = wordsBean.getData();
+                Log.i("qsd",wordsBeanData+"记单词页面2");
+//
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        wordsAdapter.setList(wordsBeanData);
+                    }
+                });
+
             }
 
         });
 
     }
-
     private void initView(View view) {
-        button= (Button) view.findViewById(R.id.testbutton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getContext(), WordsDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
+        wordsBeanData=new ArrayList<>();
+        wordsAdapter=new WordsAdapter(activity,wordsBeanData);
+        recyclerView= (RecyclerView) view.findViewById(R.id.words_recycle);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setAdapter(wordsAdapter);
 
     }
 

@@ -19,19 +19,32 @@ import com.example.qsd.edictionary.MainActivity;
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.activitys.LoginActivity;
 import com.example.qsd.edictionary.adapter.MypageAdapter;
+import com.example.qsd.edictionary.bean.GetBeansBean;
+import com.example.qsd.edictionary.urlAPI.UrlString;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class WelcomeActivity extends AppCompatActivity {
     private Context context;
     private LinearLayout layout;
     private List<View> mlist;
     private ViewPager viewPager;
     private Button button;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences,userinfosharedPreferences;
     private MypageAdapter mypageAdapter;
     private int[] images=new int[]{R.mipmap.welcom,R.mipmap.welcom2,R.mipmap.welcome3,R.mipmap.welcome4};
-
+    private int userID=2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +62,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 finish();
             }else{
                 Log.i("qsd","welcom"+"第er次输密码");
+                getBeansAPI(userID);
                 startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
                 finish();
 
@@ -93,6 +107,48 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getBeansAPI(int userID) {
+        OkHttpClient okHttpClient=new OkHttpClient();
+
+        RequestBody requestBody=new FormBody
+                .Builder()
+                .add("userID",userID+"")
+                .build();
+
+        Request request=new Request.Builder()
+                .url(UrlString.URL_LOGIN+"getBeansAPI")
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i("qsd2","第二次登陆进来在家失败");
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s = response.body().string();
+                Log.i("qsd2","第二次登陆进来加载成功"+s);
+                GetBeansBean beansBean=new Gson().fromJson(s,GetBeansBean.class);
+                int consumeBean = beansBean.getData().getConsumeBean();
+                int restBean = beansBean.getData().getRestBean();
+                int rechargeBean = beansBean.getData().getRechargeBean();
+                int systemGiveBean = beansBean.getData().getSystemGiveBean();
+
+
+                userinfosharedPreferences=getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor userinfo = userinfosharedPreferences.edit();
+                userinfo.putInt("studyBean",restBean)//学习豆
+                        .putInt("costStudyBean",consumeBean)
+                        .putInt("rechargeBean",rechargeBean)
+                        .putInt("systemGivenBean",systemGiveBean)
+                        .commit();
+
+
+            }
+
+        });
     }
 
     private void initData() {

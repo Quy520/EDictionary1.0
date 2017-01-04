@@ -12,10 +12,18 @@ public class SearchDB {
     public static String createDb(Context context, String user_Name) {
 
         SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-        String name = preferences.getString("userName", "qsd");
+        String name = preferences.getString("nickname", "qsd");
         return name;
 
     }
+    public static String createPh(Context context, String user_Name) {
+
+        SharedPreferences preferences = context.getSharedPreferences("ED", Context.MODE_PRIVATE);
+        String name = preferences.getString("userName", "15551111111");
+        return name;
+
+    }
+
     public static String TouXiangDb(Context context, String pic_Path) {
         String pic_Pathload = null;
         SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);

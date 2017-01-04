@@ -41,9 +41,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         RelativeLayout name,study,game,code,notice,about,fankui,setting;
 
         private ImageView imageView;
-        private TextView studycode,costcode;
+        private TextView studycode,costcode,study_code;
         private Context context;
         private int studyBean,costStudyBean;
+    private String s;
         private static final String IMAGE_FILE_NAME = "head_image.jpg";
 
         public MineFragment() {
@@ -131,15 +132,18 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             imageView= (ImageView) view.findViewById(R.id.mine_userimage);
             studycode= (TextView) view.findViewById(R.id.my_syudycode);
             costcode= (TextView) view.findViewById(R.id.my_costcode);
+            study_code= (TextView) view.findViewById(R.id.mine_studycode);
 
             //获取保存的数值
             SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
             studyBean = preferences.getInt("studyBean", 0);
             costStudyBean = preferences.getInt("costStudyBean", 0);
+            s=preferences.getString("studyCode","qsd");
             Log.i("qsd",costStudyBean+"costStudyBean");
             Log.i("qsd",studyBean+"studyBean");
             costcode.setText(costStudyBean+"");
             studycode.setText(studyBean+"");
+            study_code.setText(s);
             initOnClick();
 
         }
@@ -177,6 +181,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 case R.id.mine_code:
                     Toast.makeText(getActivity(), "学习", Toast.LENGTH_SHORT).show();
                     Intent intent4=new Intent(getActivity(), StudyCodeActivity.class);
+                    intent4.putExtra("code",s);
                     startActivity(intent4);
                     break;
                 case R.id.mine_notice:

@@ -3,6 +3,7 @@ package com.example.qsd.edictionary.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +37,7 @@ public class MemoryAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder
     private List<MemoryDownBean.DataBean> DownBeanData;
     private List<MemoryUpBean.DataBean> Updata;
     private onRecyclerViewItemClickListener itemClickListener = null;
-
+    private Handler handler=new Handler();
     public MemoryAdapter(Context context,List<MemoryDownBean.DataBean> DownBeanData,List<MemoryUpBean.DataBean> Updata){
         this.mcontext=context;
         this.DownBeanData=DownBeanData;
@@ -122,6 +123,7 @@ public class MemoryAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder
         this.Updata=Updata;
         Log.i("qsd1","bannerAPI"+Updata+"==="+DownBeanData);
         notifyDataSetChanged();
+
 
     }
 

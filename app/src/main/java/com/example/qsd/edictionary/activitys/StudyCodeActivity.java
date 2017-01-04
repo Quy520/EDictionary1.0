@@ -1,5 +1,6 @@
 package com.example.qsd.edictionary.activitys;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +23,7 @@ public class StudyCodeActivity extends AppCompatActivity {
     private TextView copy;
     private ListView listView;
     private List<String > infolist;
+    private String studycode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class StudyCodeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String copycody=code.getText().toString().trim();
-                Toast.makeText(StudyCodeActivity.this, "已复制", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StudyCodeActivity.this, copycody+"已复制", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -47,6 +49,9 @@ public class StudyCodeActivity extends AppCompatActivity {
 
     private void initData() {
         infolist=new ArrayList<>();
+        Intent intent=getIntent();
+        String stringValue=intent.getStringExtra("code");
+        code.setText(stringValue);
         infolist.add("用户132*****123，加入易词典，你获得了5个学豆");
         infolist.add("用户182*****129，加入易词典，你获得了5个学豆");
         infolist.add("用户131*****123，加入易词典，你获得了5个学豆");
@@ -66,5 +71,6 @@ public class StudyCodeActivity extends AppCompatActivity {
         send= (Button) findViewById(R.id.send_button);
         copy= (TextView) findViewById(R.id.copy);
         listView= (ListView) findViewById(R.id.listview);
+
     }
 }

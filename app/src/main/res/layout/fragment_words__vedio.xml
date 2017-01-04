@@ -1,78 +1,47 @@
-<LinearLayout
+<RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.qsd.edictionary.fragment.words_VedioFragment">
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="坐等数据加载显示"/>
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/word_vedio_recycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+
     <RelativeLayout
-        android:id="@+id/vedio_item"
+
+        android:id="@+id/word_vedio_sub"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/defult"
-            android:layout_width="78dp"
-            android:layout_height="70dp"
-            android:src="@mipmap/defule"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:id="@+id/detail"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="【人教版】小学生四年级上第一节"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="13dp"
-            android:layout_alignTop="@+id/defult"
-            android:layout_toRightOf="@+id/defult"
-            android:layout_toEndOf="@+id/defult" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="27分20秒,共100词"
-            android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginBottom="11dp"
-            android:layout_alignBottom="@+id/defult"
-            android:layout_alignLeft="@+id/detail"
-            android:layout_alignStart="@+id/detail" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/rigth_setting"
-            android:layout_marginRight="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_below="@+id/detail"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <Button
-            android:id="@+id/money"
-            android:text="20学习豆"
-            android:textSize="10dp"
-            android:layout_width="55dp"
-            android:layout_height="20dp"
+            android:id="@+id/vedio_subbAllButton"
             android:background="@drawable/buttonstyle"
-            android:layout_alignBottom="@+id/time"
-            android:layout_alignRight="@+id/detail"
-            android:layout_alignEnd="@+id/detail" />
+            android:layout_width="55dp"
+            android:layout_height="33dp"
+            android:text="订阅"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="13dp"
+            android:layout_marginEnd="13dp" />
 
+        <TextView
+            android:id="@+id/vedio_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一次性订阅所有五年级视屏课程，仅需2000学豆"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

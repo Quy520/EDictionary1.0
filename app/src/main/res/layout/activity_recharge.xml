@@ -281,13 +281,15 @@
         android:layout_marginStart="25dp" />
     </RelativeLayout>
     </LinearLayout>
+
     <ImageView
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="15dp"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:src="@mipmap/text10" />
+        android:src="@mipmap/call"
+        android:layout_above="@+id/problem"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView2" />
 
 
 </RelativeLayout>

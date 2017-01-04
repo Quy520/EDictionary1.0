@@ -25,16 +25,17 @@ import com.example.qsd.edictionary.utils.TouXiangCache;
 public class UserinfoActivity extends AppCompatActivity implements View.OnClickListener {
     RelativeLayout info_image,info_phone,info_pass,info_name;
     LinearLayout linearLayout;
-    private TextView tv_name;
+    private TextView tv_name,phone;
     private ImageView head;
-    private String pic_path,name;
+    private String pic_path,name,phone_;
     private static final String IMAGE_FILE_NAME = "head_image.jpg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PermisionUtils.verifyStoragePermissions(this);
-        name=SearchDB.createDb(this,"userName");
+        name=SearchDB.createDb(this,"nickname");
         Log.i("qsd","name"+name);
+        phone_=SearchDB.createPh(this,"userName");
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
         if (pic_path!=null){
             Log.i("qsd","pic_path"+pic_path);
@@ -57,15 +58,19 @@ public class UserinfoActivity extends AppCompatActivity implements View.OnClickL
 
     private void initView() {
         linearLayout= (LinearLayout) findViewById(R.id.activity_userinfo);
-        info_phone= (RelativeLayout) findViewById(R.id.info_user);
+        info_phone= (RelativeLayout) findViewById(R.id.info_user);//
         info_pass= (RelativeLayout) findViewById(R.id.info_pass);
         info_image= (RelativeLayout) findViewById(R.id.info_image);
         info_name= (RelativeLayout) findViewById(R.id.info_name);
         head= (ImageView) findViewById(R.id.image_head);
         tv_name= (TextView) findViewById(R.id.name);
+        phone= (TextView) findViewById(R.id.userinfo);
+
         //Intent intent=getIntent();
         //name=intent.getStringExtra("name");
         tv_name.setText(name);
+        phone.setText(phone_);
+
 
 
 

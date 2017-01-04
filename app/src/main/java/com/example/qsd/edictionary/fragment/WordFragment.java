@@ -25,15 +25,26 @@ import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.activitys.VedioPlayActivity;
 import com.example.qsd.edictionary.adapter.SortGroupMemberAdapter;
 import com.example.qsd.edictionary.sortList.SideBar;
+import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.CharacterParser;
 import com.example.qsd.edictionary.utils.GroupMemberBean;
 import com.example.qsd.edictionary.utils.PinyinComparator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 /**
+ * 所有单词页面
  * A simple {@link Fragment} subclass.
  */
 public class WordFragment extends Fragment {
@@ -45,6 +56,7 @@ public class WordFragment extends Fragment {
     private LinearLayout linearLayout;
     private SortGroupMemberAdapter adapter;
     private EditText editText;
+    private int userID=2;
 
     /**
      * 上次第一个可见元素，用于滚动时记录标识。
@@ -60,11 +72,10 @@ public class WordFragment extends Fragment {
      * 根据拼音来排列ListView里面的数据类
      */
     private PinyinComparator pinyinComparator;
+
     public WordFragment() {
 
     }
-
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,10 +91,38 @@ public class WordFragment extends Fragment {
             }
             return null;
         }
+
     private View inFlater(LayoutInflater inflater) {
         view=inflater.inflate(R.layout.fragment_word2,null,false);
         initView(view);
+        initData(userID);
         return view;
+    }
+    private void initData(int userID) {
+        OkHttpClient okHttpClient=new OkHttpClient();
+        RequestBody requestBody=new FormBody
+                .Builder()
+                .add("userID",userID+"")
+                .build();
+        Request request=new Request.Builder()
+                .url(UrlString.URL_LOGIN+"subscribedWordAPI")
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s = response.body().string();
+                Log.i("qsd1",s+"一订阅单词页面1");
+
+
+            }
+
+        });
+
     }
 
     private void initView(final View view) {
@@ -93,7 +132,6 @@ public class WordFragment extends Fragment {
         tvnowords = (TextView) view.findViewById(R.id.title_layout_no_friends);
         // 实例化汉字转拼音类
         characterParser = CharacterParser.getInstance();
-
         pinyinComparator = new PinyinComparator();
         sideBar = (SideBar) view.findViewById(R.id.sidrbar);
         dialog = (TextView) view.findViewById(R.id.dialog);
@@ -124,7 +162,7 @@ public class WordFragment extends Fragment {
             }
         });
 
-        SourceDateList= filledData(getResources().getStringArray(R.array.date));
+        SourceDateList= filledData(getResources().getStringArray(R.array.date));//实力化数据
         Log.i("qsd",getResources().getStringArray(R.array.date)+"1234");
         // 根据a-z进行排序源数据
         Collections.sort(SourceDateList, pinyinComparator);

@@ -1,5 +1,6 @@
 package com.example.qsd.edictionary.activitys;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.fragment.VideoFragment;
@@ -31,6 +33,16 @@ public class WordsDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words_details);
+        Intent intent=getIntent();
+        String stringValue=intent.getStringExtra("buttonKey");
+        words_VedioFragment fragment= words_VedioFragment.newInstance(stringValue);//传递数据
+        oneWordFragment wordFragment =oneWordFragment.newInstance(stringValue);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.wordsdetails_pager,fragment)
+                .add(R.id.wordsdetails_pager,wordFragment)
+                .commit();
+        Toast.makeText(this, stringValue, Toast.LENGTH_SHORT).show();
         initView();
     }
 
