@@ -4,12 +4,15 @@ package com.example.qsd.edictionary.fragment;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,11 +34,13 @@ import com.example.qsd.edictionary.adapter.MemoryAdapter;
 import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.bean.MemoryDownBean;
 import com.example.qsd.edictionary.bean.MemoryUpBean;
+import com.example.qsd.edictionary.costomProgressDialog.CustomProgressDialog;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import okhttp3.Call;
@@ -62,15 +67,28 @@ public class MemoryFragment extends Fragment {
     private String type="memory";
     private String Title;
     private TextView textView;
+    private SwipeRefreshLayout refreshLayout;
+    private CustomProgressDialog customProgressDialog;
+    private SharedPreferences sharedPreferences;
+
     Handler handler=new Handler() {
         @Override
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
             if (msg.what == 0x111) {
                 Toast.makeText(activity, "购买成功", Toast.LENGTH_SHORT).show();
+
                 return;
             }
             if (msg.what == 0x222) {
+                Toast.makeText(activity, "您已经购买", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x333) {
+                Toast.makeText(activity, "余额不足，请去充值", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x444) {
                 Toast.makeText(activity, "购买失败", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -85,8 +103,8 @@ public class MemoryFragment extends Fragment {
     public void onCreate(@NonNull Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         activity=getActivity();
-        //下载数据
-        //initData();
+        customProgressDialog=new CustomProgressDialog(activity,"数据加载中....请稍后",R.drawable.donghua_frame);
+
     }
 
     private void initData() {
@@ -156,6 +174,10 @@ public class MemoryFragment extends Fragment {
                     @Override
                     public void run() {
                         memoryAdapter.setList(DownBeanData,Updata);
+                        memoryAdapter.notifyDataSetChanged();
+                        customProgressDialog.dismiss();
+                        refreshLayout.setRefreshing(false);
+
                     }
                 });
 
@@ -173,14 +195,31 @@ public class MemoryFragment extends Fragment {
     @Override
     public void onViewCreated(View  view , @Nullable Bundle saveInstanceState){
         super.onViewCreated(view,saveInstanceState);
-
         initView(view);
+        //refreshLayout.setColorSchemeColors(Color.BLUE, Color.GRAY);
+       // refreshLayout.setProgressBackgroundColorSchemeColor(Color.BLUE);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                clearData();
+                customProgressDialog.show();
+                initData();
+            }
+        });
+
        initData();
+    }
+
+    private void clearData() {
+        DownBeanData.clear();
+        payStudyBean=0;
+        Updata.clear();
     }
 
     private void initView(View view) {
         DownBeanData=new ArrayList<>();
         Updata=new ArrayList<>();
+        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.memory_swipe);
         memoryAdapter=new MemoryAdapter(activity,DownBeanData,Updata);
         recyclerView= (RecyclerView) view.findViewById(R.id.memory_recy);
         button= (Button) view.findViewById(R.id.memory_subbAllButton);
@@ -244,8 +283,14 @@ public class MemoryFragment extends Fragment {
                 Log.i("qsd","是否订阅成功"+code);
                 if (code.equals("SUCCESS")){
                    handler.sendEmptyMessage(0x111);
-                }else{
+                }
+                else if(code.equals("NOPAY")){
                     handler.sendEmptyMessage(0x222);
+                }
+                else if(code.equals("NOTSUFFICIENTFUNDS")){
+                    handler.sendEmptyMessage(0x333);
+                }else{
+                    handler.sendEmptyMessage(0x444);
                 }
 
 

@@ -41,15 +41,20 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
     View view;
     private String mp4url = "http://flv2.bn.netease.com/videolib3/1612/01/jEyBQ0772/SD/jEyBQ0772-mobile.mp4";
     private String mp4_icom = "http://vimg2.ws.126.net/image/snapshot/2016/12/2/5/VC6900J25.jpg";
+    private String stringValue;
+    private ExplainFragment explainFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words_vedio_play);
+        Intent intent=getIntent();
+        stringValue=intent.getStringExtra("DETAILS");
+        Log.i("qsd1","获取单词传过来的detail"+stringValue);
+        explainFragment=ExplainFragment.newInstance(stringValue);
         initView();
         initOnClick();
 
     }
-
     private void initOnClick() {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +63,6 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void showShare() {
@@ -79,7 +83,6 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
                         SHARE_MEDIA.WEIXIN,
                         SHARE_MEDIA.WEIXIN_CIRCLE)
                 .setCallback(umShareListener).open(config);
-
     }
 
     private UMShareListener umShareListener = new UMShareListener() {
@@ -112,7 +115,7 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
         mtab = new ArrayList<>();
         viewPager = (ViewPager) findViewById(R.id.vp_vedioplay);
         tabLayout = (TabLayout) findViewById(R.id.wordsvedioplay);
-        list.add(new ExplainFragment());
+        list.add(explainFragment);
         list.add(new WordListFragment());
         Log.i("qsd", "courseActivity" + list.size() + "");
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {

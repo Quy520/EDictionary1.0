@@ -4,12 +4,18 @@ package com.example.qsd.edictionary.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,17 +24,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.activitys.APP;
+import com.example.qsd.edictionary.activitys.CourseVedioActivity;
 import com.example.qsd.edictionary.activitys.FullActivity;
+import com.example.qsd.edictionary.adapter.CourseVedioAdapter;
+import com.example.qsd.edictionary.bean.CodeBean;
+import com.example.qsd.edictionary.bean.CourseVedioBean;
 import com.example.qsd.edictionary.bean.WordsBean;
+import com.example.qsd.edictionary.costomProgressDialog.CustomProgressDialog;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
 import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -45,47 +59,69 @@ import okhttp3.Response;
 public class VideoFragment extends Fragment {
 
     private View view;
-    private VideoSuperPlayer videoSuperPlayer;
-    private ViewPager viewPager;
-    private ImageView icon,play;
-    private boolean isplaying;
+    private SwipeRefreshLayout refreshLayout;
     private Button sub_words,sub_vedio;
-    private String mp4url="http://flv2.bn.netease.com/videolib3/1612/01/jEyBQ0772/SD/jEyBQ0772-mobile.mp4";
-    private String mp4_icom="http://vimg2.ws.126.net/image/snapshot/2016/12/2/5/VC6900J25.jpg";
     private Context context;
-    private FragmentManager manager;
-    private FragmentTransaction ft;
-    private LinearLayout linearLayout;
     private RecyclerView recyclerView;
+    private LinearLayout linearLayout;
+    private  CourseVedioBean vedioBean;
     private int userID=2;
-
-
-    public VideoFragment() {
-
-    }
+    private  String Code="NOVIDE0";
+    private Activity activity;
+    private SharedPreferences sharedPreferences;
+    List<CourseVedioBean.DataBean> data;
+    private CourseVedioAdapter vedioAdapter;
+    private CustomProgressDialog customProgressDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
-            if (view==null){
-                view=inFlater(inflater);
-            }
-            return view;
-        }catch (Exception e){
-            e.printStackTrace();
+        activity=getActivity();
+        customProgressDialog=new CustomProgressDialog(activity,"数据加载中....请稍后",R.drawable.donghua_frame);
+        return inflater.inflate(R.layout.fragment_video,container,false);
+
+    }
+    @Override
+    public void onViewCreated(View  view , @Nullable Bundle saveInstanceState){
+        super.onViewCreated(view,saveInstanceState);
+        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.sub_swipe);
+        linearLayout= (LinearLayout) view.findViewById(R.id.sub_linear);
+        recyclerView= (RecyclerView) view.findViewById(R.id.sub_fragment_vedio);
+        sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+        Code= sharedPreferences.getString("SUCCESS", "NOVIDE0");
+        Log.i("qsd1",Code+"HANDLER3判断订阅是否成功");
+        if (Code.equals("NOVIDE0")){
+            recyclerView.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
+            return;
+        }else{
+            initData(userID);
+            initView(view);
         }
-        return null;
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                clearData();
+                initData(userID);
+                customProgressDialog.show();
+            }
+        });
+
+
     }
 
-    private View inFlater(LayoutInflater inflater) {
-        view=inflater.inflate(R.layout.fragment_video,null,false);
-        initView(view);
-        initData(userID);
-        return view;
+    private void clearData() {
+        data.clear();
     }
+
+
 
     private void initData(int userID) {
+        data=new ArrayList<>();
+        vedioAdapter=new CourseVedioAdapter(activity,data);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
+        recyclerView.setAdapter(vedioAdapter);
         OkHttpClient okHttpClient=new OkHttpClient();
         RequestBody requestBody=new FormBody
                 .Builder()
@@ -104,7 +140,21 @@ public class VideoFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
                 Log.i("qsd1",s+"一订阅视屏页面1");
-
+                vedioBean =new Gson().fromJson(s,CourseVedioBean.class);
+                 data = vedioBean.getData();
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Code = vedioBean.getCode();
+                        sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor userinfo = sharedPreferences.edit();
+                        userinfo.putString("SUCCESS",Code).commit();
+                        vedioAdapter.setList(data);
+                        vedioAdapter.notifyDataSetChanged();
+                        customProgressDialog.dismiss();
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
 
 
 
@@ -116,99 +166,27 @@ public class VideoFragment extends Fragment {
 
     private void initView(View view) {
         context=getContext();
-        videoSuperPlayer= (VideoSuperPlayer) view.findViewById(R.id.video);
-        icon= (ImageView) view.findViewById(R.id.video_icon);
-        play= (ImageView) view.findViewById(R.id.vedio_play);
         sub_words= (Button) view.findViewById(R.id.sub_word);
         sub_vedio= (Button) view.findViewById(R.id.sub_view);
-        linearLayout= (LinearLayout) view.findViewById(R.id.fragment_contenr);
-        viewPager= (ViewPager) view.findViewById(R.id.viewpage_main);
-        recyclerView= (RecyclerView) view.findViewById(R.id.sub_recycle);
-        manager = getFragmentManager();
-        BitmapUtils bitmapUtils=new BitmapUtils(getContext());
-        bitmapUtils.display(icon,mp4_icom);
-        play.setOnClickListener(new MyOnClick(mp4url,videoSuperPlayer));
-        videoSuperPlayer.setVideoPlayCallback(new MyVideoCallback(play,videoSuperPlayer));
-
-        sub_words.setOnClickListener(new View.OnClickListener() {
+        if (Code.equals("NOVIDE0")){
+            recyclerView.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
+        }else{
+            recyclerView.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.GONE);
+        }
+        vedioAdapter.setOnItemClickListener(new CourseVedioAdapter.onRecyclerViewItemClickListener() {
             @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager =getFragmentManager();
-                FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.viewpage_main,new WrodsFragment());
-                fragmentTransaction.addToBackStack(null);
-                //提交修改
-                fragmentTransaction.commit();
+            public void onItemClick(View v, String tag) {
+                Toast.makeText(activity, "您点击了视屏"+tag, Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(activity, CourseVedioActivity.class);
+
+                activity.startActivity(intent);
             }
         });
 
-        sub_vedio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(1);
-
-            }
-        });
     }
 
-     class MyOnClick implements View.OnClickListener {
-        String mp4url;
-         VideoSuperPlayer player;
-        public MyOnClick(String mp4url, VideoSuperPlayer videoSuperPlayer) {
-            this.mp4url=mp4url;
-            this.player=videoSuperPlayer;
-        }
-
-        @Override
-        public void onClick(View v) {
-            APP.setMediaPlayerNull();
-            isplaying=true;
-            Log.i("qsd","打开播放器");
-            videoSuperPlayer.setVisibility(View.VISIBLE);
-            icon.setVisibility(View.GONE);
-            play.setVisibility(View.GONE);
-            player.loadAndPlay(APP.getMediaPlayer(),mp4url,0,false);
-            Log.i("qsd","mp4地址"+mp4url);
-
-
-
-        }
-    }
-
-      public class MyVideoCallback implements VideoSuperPlayer.VideoPlayCallbackImpl {
-          ImageView imageView;
-          VideoSuperPlayer superPlayer;
-
-        public MyVideoCallback(ImageView player, VideoSuperPlayer videoSuperPlayer) {
-            this.imageView=player;
-            this.superPlayer=videoSuperPlayer;
-        }
-
-        @Override
-        public void onCloseVideo() {
-            isplaying=false;
-            superPlayer.close();
-            APP.setMediaPlayerNull();
-            imageView.setVisibility(View.VISIBLE);
-            superPlayer.setVisibility(View.GONE);
-
-        }
-
-        @Override
-        public void onSwitchPageType() {
-            if (((Activity) context).getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
-                Log.i("qsd","VideoFragemt"+((Activity) context).getRequestedOrientation());
-                Intent intent = new Intent(new Intent(context,
-                        FullActivity.class));
-                context.startActivity(intent);
-            }
-        }
-
-        @Override
-        public void onPlayFinish() {
-
-        }
-    }
     @Override
     public void onDestroy(){
         APP.setMediaPlayerNull();

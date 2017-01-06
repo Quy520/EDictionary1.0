@@ -61,7 +61,7 @@ public class SubscribeFragment extends Fragment {
         Log.i("qsd",list.size()+"");
         viewPager.setAdapter(new SubAdapter(getFragmentManager(),list));
         tab.setupWithViewPager(viewPager);
-        mtab.add("视屏");
+        mtab.add("视频");
         mtab.add("单词");
         for(int i=0;i<mtab.size();i++){
             TabLayout.Tab tab1=tab.getTabAt(i);

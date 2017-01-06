@@ -2,7 +2,10 @@ package com.example.qsd.edictionary.fragment;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.activitys.CourseVedioActivity;
 import com.example.qsd.edictionary.adapter.CourseVedioAdapter;
 import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.bean.CourseVedioBean;
@@ -45,17 +49,17 @@ import okhttp3.Response;
  */
 public class words_VedioFragment extends Fragment {
     private Activity activity;
-    private View view;
     private int userID=2;
     private List<CourseVedioBean.DataBean> data;
     private CourseVedioAdapter vedioAdapter;
     private RecyclerView recyclerView;
     private Button button;
-    private String classifyID=null;
+    private String classifyID;
     private int payStudyBean=0;
-
+    private boolean isRead = false;
     private String type="k12";
     private TextView textView;
+    private SharedPreferences sharedPreferences;
     //接受数据
     Handler handler=new Handler() {
         @Override
@@ -63,6 +67,10 @@ public class words_VedioFragment extends Fragment {
             // TODO Auto-generated method stub
             if (msg.what == 0x111) {
                 Toast.makeText(activity, "购买成功", Toast.LENGTH_SHORT).show();
+                sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+                SharedPreferences. Editor userinfo = sharedPreferences.edit();
+                userinfo.putString("SUCCESS","SUCCESS").commit();
+
                 return;
             }
             if (msg.what == 0x222) {
@@ -72,6 +80,7 @@ public class words_VedioFragment extends Fragment {
 
         }
     };
+
     public static words_VedioFragment newInstance(String value) {
         words_VedioFragment fragment=new words_VedioFragment();
         Bundle bundle=new Bundle();
@@ -86,13 +95,12 @@ public class words_VedioFragment extends Fragment {
     }
 
     private void initData(int userID,String classifyID) {
-
         OkHttpClient okHttpClient=new OkHttpClient();
-        Log.i("qsd",userID+"单词页面传递过来的类型id"+classifyID);
+        Log.i("qsd",userID+"vedio单词页面传递过来的类型id"+classifyID);
         RequestBody requestBody=new FormBody
                 .Builder()
                 .add("userID",userID+"")
-                .add("classifyID",5+"")
+                .add("classifyID",classifyID)
                 .build();
         Request request=new Request.Builder()
                 .url(UrlString.URL_LOGIN+"getCourseVideoAPI")
@@ -113,15 +121,10 @@ public class words_VedioFragment extends Fragment {
                     int coursePrice = data.get(i).getVideoPrice();
                     payStudyBean=coursePrice+payStudyBean;
                 }
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText("一次性订阅五年级所有视屏仅需"+payStudyBean+"学豆");
-                    }
-                });
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        textView.setText("一次性订阅五年级所有视屏仅需"+payStudyBean+"学豆");
                          vedioAdapter.setList(data);
                     }
                 });
@@ -142,10 +145,11 @@ public class words_VedioFragment extends Fragment {
         initView(view);
         if (getArguments()!=null) {
                 classifyID = getArguments().getString("KEY");
-                Log.i("qsd", classifyID + "传递过来的类型id");
-                Log.i("qsd", classifyID.length() + "传递过来的类型id");
+                Log.i("qsd", classifyID + "vedio传递过来的类型id");
+
         }
         initData(userID, classifyID);
+
         onClick();
 
 
@@ -157,7 +161,6 @@ public class words_VedioFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                     AlertDialog.Builder builder=new AlertDialog.Builder(activity)
                             .setTitle("确认订购")
                             .setMessage("如果确认将一次性订阅所有记忆法视屏？")
@@ -229,6 +232,14 @@ public class words_VedioFragment extends Fragment {
         recyclerView= (RecyclerView) view.findViewById(R.id.word_vedio_recycle);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(vedioAdapter);
+        vedioAdapter.setOnItemClickListener(new CourseVedioAdapter.onRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View v, String tag) {
+                Toast.makeText(activity, "您点击了视屏"+tag, Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(activity, CourseVedioActivity.class);
+                activity.startActivity(intent);
+            }
+        });
 
 
 

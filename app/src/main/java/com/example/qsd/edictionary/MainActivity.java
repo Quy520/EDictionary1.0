@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager= (ViewPager) findViewById(R.id.viewpage_main);
         radioGroup= (RadioGroup) findViewById(R.id.radiogroup_main);
-        viewPager.setOffscreenPageLimit(4);//预加载界面个数
+        viewPager.setOffscreenPageLimit(2);//预加载界面个数
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
              RadioButton button= (RadioButton) radioGroup.findViewById(checkedId);
                 int index1=radioGroup.indexOfChild(button);
                 viewPager.setCurrentItem(index1);
+
             }
         });
 
@@ -109,8 +110,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         //模拟在家数据动画
-        final CustomProgressDialog customProgressDialog=new CustomProgressDialog(this,"数据加载中....请稍后",R.drawable.donghua_frame);
-        customProgressDialog.show();
         LoadInfo();
         fragmentlist=new ArrayList<>();
         fragmentlist.add(new MemoryFragment());

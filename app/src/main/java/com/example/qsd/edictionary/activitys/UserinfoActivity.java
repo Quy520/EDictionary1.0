@@ -27,20 +27,21 @@ public class UserinfoActivity extends AppCompatActivity implements View.OnClickL
     LinearLayout linearLayout;
     private TextView tv_name,phone;
     private ImageView head;
-    private String pic_path,name,phone_;
+    private String pic_path,name,phone_,extr;
     private static final String IMAGE_FILE_NAME = "head_image.jpg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PermisionUtils.verifyStoragePermissions(this);
+        extr = Environment.getExternalStorageDirectory().toString();
         name=SearchDB.createDb(this,"nickname");
         Log.i("qsd","name"+name);
         phone_=SearchDB.createPh(this,"userName");
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
         if (pic_path!=null){
-            Log.i("qsd","pic_path"+pic_path);
-            Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/" + pic_path);
-            head.setImageBitmap(getphoto);
+            Log.i("qsd","pic_path3"+pic_path);
+            Bitmap getphoto = TouXiangCache.getphoto(pic_path);
+            //head.setImageBitmap(getphoto);
         }
         setContentView(R.layout.activity_userinfo);
         Log.i("qsd", Environment.getExternalStorageDirectory()+"123");
@@ -66,8 +67,6 @@ public class UserinfoActivity extends AppCompatActivity implements View.OnClickL
         tv_name= (TextView) findViewById(R.id.name);
         phone= (TextView) findViewById(R.id.userinfo);
 
-        //Intent intent=getIntent();
-        //name=intent.getStringExtra("name");
         tv_name.setText(name);
         phone.setText(phone_);
 

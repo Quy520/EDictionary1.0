@@ -122,6 +122,7 @@ public class MemoryAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder
         this.DownBeanData=DownBeanData;
         this.Updata=Updata;
         Log.i("qsd1","bannerAPI"+Updata+"==="+DownBeanData);
+
         notifyDataSetChanged();
 
 

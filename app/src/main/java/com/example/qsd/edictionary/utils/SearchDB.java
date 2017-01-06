@@ -26,12 +26,13 @@ public class SearchDB {
 
     public static String TouXiangDb(Context context, String pic_Path) {
         String pic_Pathload = null;
+        String extr = Environment.getExternalStorageDirectory().toString();
         SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         String pic_path = preferences.getString("pic_path", null);
         if (pic_path != null) {
             pic_Pathload = pic_path;
-            String pic_pathload = "storage/sdcard0/image" + pic_Pathload;
+            String pic_pathload = extr+"/storage/sdcard0/" + pic_Pathload;
             return pic_pathload;
         }
         return pic_Pathload;

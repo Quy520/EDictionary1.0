@@ -83,42 +83,33 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
                 imageView.setImageBitmap(getphoto);
             }
-//            if (APP.appConfig.getNightModeSwitch()) {
-//               // getContext().setTheme(R.style.Theme_setting_night);
-//                isNight = true;
-//                changeSkinMode(isNight);
-//            } else {
-//               // getContext().setTheme(R.style.Theme_setting_day);
-//                isNight = false;
-//                changeSkinMode(isNight);
-//            }
+
             return view;
         }
-//    private void changeSkinMode(boolean isNight) {
-//        //changeMainActivity(isNight);
-//        allTextViewList = ViewUtil.getAllTextView(ViewUtil.getAllChildView(linearLayout));
-//        int textColor = 0;
-//        if (isNight) {
-//            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_night));
-//            textColor = getResources().getColor(R.color.text_night);
-//        } else {
-//            linearLayout.setBackgroundColor(getResources().getColor(R.color.bg_day));
-//            textColor = getResources().getColor(R.color.text_day);
-//        }
-//        if (allTextViewList != null && textColor != 0) {
-//            for (TextView textView : allTextViewList) {
-//                textView.setTextColor(textColor);
-//            }
-//        }
-//    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
              super.onViewCreated(view, savedInstanceState);
-//
-//    studycode.setText(studyBean);
-//    costcode.setText(costStudyBean);
+
+
 }
-        private void initView(View view) {
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+            studyBean = preferences.getInt("studyBean", 0);
+            costStudyBean = preferences.getInt("costStudyBean", 0);
+            s=preferences.getString("studyCode","qsd");
+            Log.i("qsd",costStudyBean+"costStudyBean");
+            Log.i("qsd",studyBean+"studyBean");
+            costcode.setText(costStudyBean+"");
+            studycode.setText(studyBean+"");
+        } else {
+            //相当于Fragment的onPause
+        }
+    }
+    private void initView(View view) {
             context=getActivity();
             linearLayout= (LinearLayout) view.findViewById(R.id.mine_fragemnt);
             name= (RelativeLayout) view.findViewById(R.id.mine_user);
@@ -135,14 +126,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             study_code= (TextView) view.findViewById(R.id.mine_studycode);
 
             //获取保存的数值
-            SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-            studyBean = preferences.getInt("studyBean", 0);
-            costStudyBean = preferences.getInt("costStudyBean", 0);
-            s=preferences.getString("studyCode","qsd");
-            Log.i("qsd",costStudyBean+"costStudyBean");
-            Log.i("qsd",studyBean+"studyBean");
-            costcode.setText(costStudyBean+"");
-            studycode.setText(studyBean+"");
+
             study_code.setText(s);
             initOnClick();
 

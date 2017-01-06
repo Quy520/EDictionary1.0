@@ -1,15 +1,19 @@
 package com.example.qsd.edictionary.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.activitys.WordsVedioPlayActivity;
 import com.example.qsd.edictionary.bean.GetWordsBean;
 
 import java.util.List;
@@ -21,7 +25,9 @@ import java.util.List;
 public class GetWordsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context context;
     private List<GetWordsBean.DataBean> data;
-    List<GetWordsBean.DataBean.WordDataBean> wordData;
+   private List<GetWordsBean.DataBean.WordDataBean> wordData;
+    private String detail;
+    private ListAdapter listAdapter;
     public GetWordsAdapter(Context context,List<GetWordsBean.DataBean> data){
         this.context=context;
         this.data=data;
@@ -39,7 +45,22 @@ public class GetWordsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         FirstViewHolder fholder= (FirstViewHolder) holder;
         fholder.title.setText(data.get(position).getTitle());
         wordData = data.get(position).getWordData();
-        fholder.listView.setAdapter(new ListAdapter(context,wordData));
+        for (int i=0;i<wordData.size();i++){
+            detail=wordData.get(i).getWordDetail();
+        }
+        listAdapter=new ListAdapter(context,wordData);
+        fholder.listView.setAdapter(listAdapter);
+        listAdapter.setOnItemClickListener(new ListAdapter.onListViewItemClickListener() {
+            @Override
+            public void onItemClick(View v, String tag) {
+                Log.i("qsd","listView单词的传值"+detail);
+                Intent intent=new Intent(context, WordsVedioPlayActivity.class);
+                intent.putExtra("DETAILS",detail);
+                context.startActivity(intent);
+                Toast.makeText(context, "您点击了"+tag, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
 

@@ -1,6 +1,8 @@
 package com.example.qsd.edictionary.activitys;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -32,12 +34,16 @@ public class ChangePass extends AppCompatActivity {
     private EditText oldpass,newpass;
     private TextView button;
     private String oldpw,newpw,username;
+    private SharedPreferences sharedPreferences;
     Handler handler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 0x111) {
                 Toast.makeText(ChangePass.this, "修改成功，请重新登陆", Toast.LENGTH_SHORT).show();
+                sharedPreferences=getSharedPreferences("ED", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.remove("password").commit();
                 Intent intent = new Intent(ChangePass.this,
                         LoginActivity.class);
                 startActivity(intent);

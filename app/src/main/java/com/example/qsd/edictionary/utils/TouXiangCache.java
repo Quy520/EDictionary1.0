@@ -19,7 +19,7 @@ public class TouXiangCache {
 
     public static void saveMyBitmap(Bitmap mBitmap, String pic_pathload)  {
         String extr = Environment.getExternalStorageDirectory().toString();
-        File f = new File( "storage/sdcard0/");
+        File f = new File(extr+ "/storage/sdcard0");
         if (f.exists()){
             Log.i("qsd","saveMyBitmap存在");
         }else{
@@ -41,7 +41,6 @@ public class TouXiangCache {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         try {
             fOut.flush();
             fOut.close();
@@ -50,9 +49,13 @@ public class TouXiangCache {
         }
     }
 
-    // TODO: 2015/11/18 得到图片
+
     public static  Bitmap getphoto(String pic_pathload){
-        Bitmap bitmap = BitmapFactory.decodeFile(pic_pathload);
+        BitmapFactory.Options options=new BitmapFactory.Options();
+
+        options.inSampleSize = 20;
+        Bitmap bitmap = BitmapFactory.decodeFile(pic_pathload,options);
+
         return bitmap;
     }
 }

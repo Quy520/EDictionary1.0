@@ -49,7 +49,6 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //在页面初始化之前进行判断是否第一次安装
-
         sharedPreferences = getSharedPreferences("ED", context.MODE_PRIVATE);
         Boolean flag=sharedPreferences.getBoolean("FIRST",false);
         if (flag){
@@ -65,10 +64,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 getBeansAPI(userID);
                 startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
                 finish();
-
             }
-
-
         }
         setContentView(R.layout.activity_welcome);
         initView();
@@ -108,7 +104,6 @@ public class WelcomeActivity extends AppCompatActivity {
         });
 
     }
-
     private void getBeansAPI(int userID) {
         OkHttpClient okHttpClient=new OkHttpClient();
 
@@ -135,8 +130,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 int restBean = beansBean.getData().getRestBean();
                 int rechargeBean = beansBean.getData().getRechargeBean();
                 int systemGiveBean = beansBean.getData().getSystemGiveBean();
-
-
                 userinfosharedPreferences=getSharedPreferences("useInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor userinfo = userinfosharedPreferences.edit();
                 userinfo.putInt("studyBean",restBean)//学习豆
@@ -144,10 +137,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         .putInt("rechargeBean",rechargeBean)
                         .putInt("systemGivenBean",systemGiveBean)
                         .commit();
-
-
             }
-
         });
     }
 
@@ -157,7 +147,6 @@ public class WelcomeActivity extends AppCompatActivity {
             ImageView iv=new ImageView(this);
             int width=getWindowManager().getDefaultDisplay().getWidth();
             int heigh=getWindowManager().getDefaultDisplay().getHeight();
-            Log.i("qsd",width+"=屏幕信息=="+heigh);
             LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(width, heigh);
             iv.setLayoutParams(lp);
             iv.setImageResource(images[i]);

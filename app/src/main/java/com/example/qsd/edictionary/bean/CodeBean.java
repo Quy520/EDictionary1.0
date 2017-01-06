@@ -7,6 +7,8 @@ package com.example.qsd.edictionary.bean;
 public class CodeBean {
 
     /**
+     * {"data":[],"code":"NOWORD"}一订阅单词页面1
+    {"data":[],"code":"NOVIDEO"}一订阅视屏页面1
      * code : PARAERR
      */
 

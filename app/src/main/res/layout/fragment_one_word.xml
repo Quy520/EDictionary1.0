@@ -5,7 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.example.qsd.edictionary.fragment.words_VedioFragment">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/onewords_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+    </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
     <RelativeLayout
 
         android:id="@+id/onewords_sub"
@@ -38,15 +53,4 @@
             android:layout_toLeftOf="@+id/memory_subbAllButton"
             android:layout_toStartOf="@+id/memory_subbAllButton" />
     </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/onewords_recycle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-    </android.support.v7.widget.RecyclerView>
-
 </RelativeLayout>

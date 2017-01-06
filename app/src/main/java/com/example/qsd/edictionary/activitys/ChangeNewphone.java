@@ -1,6 +1,8 @@
 package com.example.qsd.edictionary.activitys;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
@@ -15,24 +17,36 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.broadcastReceiver.SMSBroadcastReceiver;
+import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.Utils;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 //我的里面的更新手机号
 public class ChangeNewphone extends AppCompatActivity {
     private Button button;
     private Button commit;
     private EditText phone,code,pass;
-    String phoneNumber,c;
+   private String phoneNumber,c,pw;
+    private String oldphone="15157526460";
+    private int userID=2;
     private SMSBroadcastReceiver mSMSBroadcastReceiver;
-
-
+    private SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +81,12 @@ public class ChangeNewphone extends AppCompatActivity {
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {// 提交验证码成功
                     Toast.makeText(getApplicationContext(), "提交验证码成功",
                             Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ChangeNewphone.this,
-                            LoginActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(ChangeNewphone.this,
+//                            LoginActivity.class);
+//                    startActivity(intent);
+                    //验证成功后开始提交
+                    updataMobileApi(userID,oldphone,phoneNumber,pw);
+
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     Toast.makeText(getApplicationContext(), "验证码已经发送",
                             Toast.LENGTH_SHORT).show();
@@ -85,6 +102,61 @@ public class ChangeNewphone extends AppCompatActivity {
 
     };
 
+    Handler getHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x111) {
+                Toast.makeText(ChangeNewphone.this, "修改成功", Toast.LENGTH_SHORT).show();
+                sharedPreferences=getSharedPreferences("ED", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.remove("userName")
+                        .putString("userName",phoneNumber).commit();
+                finish();
+            }
+            if (msg.what == 0x222) {
+                Toast.makeText(ChangeNewphone.this, "修改失败", Toast.LENGTH_SHORT).show();
+
+            }
+
+        }
+
+    } ;
+
+    private void updataMobileApi(int userID, String oldphone, String phoneNumber, String pw) {
+        Log.i("qsd1","绑定新手机"+oldphone+phoneNumber+pw);
+        OkHttpClient okHttpClient=new OkHttpClient();
+        RequestBody requestBody=new FormBody
+                .Builder()
+                .add("userID",userID+"")
+               .add("oldMobile",oldphone)
+                .add("newMobile",phoneNumber)
+                .add("password",pw)
+                .build();
+        Request request=new Request.Builder()
+                .url(UrlString.URL_LOGIN+"updateMobileAPI")
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String s=response.body().string();
+                Log.i("qsd", "是否请求1" + "ChageNewPhone请求数据======="+s);
+                CodeBean codeBean=new Gson().fromJson(s,CodeBean.class);
+                String code = codeBean.getCode();
+                if (code.equals("SUCCESS")){
+                    getHandler.sendEmptyMessage(0x111);
+                }else{
+                    getHandler.sendEmptyMessage(0x222);
+                }
+            }
+        });
+    }
+
     private void initOnClick() {
         final MyCountDownTimer myCountDownTimer = new MyCountDownTimer(60000,1000);
         button.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +165,10 @@ public class ChangeNewphone extends AppCompatActivity {
                  phoneNumber = phone.getText().toString().trim();
                 if (TextUtils.isEmpty(phoneNumber)) {
                     Toast.makeText(ChangeNewphone.this, "手机不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (phoneNumber.equals(oldphone)) {
+                    Toast.makeText(ChangeNewphone.this, "请跟换新手机", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!Utils.isnumber(phoneNumber)){
@@ -116,11 +192,21 @@ public class ChangeNewphone extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                  c=code.getText().toString();
+               pw=pass.getText().toString();
+                if (TextUtils.isEmpty(c)) {
+                    Toast.makeText(ChangeNewphone.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (TextUtils.isEmpty(pw)) {
+                    Toast.makeText(ChangeNewphone.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 SMSSDK.submitVerificationCode("86", phoneNumber,c);
-                Toast.makeText(ChangeNewphone.this, "提交", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
+
     public String getDynamicPassword(String str) {
         // 6是验证码的位数一般为六位
         Pattern continuousNumberPattern = Pattern.compile("(?<![0-9])([0-9]{"
@@ -134,6 +220,7 @@ public class ChangeNewphone extends AppCompatActivity {
 
         return dynamicPassword;
     }
+
     private class MyCountDownTimer extends CountDownTimer {
 
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
@@ -148,7 +235,6 @@ public class ChangeNewphone extends AppCompatActivity {
             button.setText(l/1000+"s");
 
         }
-
         //计时完毕的方法
         @Override
         public void onFinish() {

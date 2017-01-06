@@ -41,18 +41,20 @@ public class PhotoChange extends AppCompatActivity {
     // 裁剪后图片的宽(X)和高(Y),480 X 480的正方形。
     private static int output_X = 2;
     private static int output_Y = 2;
-    private String pic_path;
+    private String pic_path,extr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //获取头像
         PermisionUtils.verifyStoragePermissions(this);
+         extr = Environment.getExternalStorageDirectory().toString();
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
+        Log.i("qsd","pic_path1"+pic_path);
         if (pic_path!=null){
-            Log.i("qsd","pic_path"+pic_path);
-            Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
-            headImage.setImageBitmap(getphoto);
+            Log.i("qsd","pic_path2"+pic_path);
+            Bitmap getphoto = TouXiangCache.getphoto( pic_path);
+            //headImage.setImageBitmap(getphoto);
         }
         setContentView(R.layout.activity_photo_change);
         initView();
@@ -106,16 +108,14 @@ public class PhotoChange extends AppCompatActivity {
         }
         switch (requestCode){
             case CODE_GALLERY_REQUEST:
-                Toast.makeText(this, "正在跳转相册", Toast.LENGTH_SHORT).show();
                 cropRawPhoto(intent.getData());
                 break;
             case CODE_CAMERA_REQUEST:
                 if (hasSDcard()){
                     Toast.makeText(this, "正在调用相机", Toast.LENGTH_SHORT).show();
-                    File tempFile = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
+                    File tempFile = new File( extr+"/storage/sdcard0/", IMAGE_FILE_NAME);
                     cropRawPhoto(Uri.fromFile(tempFile));
-                    //Bitmap data = intent.getParcelableExtra("data");
-                    //startActivityForResult(intent, CODE_RESULT_REQUEST);
+
                 }else{
                     Toast.makeText(this, "没有SD卡", Toast.LENGTH_SHORT).show();
                 }
@@ -166,19 +166,20 @@ public class PhotoChange extends AppCompatActivity {
         if (bundle!=null){
             final Bitmap photo=bundle.getParcelable("data");
             headImage.setImageBitmap(photo);
-//            bp=photo;
-//            pic_path=IMAGE_FILE_NAME;
+            bp=photo;
+            pic_path=IMAGE_FILE_NAME;
 //            //把图片保存到sd卡中
-//            PermisionUtils.verifyStoragePermissions(this);
-//            TouXiangCache.saveMyBitmap(bp,pic_path);
-//            Log.i("qsd","保存成功1");
-//            String touxiang = SearchDB.TouXiangDb(this, pic_path);
-//            if (touxiang==null){
-//                Log.i("qsd","保存成功2");
-//                SharedPreferences sharedPreferences=this.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor edit = sharedPreferences.edit();
-//                edit.putString("pic_path",pic_path).commit();
-//            }
+            PermisionUtils.verifyStoragePermissions(this);
+            String touxiang = SearchDB.TouXiangDb(this, pic_path);//
+            if (touxiang==null){
+                SharedPreferences sharedPreferences=this.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = sharedPreferences.edit();
+                edit.putString("pic_path",pic_path).commit();
+            }
+            Log.i("qsd","bitMappath-----"+pic_path);
+
+            TouXiangCache.saveMyBitmap(bp,pic_path);
+            Log.i("qsd","保存成功1");
 
 
 

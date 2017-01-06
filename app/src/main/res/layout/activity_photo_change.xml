@@ -30,8 +30,8 @@
         android:id="@+id/userimage"
         android:src="@mipmap/user_default_image"
         android:layout_marginTop="20dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         />
     <Button

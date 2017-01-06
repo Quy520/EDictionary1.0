@@ -62,6 +62,7 @@ public class oneWordFragment extends Fragment {
     private int coursePrice=0;
    private int payStudyBean1=0;
     private String type="words";
+
     private List<GetWordsBean.DataBean> data;
     Handler handler=new Handler() {
         @Override
@@ -90,13 +91,7 @@ public class oneWordFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (getArguments()!=null){
-            if (getArguments().getString("KEY")!= null && getArguments().getString("KEY").length() != 0){
-                classifyID = getArguments().getString("KEY");
-                Log.i("qsd",classifyID+"传递过来的类型id");
-                Log.i("qsd",classifyID.length()+"传递过来的类型id");
-            }
-        }
+
     }
 
     @Override
@@ -104,14 +99,14 @@ public class oneWordFragment extends Fragment {
         super.onCreate(saveInstanceState);
         activity=getActivity();
     }
-    private void initData(int userID, String classifyID) {
 
+    private void initData(int userID, String classifyID) {
         OkHttpClient okHttpClient=new OkHttpClient();
-        Log.i("qsd",userID+"单词传递过来的类型id"+classifyID);
+        Log.i("qsd",userID+"onword单词传递过来的类型id"+classifyID);
         RequestBody requestBody=new FormBody
                 .Builder()
                 .add("userID",userID+"")
-                .add("classifyID",5+"")
+                .add("classifyID",classifyID)
                 .build();
 
         Request request=new Request.Builder()
@@ -132,11 +127,18 @@ public class oneWordFragment extends Fragment {
                 Log.i("qsd2",data.size()+"记单词单词详细数据");
                 for (int i=0;i<data.size();i++){
                     for (int j=0;j<data.get(i).getWordData().size();j++) {
-                        coursePrice = data.get(i).getWordData().get(i).getWordPrice();
+                        //Log.i("qsd","查看金钱的大小"+data.size()+"里面"+data.get(i).getWordData().size());
+                        coursePrice = data.get(i).getWordData().get(j).getWordPrice();
+                        Log.i("qsd","查看金钱的大小"+coursePrice);
                         payStudyBean1 = coursePrice+payStudyBean1;
+                        Log.i("qsd","查看金钱的大小2"+payStudyBean1);
+
                     }
-                    payStudyBean=payStudyBean1+payStudyBean;
+
+                    Log.i("qsd","查看金钱的大小3"+payStudyBean);
                 }
+                payStudyBean=payStudyBean1+payStudyBean;
+
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -166,9 +168,17 @@ public class oneWordFragment extends Fragment {
     public void onViewCreated(View  view , @Nullable Bundle saveInstanceState){
         super.onViewCreated(view,saveInstanceState);
         initView(view);
+        if (getArguments()!=null){
+           // if (getArguments().getString("KEY")!= null && getArguments().getString("KEY").length() != 0){
+                classifyID = getArguments().getString("KEY");
+                Log.i("qsd",classifyID+"onword传递过来的类型id");
+
+          //  }
+        }
+        initData(userID,classifyID);
 
         onClick();
-        initData(userID,classifyID);
+
 
 
     }
@@ -204,9 +214,9 @@ public class oneWordFragment extends Fragment {
         RequestBody requestBody = new FormBody
                 .Builder()
                 .add("userID", userID + "")
-                .add("payStudyBean", 80 + "")
+                .add("payStudyBean", payStudyBean + "")
                 .add("type", type)
-                .add("classifyID",5+"")
+                .add("classifyID",classifyID)
                 .build();
         Request request = new Request.Builder()
                 .url(UrlString.URL_LOGIN + "subAllAPI")
@@ -216,7 +226,6 @@ public class oneWordFragment extends Fragment {
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
             }
 
             @Override
@@ -231,8 +240,6 @@ public class oneWordFragment extends Fragment {
                 }else{
                     handler.sendEmptyMessage(0x222);
                 }
-
-
             }
 
         });

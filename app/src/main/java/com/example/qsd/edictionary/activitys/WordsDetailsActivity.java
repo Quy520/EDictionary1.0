@@ -28,20 +28,26 @@ public class WordsDetailsActivity extends AppCompatActivity {
     View view;
     private ViewPager viewPager;
     private TabLayout tab;
-
+    private  words_VedioFragment fragment;
+    private oneWordFragment oneWordFragment;
+    private String stringValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words_details);
         Intent intent=getIntent();
-        String stringValue=intent.getStringExtra("buttonKey");
-        words_VedioFragment fragment= words_VedioFragment.newInstance(stringValue);//传递数据
-        oneWordFragment wordFragment =oneWordFragment.newInstance(stringValue);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.wordsdetails_pager,fragment)
-                .add(R.id.wordsdetails_pager,wordFragment)
-                .commit();
+         stringValue=intent.getStringExtra("buttonKey");
+       // words_VedioFragment words_vedioFragment=new words_VedioFragment(stringValue);
+        fragment= words_VedioFragment.newInstance(stringValue);//传递数据
+        oneWordFragment =oneWordFragment.newInstance(stringValue);
+//        if(!fragment.isAdded()&&!oneWordFragment.isAdded()){
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.wordsdetails_pager,fragment)
+//                .add(R.id.wordsdetails_pager,oneWordFragment)
+//                .commit();
+//        }
+
         Toast.makeText(this, stringValue, Toast.LENGTH_SHORT).show();
         initView();
     }
@@ -51,8 +57,8 @@ public class WordsDetailsActivity extends AppCompatActivity {
         mtab=new ArrayList<>();
         viewPager= (ViewPager)findViewById(R.id.wordsdetails_pager);
         tab= (TabLayout)findViewById(R.id.tab);
-        list.add(new words_VedioFragment());
-        list.add(new oneWordFragment());
+        list.add(fragment);
+        list.add(oneWordFragment);
         viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
