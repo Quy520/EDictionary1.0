@@ -236,7 +236,18 @@ public class words_VedioFragment extends Fragment {
             @Override
             public void onItemClick(View v, String tag) {
                 Toast.makeText(activity, "您点击了视屏"+tag, Toast.LENGTH_SHORT).show();
+                int id=Integer.parseInt(tag);
+                String videoImageUrl = data.get(id).getVideoImageUrl();
+                String videoUrl = data.get(id).getVideoUrl();
+                int productType = data.get(id).getProductType();
+                int videoPrice = data.get(id).getVideoPrice();
+                int videoID = data.get(id).getVideoID();
                 Intent intent=new Intent(activity, CourseVedioActivity.class);
+                intent.putExtra("videoImageUrl",videoImageUrl);
+                intent.putExtra("videoUrl",videoUrl);
+                intent.putExtra("productType",productType);
+                intent.putExtra("videoPrice",videoPrice);
+                intent.putExtra("videoID",videoID);
                 activity.startActivity(intent);
             }
         });

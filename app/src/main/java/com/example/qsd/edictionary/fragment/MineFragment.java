@@ -39,11 +39,11 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         View view;
         LinearLayout linearLayout;
         RelativeLayout name,study,game,code,notice,about,fankui,setting;
-
         private ImageView imageView;
         private TextView studycode,costcode,study_code;
         private Context context;
         private int studyBean,costStudyBean;
+    private SharedPreferences preferences;
     private String s;
         private static final String IMAGE_FILE_NAME = "head_image.jpg";
 
@@ -53,7 +53,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     @Override
     public void  onCreate(@Nullable Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
-
+        context=getActivity();
 
 
     }
@@ -72,7 +72,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         }
         return null;
     }
-
         private View inFlater(LayoutInflater inflater) {
             view=inflater.inflate(R.layout.fragment_mine,null,false);
             initView(view);
@@ -83,7 +82,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
                 imageView.setImageBitmap(getphoto);
             }
-
             return view;
         }
 
@@ -93,24 +91,17 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
 
 }
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-            studyBean = preferences.getInt("studyBean", 0);
-            costStudyBean = preferences.getInt("costStudyBean", 0);
-            s=preferences.getString("studyCode","qsd");
-            Log.i("qsd",costStudyBean+"costStudyBean");
-            Log.i("qsd",studyBean+"studyBean");
-            costcode.setText(costStudyBean+"");
-            studycode.setText(studyBean+"");
-        } else {
-            //相当于Fragment的onPause
-        }
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if (isVisibleToUser) {
+//
+//        }else{
+//
+//        }
+//    }
     private void initView(View view) {
-            context=getActivity();
+
             linearLayout= (LinearLayout) view.findViewById(R.id.mine_fragemnt);
             name= (RelativeLayout) view.findViewById(R.id.mine_user);
             study= (RelativeLayout) view.findViewById(R.id.mine_study);
@@ -124,9 +115,15 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             studycode= (TextView) view.findViewById(R.id.my_syudycode);
             costcode= (TextView) view.findViewById(R.id.my_costcode);
             study_code= (TextView) view.findViewById(R.id.mine_studycode);
-
+        SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+        studyBean = preferences.getInt("studyBean", 0);
+        costStudyBean = preferences.getInt("costStudyBean", 0);
+        Log.i("qsd",costStudyBean+"costStudyBean");
+        Log.i("qsd",studyBean+"studyBean");
+        costcode.setText(costStudyBean+"");
+        studycode.setText(studyBean+"");
             //获取保存的数值
-
+        s=preferences.getString("studyCode","qsd");
             study_code.setText(s);
             initOnClick();
 

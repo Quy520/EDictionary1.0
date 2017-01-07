@@ -27,6 +27,7 @@
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,32 +49,7 @@
                 android:layout_alignLeft="@+id/video"
                 android:layout_alignStart="@+id/video" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/biz_video_list_play_icon_big"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/vedio_play" />
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/word_money"
-                android:textColor="#A2CD5A"
-                android:text="需要花费200个学习豆"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/vedio_play"
-                android:layout_centerHorizontal="true"
-                />
-            <TextView
-                android:textColor="#A2CD5A"
-                android:text="我想看"
-                android:visibility="gone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/word_money"
-                android:layout_centerHorizontal="true"
-                 />
+
             <com.example.qsd.edictionary.videoview.VideoSuperPlayer
                 android:id="@+id/video"
                 android:visibility="gone"
@@ -83,6 +59,34 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true">
             </com.example.qsd.edictionary.videoview.VideoSuperPlayer>
+            <TextView
+                android:textColor="#A2CD5A"
+                android:text="我想看"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/video_icon"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="3dp"
+                android:id="@+id/textView3" />
+            <TextView
+                android:id="@+id/worddetail_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#A2CD5A"
+                android:text="需花费200学习豆"
+                android:layout_above="@+id/textView3"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/biz_video_list_play_icon_big"
+                android:id="@+id/vedio_play"
+                android:enabled="false"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
 

@@ -87,7 +87,7 @@ public class MemoryAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder
                 secondViewHolder.textView1.setText(dataBean.getCourseName());
                 secondViewHolder.textView2.setText(dataBean.getCourseInstructions());
                 secondViewHolder.button.setText(dataBean.getCoursePrice()+"学习豆");
-                secondViewHolder.itemView.setTag(dataBean.getCourseID()+"");//这是标识视屏id
+                secondViewHolder.itemView.setTag(position+"");//这是标识视屏id
                 Picasso.with(mcontext)
                         .load(dataBean.getCourseImageUrl())
                         .placeholder(R.mipmap.defule)
@@ -101,8 +101,6 @@ public class MemoryAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder
                         }
                     }
                 });
-
-
                 break;
             default:
                 break;

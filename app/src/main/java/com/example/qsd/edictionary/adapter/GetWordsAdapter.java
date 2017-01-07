@@ -1,5 +1,6 @@
 package com.example.qsd.edictionary.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +30,8 @@ public class GetWordsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
    private List<GetWordsBean.DataBean.WordDataBean> wordData;
     private String detail;
     private ListAdapter listAdapter;
+    private int heigh;
+
     public GetWordsAdapter(Context context,List<GetWordsBean.DataBean> data){
         this.context=context;
         this.data=data;
@@ -48,7 +52,12 @@ public class GetWordsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         for (int i=0;i<wordData.size();i++){
             detail=wordData.get(i).getWordDetail();
         }
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+       heigh= wm.getDefaultDisplay().getHeight();
         listAdapter=new ListAdapter(context,wordData);
+        ViewGroup.LayoutParams layoutParams=fholder.listView.getLayoutParams();
+        layoutParams.height=wordData.size()*heigh/12;
+        fholder.listView.setLayoutParams(layoutParams);
         fholder.listView.setAdapter(listAdapter);
         listAdapter.setOnItemClickListener(new ListAdapter.onListViewItemClickListener() {
             @Override

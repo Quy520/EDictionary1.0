@@ -48,7 +48,7 @@ public class CourseVedioAdapter extends RecyclerView.Adapter <RecyclerView.ViewH
         fholder.time.setText("时长"+vedioBeanData.get(position).getVideoTime()+"共"+vedioBeanData.get(position).getVideoWordNum()+"个单词");
         fholder.title.setText(vedioBeanData.get(position).getVideoName());
         Log.i("qsd",vedioBeanData.get(position).getVideoPrice()+"单词视屏价格获取123");
-        fholder.relativeLayout.setTag(vedioBeanData.get(position).getVideoID()+"");//以视屏id作为标记
+        fholder.relativeLayout.setTag(position+"");//以视屏id作为标记
         Picasso.with(context)
                 .load(vedioBeanData.get(position).getVideoImageUrl())
                 .placeholder(R.mipmap.defule)

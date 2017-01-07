@@ -2,6 +2,7 @@ package com.example.qsd.edictionary.fragment;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ import com.example.qsd.edictionary.bean.MemoryDownBean;
 import com.example.qsd.edictionary.bean.MemoryUpBean;
 import com.example.qsd.edictionary.costomProgressDialog.CustomProgressDialog;
 import com.example.qsd.edictionary.urlAPI.UrlString;
+import com.example.qsd.edictionary.utils.SearchDB;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -70,6 +72,7 @@ public class MemoryFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private CustomProgressDialog customProgressDialog;
     private SharedPreferences sharedPreferences;
+    private int studyBean,cost;
 
     Handler handler=new Handler() {
         @Override
@@ -77,6 +80,17 @@ public class MemoryFragment extends Fragment {
             // TODO Auto-generated method stub
             if (msg.what == 0x111) {
                 Toast.makeText(activity, "购买成功", Toast.LENGTH_SHORT).show();
+                refreshLayout.setRefreshing(true);
+                studyBean= SearchDB.StudyBeanDb(activity,"studyBean");
+                cost=SearchDB.CostDb(activity,"costStudyBean");
+                studyBean=studyBean-payStudyBean;
+                cost=cost+payStudyBean;//支付成功后的学习豆和消费学豆
+                sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor userinfo = sharedPreferences.edit();
+                userinfo.putInt("studyBean",studyBean)//学习豆
+                        .putInt("costStudyBean",cost)
+                        .commit();
+
 
                 return;
             }
@@ -103,6 +117,7 @@ public class MemoryFragment extends Fragment {
     public void onCreate(@NonNull Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         activity=getActivity();
+
         customProgressDialog=new CustomProgressDialog(activity,"数据加载中....请稍后",R.drawable.donghua_frame);
 
     }
@@ -110,6 +125,7 @@ public class MemoryFragment extends Fragment {
     private void initData() {
         //memoryAdapter=new MemoryAdapter(activity,DownBeanData,Updata);
         //先获取记忆法课程
+        payStudyBean=0;
         OkHttpClient okHttpClient=new OkHttpClient();
         RequestBody requestBody=new FormBody
                 .Builder()
@@ -129,10 +145,9 @@ public class MemoryFragment extends Fragment {
                 String string=response.body().string();
                 MemoryDownBean DownBean=new Gson().fromJson(string,MemoryDownBean.class);//轮播图片
                  DownBeanData = DownBean.getData();
-                Log.i("qsd1","bannerAPI"+DownBeanData.get(1).getCourseImageUrl());
+                Log.i("qsd1","MemoryFrgament"+string);
                 for (int i=0;i<DownBeanData.size();i++){
                     int coursePrice = DownBeanData.get(i).getCoursePrice();
-
                     payStudyBean=coursePrice+payStudyBean;
                 }
                 handler.post(new Runnable() {
@@ -309,8 +324,17 @@ public class MemoryFragment extends Fragment {
                 Toast.makeText(activity, "您点击了"+data, Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(getContext(), VedioPlayActivity.class);
                 int i = Integer.parseInt(data);
-                 Title = DownBeanData.get(i).getCourseName();
+                 Title = DownBeanData.get(i-1).getCourseName();
+                int type=DownBeanData.get(i-1).getCoursePayStatus();//是否购买
+                int price=DownBeanData.get(i-1).getCoursePrice();//购买的价格
+                String  VedioImageurl=DownBeanData.get(i-1).getCourseImageUrl();//视屏图片
+                String  Vediogeurl=DownBeanData.get(i-1).getCourseVideo();//视屏的url
                 intent.putExtra("courseTitle",Title);
+                intent.putExtra("courseID",i);
+                intent.putExtra("coursePayStatus",type);
+                intent.putExtra("coursePrice",price);
+                intent.putExtra("courseImageUrl",VedioImageurl);
+                intent.putExtra("courseVideo",Vediogeurl);
                 startActivity(intent);
             }
         });

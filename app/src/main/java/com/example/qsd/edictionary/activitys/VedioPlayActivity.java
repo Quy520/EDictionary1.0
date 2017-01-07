@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -22,11 +25,15 @@ import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
 
+import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.fragment.DetialsCourse;
 import com.example.qsd.edictionary.fragment.DetialsFragment;
 import com.example.qsd.edictionary.fragment.VideoFragment;
+import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
+import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
+import com.squareup.picasso.Request;
 import com.umeng.qq.handler.UmengQZoneHandler;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -36,8 +43,16 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMVideo;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.umeng.socialize.utils.ContextUtil.getContext;
 import static com.umeng.socialize.utils.DeviceConfig.context;
@@ -53,14 +68,42 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     private Context context;
     View view;
     PopupWindow pop;
-    private TextView hide,title_tv;
+    private TextView hide,title_tv,price_tv,Gobuy;
     private ImageView imageView,share_weixin,share_QQ,share_weibo,share_friend,share_kongjian;
     private String mp4url="http://flv2.bn.netease.com/videolib3/1612/01/jEyBQ0772/SD/jEyBQ0772-mobile.mp4";
     private String mp4_icom="http://vimg2.ws.126.net/image/snapshot/2016/12/2/5/VC6900J25.jpg";
-    private String Title;
+    private String Title,VedioImageUrl,VedioUrl;
+    private int type,price,courseID;
+    private int UserID=2;
+    private String typecourse="memory";
     private ImageView icon,play;
     private boolean isplaying;
     private VideoSuperPlayer videoSuperPlayer;
+
+    Handler handler1=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x111) {
+                Toast.makeText(context, "订阅成功", Toast.LENGTH_SHORT).show();
+                play.setClickable(true);
+                price_tv.setVisibility(view.GONE);
+                Gobuy.setVisibility(view.GONE);
+                play.setVisibility(View.VISIBLE);
+                return;
+            }
+            if (msg.what == 0x222) {
+                Toast.makeText(context, "订阅失败，余额不足", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x333) {
+                Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+        }
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +140,53 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
 //        share_friend.setOnClickListener(this);
 //        share_kongjian.setOnClickListener(this);
 
+        //购买监听
+        Gobuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subAPI(UserID,courseID,typecourse,price);
+            }
+        });
+
     }
+
+    private void subAPI(int userID, int courseID, String typecourse, int price) {
+        OkHttpClient okHttpClient=new OkHttpClient();
+        RequestBody requestBody=new FormBody
+                .Builder()
+                .add("userID",userID+"")
+                .add("productID",courseID+"")
+                .add("type",typecourse)
+                .add("money",price+"")
+                .build();
+        okhttp3.Request request=new okhttp3.Request.Builder()
+                .url(UrlString.URL_LOGIN+"subAPI")
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string=response.body().string();
+                Log.i("qsd","VediePalyActity"+string);
+                CodeBean codeBean=new Gson().fromJson(string,CodeBean.class);
+                String code = codeBean.getCode();
+                Log.i("qsd",code+"RegisterActivity");
+                if (code.equals("SUCCESS")){
+                    handler1.sendEmptyMessage(0x111);//发送消息
+                } else if (code.equals("NOTSUFFICIENTFUNDS")){
+                    handler1.sendEmptyMessage(0x222);//发送消息
+                }else{
+                    handler1.sendEmptyMessage(0x333);//发送消息
+                }
+            }
+        });
+
+    }
+
     class MyOnClick implements View.OnClickListener {
         String mp4url;
         VideoSuperPlayer player;
@@ -206,8 +295,7 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         mtab=new ArrayList<>();
         videoSuperPlayer= (VideoSuperPlayer)findViewById(R.id.video);
         icon= (ImageView)findViewById(R.id.video_icon);
-        play= (ImageView)findViewById(R.id.vedio_play);
-
+        play= (ImageView) findViewById(R.id.vedio_play);
         //LayoutInflater inflater = LayoutInflater.from(this);
         // 引入窗口配置文件 - 即弹窗的界面
 //        view = inflater.inflate(R.layout.menu_share, null);
@@ -220,9 +308,31 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         viewPager= (ViewPager) findViewById(R.id.vp_vedioplay);
         tabLayout= (TabLayout) findViewById(R.id.vedioplay);
         title_tv= (TextView) findViewById(R.id.txt_title);
+        price_tv= (TextView) findViewById(R.id.memory_price);
+        Gobuy= (TextView) findViewById(R.id.textView3);
         Intent intent=getIntent();
         Title = intent.getStringExtra("courseTitle");
+        VedioImageUrl=intent.getStringExtra("courseImageUrl");
+        VedioUrl=intent.getStringExtra("courseVideo");
+        courseID=intent.getIntExtra("courseID",0);
+        type=intent.getIntExtra("coursePayStatus",0);
+        price=intent.getIntExtra("coursePrice",0);
         title_tv.setText(Title);
+        Log.i("qsd","查看记忆法传递过来的数值"+type+"--"+courseID+"--"+price+"");
+        if (type==1){
+            play.setVisibility(View.VISIBLE);
+            price_tv.setVisibility(View.GONE);
+            Gobuy.setVisibility(View.GONE);
+            mp4url=VedioUrl;
+            mp4_icom=VedioImageUrl;
+        }else{
+            play.setClickable(false);
+            play.setVisibility(View.GONE);
+            mp4url=VedioUrl;
+            mp4_icom=VedioImageUrl;
+            price_tv.setText("需花费"+price+"学豆");
+
+        }
         list.add(new DetialsFragment());
         list.add(new DetialsCourse());
         Log.i("qsd","VedioActivity"+list.size()+"");
@@ -249,7 +359,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /** attention to this below ,must add this**/
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         Log.d("result","onActivityResult");
     }

@@ -7,7 +7,7 @@
     <com.gc.flashview.FlashView
         android:id="@+id/flashview_memory"
         android:layout_width="match_parent"
-        android:layout_height="120dp">
+        android:layout_height="160dp">
 
     </com.gc.flashview.FlashView>
 

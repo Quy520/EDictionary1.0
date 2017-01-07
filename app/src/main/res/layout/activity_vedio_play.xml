@@ -29,7 +29,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -37,7 +36,6 @@
             android:visibility="visible"
             android:layout_height="wrap_content"
             android:minHeight="180dp">
-
             <ImageView
                 android:id="@+id/video_icon"
                 android:scaleType="fitXY"
@@ -47,44 +45,44 @@
                 android:layout_centerVertical="true"
                 android:layout_alignLeft="@+id/video"
                 android:layout_alignStart="@+id/video" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/biz_video_list_play_icon_big"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/vedio_play" />
-
             <com.example.qsd.edictionary.videoview.VideoSuperPlayer
                 android:id="@+id/video"
                 android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_centerHorizontal="true" >
-                <TextView
-                    android:visibility="gone"
-                    android:textColor="#A2CD5A"
-                    android:text="需要花费200个学习豆"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true" />
             </com.example.qsd.edictionary.videoview.VideoSuperPlayer>
 
             <TextView
                 android:textColor="#A2CD5A"
                 android:text="我想看"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/video_icon"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="3dp" />
+                android:layout_marginBottom="3dp"
+                android:id="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/memory_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#A2CD5A"
+                android:text="需花费200学习豆"
+                android:layout_above="@+id/textView3"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/biz_video_list_play_icon_big"
+                android:id="@+id/vedio_play"
+                android:enabled="false"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
-
-
 
     </RelativeLayout>
     <LinearLayout

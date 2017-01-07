@@ -5,9 +5,23 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 
 /**
- * Created by Administrator on 2015/11/16.
+ * 获取保存的数据
  */
 public class SearchDB {
+    public static int StudyBeanDb(Context context, String user_Name) {
+
+        SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+        int studyBean = preferences.getInt("studyBean", 0);
+        return studyBean;
+
+    }
+    public static int CostDb(Context context, String user_Name) {
+
+        SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+        int costStudyBean = preferences.getInt("costStudyBean", 0);
+        return costStudyBean;
+
+    }
 
     public static String createDb(Context context, String user_Name) {
 
