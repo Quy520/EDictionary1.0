@@ -160,4 +160,9 @@ public class WelcomeActivity extends AppCompatActivity {
         viewPager= (ViewPager) findViewById(R.id.view_welcome);
     }
 
+    @Override
+    protected void onStop(){
+        finish();
+    }
+
 }

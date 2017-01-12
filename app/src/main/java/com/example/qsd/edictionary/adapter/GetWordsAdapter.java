@@ -45,13 +45,10 @@ public class GetWordsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         FirstViewHolder fholder= (FirstViewHolder) holder;
         fholder.title.setText(data.get(position).getTitle());
         wordData = data.get(position).getWordData();
-        for (int i=0;i<wordData.size();i++){
-            detail=wordData.get(i).getWordDetail();
-        }
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
        heigh= wm.getDefaultDisplay().getHeight();
         listAdapter=new ListAdapter(context,wordData);
@@ -62,9 +59,18 @@ public class GetWordsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         listAdapter.setOnItemClickListener(new ListAdapter.onListViewItemClickListener() {
             @Override
             public void onItemClick(View v, String tag) {
-                Log.i("qsd","listView单词的传值"+detail);
+                int id=Integer.parseInt(tag);
                 Intent intent=new Intent(context, WordsVedioPlayActivity.class);
-                intent.putExtra("DETAILS",detail);
+                int payType = data.get(position).getWordData().get(id).getPayType();
+                String wordDetail = data.get(position).getWordData().get(id).getWordDetail();
+                int wordPrice = data.get(position).getWordData().get(id).getWordPrice();
+                int wordID = data.get(position).getWordData().get(id).getWordID();
+                String wordVideoUrl = data.get(position).getWordData().get(id).getWordVideoUrl();
+                intent.putExtra("payType",payType);
+                intent.putExtra("wordDetail",wordDetail);
+                intent.putExtra("wordPrice",wordPrice);
+                intent.putExtra("wordID",wordID);
+                intent.putExtra("wordVideoUrl",wordVideoUrl);
                 context.startActivity(intent);
                 Toast.makeText(context, "您点击了"+tag, Toast.LENGTH_SHORT).show();
             }

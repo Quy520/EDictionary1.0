@@ -29,13 +29,10 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             Date timeDate=new Date(date);
             SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time=simpleDateFormat.format(timeDate);
-
             System.out.println("短信来自:"+sender);
             System.out.println("短信内容:"+content);
             System.out.println("短信时间:"+time);
-
             mMessageListener.OnReceived(content);
-
             //如果短信来自5556,不再往下传递,一般此号码可以作为短信平台的号码。
             if("5556".equals(sender)){
                 System.out.println(" abort ");

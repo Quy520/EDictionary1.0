@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import com.example.qsd.edictionary.bean.MemoryUpBean;
 import com.example.qsd.edictionary.costomProgressDialog.CustomProgressDialog;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.SearchDB;
+import com.example.qsd.edictionary.utils.SharedpreferencesUtils;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -60,6 +62,7 @@ public class MemoryFragment extends Fragment {
     private Activity activity;
     private RecyclerView recyclerView;
     private  LinearLayoutManager linearLayoutManager;
+    private RelativeLayout relativeLayout;
     private MemoryAdapter memoryAdapter;
     private Button button;
     private List<MemoryDownBean.DataBean> DownBeanData;
@@ -80,17 +83,15 @@ public class MemoryFragment extends Fragment {
             // TODO Auto-generated method stub
             if (msg.what == 0x111) {
                 Toast.makeText(activity, "购买成功", Toast.LENGTH_SHORT).show();
-                refreshLayout.setRefreshing(true);
+                clearData();
+                customProgressDialog.show();
+                initData();
                 studyBean= SearchDB.StudyBeanDb(activity,"studyBean");
                 cost=SearchDB.CostDb(activity,"costStudyBean");
                 studyBean=studyBean-payStudyBean;
                 cost=cost+payStudyBean;//支付成功后的学习豆和消费学豆
-                sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-                SharedPreferences.Editor userinfo = sharedPreferences.edit();
-                userinfo.putInt("studyBean",studyBean)//学习豆
-                        .putInt("costStudyBean",cost)
-                        .commit();
-
+                SharedpreferencesUtils.SaveStudyCode(activity,studyBean,cost);
+                relativeLayout.setVisibility(View.GONE);
 
                 return;
             }
@@ -146,14 +147,21 @@ public class MemoryFragment extends Fragment {
                 MemoryDownBean DownBean=new Gson().fromJson(string,MemoryDownBean.class);//轮播图片
                  DownBeanData = DownBean.getData();
                 Log.i("qsd1","MemoryFrgament"+string);
+
                 for (int i=0;i<DownBeanData.size();i++){
-                    int coursePrice = DownBeanData.get(i).getCoursePrice();
-                    payStudyBean=coursePrice+payStudyBean;
+                    if (DownBeanData.get(i).getCoursePayStatus()==0) {
+                        int coursePrice = DownBeanData.get(i).getCoursePrice();
+                        payStudyBean = coursePrice + payStudyBean;
+                    }
                 }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText("一次性订阅记忆法所有课程仅需"+payStudyBean+"学豆");
+                        if (payStudyBean!=0){
+                            textView.setText("一次性订阅记忆法所有课程仅需"+payStudyBean+"学豆");
+                        }else{
+                            relativeLayout.setVisibility(View.GONE);
+                        }
                     }
                 });
 
@@ -183,8 +191,7 @@ public class MemoryFragment extends Fragment {
                 String string=response.body().string();
                 MemoryUpBean UpBean=new Gson().fromJson(string,MemoryUpBean.class);//轮播图片
                  Updata = UpBean.getData();
-                        Log.i("qsd1","bannerAPI"+Updata.get(1).getLinkUrl());
-                        Log.i("qsd1","主线程更新1 记忆法课程的数据"+DownBeanData.size()+Updata.size());
+               Log.i("qsd1","主线程更新1 记忆法课程的数据"+string);
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -235,6 +242,7 @@ public class MemoryFragment extends Fragment {
         DownBeanData=new ArrayList<>();
         Updata=new ArrayList<>();
         refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.memory_swipe);
+        relativeLayout= (RelativeLayout) view.findViewById(R.id.memore_sub);
         memoryAdapter=new MemoryAdapter(activity,DownBeanData,Updata);
         recyclerView= (RecyclerView) view.findViewById(R.id.memory_recy);
         button= (Button) view.findViewById(R.id.memory_subbAllButton);

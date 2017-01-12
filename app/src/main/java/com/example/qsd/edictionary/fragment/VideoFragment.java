@@ -58,7 +58,6 @@ import okhttp3.Response;
  */
 public class VideoFragment extends Fragment {
 
-    private View view;
     private SwipeRefreshLayout refreshLayout;
     private Button sub_words,sub_vedio;
     private Context context;
@@ -91,26 +90,30 @@ public class VideoFragment extends Fragment {
         Code= sharedPreferences.getString("SUCCESS", "NOVIDE0");
         Log.i("qsd1",Code+"HANDLER3判断订阅是否成功");
         if (Code.equals("NOVIDEO")){
-            refreshLayout.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
             linearLayout.setVisibility(View.VISIBLE);
             Log.i("qsd1",Code+"HANDLER4判断订阅是失败");
         }else{
+            Log.i("qsd1",Code+"HANDLER4判断订阅是成功");
             initData(userID);
             initView(view);
-        }
 
+        }
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                clearData();
-                initData(userID);
-                customProgressDialog.show();
+                if (Code.equals("NOVIDEO")){
+                    return;
+                }else{
+                    clearData();
+                    initData(userID);
+                    customProgressDialog.show();
+                }
+
             }
         });
 
-
     }
-
     private void clearData() {
         data.clear();
     }
@@ -139,7 +142,7 @@ public class VideoFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
-                Log.i("qsd1",s+"一订阅视屏页面1");
+                Log.i("qsd1","一订阅视屏页面1"+s);
                 vedioBean =new Gson().fromJson(s,CourseVedioBean.class);
                  data = vedioBean.getData();
                 activity.runOnUiThread(new Runnable() {
@@ -197,9 +200,4 @@ public class VideoFragment extends Fragment {
 
     }
 
-    @Override
-    public void onDestroy(){
-        APP.setMediaPlayerNull();
-        super.onDestroy();
-    }
 }

@@ -26,6 +26,7 @@
             android:id="@+id/rb_memory"
             android:layout_width="0dp"
             android:button="@null"
+            android:paddingTop="10dp"
             android:drawableTop="@mipmap/memory"
             android:text="记忆法"
             android:gravity="center"
@@ -34,8 +35,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent" />
         <RadioButton
+            android:paddingTop="10dp"
             android:background="@drawable/content_redian_selector"
-
             android:drawableTop="@mipmap/words"
             android:id="@+id/rb_words"
             android:layout_width="0dp"
@@ -47,6 +48,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent" />
         <RadioButton
+            android:paddingTop="10dp"
             android:background="@drawable/content_redian_selector"
             android:drawableTop="@mipmap/sub2"
             android:id="@+id/rb_subscribe"
@@ -60,7 +62,7 @@
             android:layout_height="match_parent" />
         <RadioButton
             android:background="@drawable/content_redian_selector"
-
+            android:paddingTop="10dp"
             android:drawableTop="@mipmap/my"
             android:id="@+id/rb_mine"
             android:layout_width="0dp"

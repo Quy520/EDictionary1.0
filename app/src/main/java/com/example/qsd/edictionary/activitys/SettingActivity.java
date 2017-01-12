@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +26,7 @@ import com.example.qsd.edictionary.bean.LoginBean;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.APPManager;
 import com.example.qsd.edictionary.utils.NightModeUtils;
+import com.example.qsd.edictionary.utils.SearchDB;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -47,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
     private Button Loginout;
     private String id,type;
     private Context context;
-    //ContentResolver resolver=getContentResolver();
+    private SharedPreferences mShared,sharedPreferences ;
     Handler handler=new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -63,6 +65,8 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mShared = getSharedPreferences("ED", Context.MODE_PRIVATE);
+        sharedPreferences=getSharedPreferences("useInfo", Context.MODE_PRIVATE);
         if (APP.appConfig.getNightModeSwitch()) {
             isNight=true;
         } else {
@@ -138,15 +142,17 @@ public class SettingActivity extends AppCompatActivity {
                 CodeBean codeBean=new Gson().fromJson(s,CodeBean.class);
                 String code = codeBean.getCode();
                 Log.i("qsd",code+"SettingActivity");
-                if (code.equals("SUCCESS")){//退出成功
-                    Intent intent=new Intent(SettingActivity.this,LoginActivity.class);
+               // if (code.equals("SUCCESS")){//退出成功
+                SharedPreferences.Editor edit = mShared.edit();
+                edit.clear().commit();
+                SearchDB.clearDb(sharedPreferences);
+
+                Intent intent=new Intent(SettingActivity.this,LoginActivity.class);
                     startActivity(intent);
                     APPManager.finishActivity(MainActivity.class);
                     finish();
-                }else{
-                    handler.sendEmptyMessage(0x111);//发送消息
 
-                }
+
             }
 
         });

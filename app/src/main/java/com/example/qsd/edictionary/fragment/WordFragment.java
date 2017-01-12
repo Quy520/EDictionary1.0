@@ -4,6 +4,7 @@ package com.example.qsd.edictionary.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -25,11 +26,13 @@ import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.activitys.VedioPlayActivity;
 import com.example.qsd.edictionary.activitys.WordsVedioPlayActivity;
 import com.example.qsd.edictionary.adapter.SortGroupMemberAdapter;
+import com.example.qsd.edictionary.bean.GetWordsBean;
 import com.example.qsd.edictionary.sortList.SideBar;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.CharacterParser;
 import com.example.qsd.edictionary.utils.GroupMemberBean;
 import com.example.qsd.edictionary.utils.PinyinComparator;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,6 +61,7 @@ public class WordFragment extends Fragment {
     private SortGroupMemberAdapter adapter;
     private EditText editText;
     private int userID=2;
+    private List<String> wordsdata;
 
     /**
      * 上次第一个可见元素，用于滚动时记录标识。
@@ -77,27 +81,18 @@ public class WordFragment extends Fragment {
     public WordFragment() {
 
     }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
 
-            try{
-                if (view==null){
-                    view=inFlater(inflater);
-                }
-                return view;
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            return null;
+            return inflater.inflate(R.layout.fragment_word2,container,false);
         }
 
-    private View inFlater(LayoutInflater inflater) {
-        view=inflater.inflate(R.layout.fragment_word2,null,false);
+    @Override
+    public void onViewCreated(View  view , @Nullable Bundle saveInstanceState){
+        super.onViewCreated(view,saveInstanceState);
         initView(view);
         initData(userID);
-        return view;
     }
     private void initData(int userID) {
         OkHttpClient okHttpClient=new OkHttpClient();
@@ -117,7 +112,8 @@ public class WordFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String s = response.body().string();
-                Log.i("qsd1",s+"一订阅单词页面1");
+                Log.i("qsd1","一订阅单词页面1"+s+"结束");
+                GetWordsBean getWordsBean=new Gson().fromJson(s,GetWordsBean.class);
 
 
             }
@@ -162,9 +158,14 @@ public class WordFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        wordsdata=new ArrayList<>();
+        wordsdata.add("qsdd");
+        wordsdata.add("qwe");
+        wordsdata.add("juy");
+        SourceDateList= filledData(wordsdata);//实力化数据
 
-        SourceDateList= filledData(getResources().getStringArray(R.array.date));//实力化数据
         Log.i("qsd",getResources().getStringArray(R.array.date)+"1234");
+
         // 根据a-z进行排序源数据
         Collections.sort(SourceDateList, pinyinComparator);
         adapter = new SortGroupMemberAdapter(activity, SourceDateList);
@@ -237,14 +238,14 @@ public class WordFragment extends Fragment {
      * @param date
      * @return
      */
-    private List<GroupMemberBean> filledData(String[] date) {
+    private List<GroupMemberBean> filledData(List <String> date) {
         List<GroupMemberBean> mSortList = new ArrayList<GroupMemberBean>();
 
-        for (int i = 0; i < date.length; i++) {
+        for (int i = 0; i < date.size(); i++) {
             GroupMemberBean sortModel = new GroupMemberBean();
-            sortModel.setName(date[i]);
+            sortModel.setName(date.get(i));
             // 汉字转换成拼音
-            String pinyin = characterParser.getSelling(date[i]);
+            String pinyin = characterParser.getSelling(date.get(i));
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
             // 正则表达式，判断首字母是否是英文字母

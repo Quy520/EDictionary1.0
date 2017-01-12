@@ -35,4 +35,6 @@ public class WelcomeImageActivity extends AppCompatActivity {
         return false;
     }
 
+
+
 }

@@ -3,6 +3,7 @@ package com.example.qsd.edictionary.activitys;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Handler;
@@ -30,6 +31,8 @@ import com.example.qsd.edictionary.fragment.DetialsCourse;
 import com.example.qsd.edictionary.fragment.DetialsFragment;
 import com.example.qsd.edictionary.fragment.VideoFragment;
 import com.example.qsd.edictionary.urlAPI.UrlString;
+import com.example.qsd.edictionary.utils.SearchDB;
+import com.example.qsd.edictionary.utils.SharedpreferencesUtils;
 import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
 import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
@@ -79,7 +82,7 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
     private ImageView icon,play;
     private boolean isplaying;
     private VideoSuperPlayer videoSuperPlayer;
-
+    private int studyBean,cost;
     Handler handler1=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -89,6 +92,11 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
                 price_tv.setVisibility(view.GONE);
                 Gobuy.setVisibility(view.GONE);
                 play.setVisibility(View.VISIBLE);
+                studyBean= SearchDB.StudyBeanDb(getContext(),"studyBean");
+                cost=SearchDB.CostDb(getContext(),"costStudyBean");
+                studyBean=studyBean-price;
+                cost=cost+price;//支付成功后的学习豆和消费学豆
+                SharedpreferencesUtils.SaveStudyCode(context,studyBean,cost);
                 return;
             }
             if (msg.what == 0x222) {
@@ -99,8 +107,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
                 Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-
         }
 
     };
@@ -124,22 +130,8 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
                 @Override
                 public void onClick(View v) {
                     showShare();
-//                    pop = new PopupWindow(view, LinearLayout.LayoutParams.MATCH_PARENT,
-//                            LinearLayout.LayoutParams.WRAP_CONTENT, true);
-//                    pop.showAtLocation(hide, Gravity.BOTTOM,0,0);
-//                    pop.setAnimationStyle(R.style.MenuAnimationFade);
-//                    pop.setFocusable(true);
-//                    pop.setTouchable(true);
-//                    pop.setBackgroundDrawable(new BitmapDrawable());
-
                 }
             });
-//        share_weixin.setOnClickListener(this);
-//        share_QQ.setOnClickListener(this);
-//        share_weibo.setOnClickListener(this);
-//        share_friend.setOnClickListener(this);
-//        share_kongjian.setOnClickListener(this);
-
         //购买监听
         Gobuy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +158,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -194,7 +185,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
             this.mp4url=mp4url;
             this.player=videoSuperPlayer;
         }
-
         @Override
         public void onClick(View v) {
             APP.setMediaPlayerNull();
@@ -206,20 +196,16 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
             player.loadAndPlay(APP.getMediaPlayer(),mp4url,0,false);
             Log.i("qsd","mp4地址"+mp4url);
 
-
-
         }
     }
 
     class MyVideoCallback implements VideoSuperPlayer.VideoPlayCallbackImpl {
         ImageView imageView;
         VideoSuperPlayer superPlayer;
-
         public MyVideoCallback(ImageView player, VideoSuperPlayer videoSuperPlayer) {
             this.imageView=player;
             this.superPlayer=videoSuperPlayer;
         }
-
         @Override
         public void onCloseVideo() {
             isplaying=false;
@@ -227,9 +213,7 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
             APP.setMediaPlayerNull();
             imageView.setVisibility(View.VISIBLE);
             superPlayer.setVisibility(View.GONE);
-
         }
-
         @Override
         public void onSwitchPageType() {
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -238,7 +222,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
                 startActivity(intent);
             }
         }
-
         @Override
         public void onPlayFinish() {
 
@@ -252,7 +235,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         config.setCancelButtonVisibility(true);
         UMVideo video = new UMVideo(mp4url);
         video.setTitle("视屏的标题：第一课时，什么叫记忆法");//视频的标题
-        //video.setThumb("http://www.umeng.com/images/pic/social/chart_1.png");//视频的缩略图
         video.setDescription("这里加载视屏的简介描述与内容");//视频的描述
         ShareAction shareAction = new ShareAction(VedioPlayActivity.this);
         shareAction.withMedia(video).share();
@@ -269,7 +251,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         @Override
         public void onResult(SHARE_MEDIA platform) {
             Log.d("plat","platform"+platform);
-
             Toast.makeText(VedioPlayActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
 
         }
@@ -296,15 +277,6 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
         videoSuperPlayer= (VideoSuperPlayer)findViewById(R.id.video);
         icon= (ImageView)findViewById(R.id.video_icon);
         play= (ImageView) findViewById(R.id.vedio_play);
-        //LayoutInflater inflater = LayoutInflater.from(this);
-        // 引入窗口配置文件 - 即弹窗的界面
-//        view = inflater.inflate(R.layout.menu_share, null);
-//        hide= (TextView) findViewById(R.id.hide);
-//        share_weixin= (ImageView)view.findViewById(R.id.share_weixin);
-//        share_QQ= (ImageView) view.findViewById(R.id.share_qq);
-//        share_weibo= (ImageView) view.findViewById(R.id.share_weibo);
-//        share_friend= (ImageView) view.findViewById(R.id.share_weixinfriend);
-//        share_kongjian= (ImageView) view.findViewById(R.id.share_kongjian);
         viewPager= (ViewPager) findViewById(R.id.vp_vedioplay);
         tabLayout= (TabLayout) findViewById(R.id.vedioplay);
         title_tv= (TextView) findViewById(R.id.txt_title);

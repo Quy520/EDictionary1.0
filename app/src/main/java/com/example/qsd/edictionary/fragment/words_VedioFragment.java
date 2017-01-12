@@ -12,6 +12,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ import com.example.qsd.edictionary.activitys.CourseVedioActivity;
 import com.example.qsd.edictionary.adapter.CourseVedioAdapter;
 import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.bean.CourseVedioBean;
+import com.example.qsd.edictionary.costomProgressDialog.CustomProgressDialog;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.google.gson.Gson;
 
@@ -53,13 +56,15 @@ public class words_VedioFragment extends Fragment {
     private List<CourseVedioBean.DataBean> data;
     private CourseVedioAdapter vedioAdapter;
     private RecyclerView recyclerView;
+    private RelativeLayout relativeLayout;
     private Button button;
     private String classifyID;
     private int payStudyBean=0;
-    private boolean isRead = false;
     private String type="k12";
     private TextView textView;
     private SharedPreferences sharedPreferences;
+    private SwipeRefreshLayout refreshLayout;
+    private CustomProgressDialog customProgressDialog;
     //接受数据
     Handler handler=new Handler() {
         @Override
@@ -70,17 +75,14 @@ public class words_VedioFragment extends Fragment {
                 sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
                 SharedPreferences. Editor userinfo = sharedPreferences.edit();
                 userinfo.putString("SUCCESS","SUCCESS").commit();
-
                 return;
             }
             if (msg.what == 0x222) {
                 Toast.makeText(activity, "购买失败", Toast.LENGTH_SHORT).show();
                 return;
             }
-
         }
     };
-
     public static words_VedioFragment newInstance(String value) {
         words_VedioFragment fragment=new words_VedioFragment();
         Bundle bundle=new Bundle();
@@ -88,12 +90,11 @@ public class words_VedioFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-
     public void onCreate(@NonNull Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         activity=getActivity();
+        customProgressDialog=new CustomProgressDialog(activity,"数据加载中....请稍后",R.drawable.donghua_frame);
     }
-
     private void initData(int userID,String classifyID) {
         OkHttpClient okHttpClient=new OkHttpClient();
         Log.i("qsd",userID+"vedio单词页面传递过来的类型id"+classifyID);
@@ -118,14 +119,22 @@ public class words_VedioFragment extends Fragment {
                 CourseVedioBean vedioBean=new Gson().fromJson(s,CourseVedioBean.class);
                 data = vedioBean.data;
                 for (int i=0;i<data.size();i++){
+                    if (data.get(i).getProductType()==0){
                     int coursePrice = data.get(i).getVideoPrice();
                     payStudyBean=coursePrice+payStudyBean;
+                    }
                 }
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        textView.setText("一次性订阅五年级所有视屏仅需"+payStudyBean+"学豆");
-                         vedioAdapter.setList(data);
+                        vedioAdapter.setList(data);
+                        refreshLayout.setRefreshing(false);
+                        customProgressDialog.dismiss();
+                        if (payStudyBean!=0){
+                            textView.setText("一次性订阅五年级所有视屏仅需"+payStudyBean+"学豆");
+                        }else{
+                            relativeLayout.setVisibility(View.GONE);
+                        }
                     }
                 });
             }
@@ -136,7 +145,6 @@ public class words_VedioFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_words__vedio,container,false);
     }
     @Override
@@ -146,17 +154,23 @@ public class words_VedioFragment extends Fragment {
         if (getArguments()!=null) {
                 classifyID = getArguments().getString("KEY");
                 Log.i("qsd", classifyID + "vedio传递过来的类型id");
-
         }
         initData(userID, classifyID);
-
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                clearData();
+                initData(userID, classifyID);
+                customProgressDialog.show();
+            }
+        });
         onClick();
-
-
-
-
     }
 
+    private void clearData() {
+        payStudyBean=0;
+        data.clear();
+    }
     private void onClick() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +196,6 @@ public class words_VedioFragment extends Fragment {
             }
         });
     }
-
     private void SubAll(int userID, int payStudyBean, String type, String classifyID) {
         Log.i("qsd1","订阅传递的参数"+userID+"学习"+payStudyBean+type+classifyID);
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -191,7 +204,7 @@ public class words_VedioFragment extends Fragment {
                 .add("userID", userID + "")
                 .add("payStudyBean", payStudyBean + "")
                 .add("type", type)
-                .add("classifyID",5+"")
+                .add("classifyID",classifyID)
                 .build();
         Request request = new Request.Builder()
                 .url(UrlString.URL_LOGIN + "subAllAPI")
@@ -216,13 +229,10 @@ public class words_VedioFragment extends Fragment {
                 }else{
                     handler.sendEmptyMessage(0x222);
                 }
-
-
             }
 
         });
     }
-
 
     private void initView(View view) {
         data=new ArrayList<>();
@@ -230,6 +240,8 @@ public class words_VedioFragment extends Fragment {
         button= (Button) view.findViewById(R.id.vedio_subbAllButton);
         textView= (TextView) view.findViewById(R.id.vedio_text);
         recyclerView= (RecyclerView) view.findViewById(R.id.word_vedio_recycle);
+        relativeLayout= (RelativeLayout) view.findViewById(R.id.word_vedio_sub);
+        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.wordvedio_swiper);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(vedioAdapter);
         vedioAdapter.setOnItemClickListener(new CourseVedioAdapter.onRecyclerViewItemClickListener() {
@@ -253,11 +265,6 @@ public class words_VedioFragment extends Fragment {
         });
 
 
-
-
-
     }
-
-
 
 }

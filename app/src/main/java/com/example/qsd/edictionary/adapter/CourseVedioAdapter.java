@@ -66,7 +66,8 @@ public class CourseVedioAdapter extends RecyclerView.Adapter <RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return vedioBeanData.size();
+
+        return  vedioBeanData==null ? 0 :vedioBeanData.size();
     }
 
     public void setList(List<CourseVedioBean.DataBean> data) {

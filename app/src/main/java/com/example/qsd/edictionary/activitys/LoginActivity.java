@@ -189,6 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                 int loginStatus=loginBean.getData().getLoginStatus();
                 int userID=loginBean.getData().getUserID();
 
+
                 //将数据保存
                 sharedPreferences=getSharedPreferences("useInfo", Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = sharedPreferences.edit();
@@ -199,7 +200,6 @@ public class LoginActivity extends AppCompatActivity {
                         .putString("nickname",nickname)
                         .putString("headImageurl",headImageurl)
                         .putString("studyCode",studyCode).commit();
-
 
                 if (code.equals("SUCCESS")){//登陆成功
                     SharedPreferences savepw=getSharedPreferences("ED", Context.MODE_PRIVATE);//保存密码

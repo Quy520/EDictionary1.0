@@ -28,8 +28,8 @@ public class APP extends Application {
         SMSSDK.initSDK(this, "1a0a96a7aca8e", "84dcd3028b078eb4ecbe9bed5c669dec");
         PlatformConfig.setQQZone("1105869116","ilDAejHB0cXzR47t");
         PlatformConfig.setSinaWeibo("1292322940", "c1ad238284f47072b0caaf27d4d3afb3");
+        PlatformConfig.setWeixin("wx7658d0735b233185", "07f165e769707ce2d10955666edbeb1c");
         
-
     }
     public static MediaPlayer getMediaPlayer(){
         if (mediaPlayer==null){

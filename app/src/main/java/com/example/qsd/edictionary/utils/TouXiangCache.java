@@ -19,25 +19,25 @@ public class TouXiangCache {
 
     public static void saveMyBitmap(Bitmap mBitmap, String pic_pathload)  {
         String extr = Environment.getExternalStorageDirectory().toString();
-        File f = new File(extr+ "/storage/sdcard0");
-        if (f.exists()){
-            Log.i("qsd","saveMyBitmap存在");
-        }else{
-            f.mkdirs();// 创建文件夹
-        }
-        //String fileName = "/storage/sdcard0/"+pic_pathload;
-        File file=new File(f,pic_pathload);
-       // File f = new File( "storage/sdcard0/"+pic_pathload);
-        try {
-            file.createNewFile();
-            Log.i("createNewFile","生成文件成功"+file.getName());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        File f = new File(extr+"/"+ pic_pathload);
+//        if (f.exists()){
+//            Log.i("qsd","saveMyBitmap存在");
+//        }else{
+//            f.mkdirs();// 创建文件夹
+//        }
+//        //String fileName = "/storage/sdcard0/"+pic_pathload;
+//        File file=new File(f,pic_pathload);
+//       // File f = new File( "storage/sdcard0/"+pic_pathload);
+//        try {
+//            file.createNewFile();
+//            Log.i("createNewFile","生成文件成功"+file.getName());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         FileOutputStream fOut = null;
         try {
-             fOut = new FileOutputStream(file);
-            mBitmap.compress(Bitmap.CompressFormat.JPEG, 150, fOut);
+             fOut = new FileOutputStream(f);
+            mBitmap.compress(Bitmap.CompressFormat.JPEG, 250, fOut);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -52,10 +52,8 @@ public class TouXiangCache {
 
     public static  Bitmap getphoto(String pic_pathload){
         BitmapFactory.Options options=new BitmapFactory.Options();
-
         options.inSampleSize = 20;
         Bitmap bitmap = BitmapFactory.decodeFile(pic_pathload,options);
-
         return bitmap;
     }
 }

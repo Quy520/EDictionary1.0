@@ -46,7 +46,7 @@ public class SearchDB {
         String pic_path = preferences.getString("pic_path", null);
         if (pic_path != null) {
             pic_Pathload = pic_path;
-            String pic_pathload = extr+"/storage/sdcard0/" + pic_Pathload;
+            String pic_pathload = extr+"/" + pic_Pathload;
             return pic_pathload;
         }
         return pic_Pathload;
@@ -56,5 +56,8 @@ public class SearchDB {
     //删除数据
     public static void removeDb(SharedPreferences preferences) {
         preferences.edit().remove("user_Name").commit();
+    }
+    public static void clearDb(SharedPreferences preferences) {
+        preferences.edit().clear().commit();
     }
 }

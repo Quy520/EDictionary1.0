@@ -1,6 +1,5 @@
 package com.example.qsd.edictionary.fragment;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +30,6 @@ import com.example.qsd.edictionary.utils.SearchDB;
 import com.example.qsd.edictionary.utils.TouXiangCache;
 
 import java.util.List;
-
 /**
  * 我的界面
  */
@@ -43,59 +41,49 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         private TextView studycode,costcode,study_code;
         private Context context;
         private int studyBean,costStudyBean;
-    private SharedPreferences preferences;
-    private String s;
+        private SharedPreferences preferences;
+        private String s;
         private static final String IMAGE_FILE_NAME = "head_image.jpg";
-
         public MineFragment() {
-
         }
     @Override
     public void  onCreate(@Nullable Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         context=getActivity();
-
-
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        try{
-            if (view==null){
-                view=inFlater(inflater);
-            }
-            return view;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+
+        return inflater.inflate(R.layout.fragment_mine,container,false);
     }
-        private View inFlater(LayoutInflater inflater) {
-            view=inflater.inflate(R.layout.fragment_mine,null,false);
-            initView(view);
-            //获取头像
-            String pic_path = SearchDB.TouXiangDb(getContext(), IMAGE_FILE_NAME);
-            if (pic_path!=null){
-                Log.i("qsd","pic_path"+pic_path);
-                Bitmap getphoto = TouXiangCache.getphoto("storage/sdcard0/"+ pic_path);
-                imageView.setImageBitmap(getphoto);
-            }
-            return view;
-        }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
              super.onViewCreated(view, savedInstanceState);
-
+        initView(view);
+        //获取头像
+        String pic_path = SearchDB.TouXiangDb(getContext(), IMAGE_FILE_NAME);
+        if (pic_path!=null){
+            Log.i("qsd","pic_path"+pic_path);
+            Bitmap getphoto = TouXiangCache.getphoto(pic_path);
+            imageView.setImageBitmap(getphoto);
+        }
 
 }
 //    @Override
 //    public void setUserVisibleHint(boolean isVisibleToUser) {
 //        super.setUserVisibleHint(isVisibleToUser);
 //        if (isVisibleToUser) {
-//
+//            SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+//            studyBean = preferences.getInt("studyBean", 0);
+//            costStudyBean = preferences.getInt("costStudyBean", 0);
+//            Log.i("qsd",costStudyBean+"costStudyBean");
+//            Log.i("qsd",studyBean+"studyBean");
+//            costcode.setText(costStudyBean+"");
+//            studycode.setText(studyBean+"");
 //        }else{
 //
 //        }
@@ -118,8 +106,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         SharedPreferences preferences = context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
         studyBean = preferences.getInt("studyBean", 0);
         costStudyBean = preferences.getInt("costStudyBean", 0);
-        Log.i("qsd",costStudyBean+"costStudyBean");
-        Log.i("qsd",studyBean+"studyBean");
         costcode.setText(costStudyBean+"");
         studycode.setText(studyBean+"");
             //获取保存的数值
@@ -176,7 +162,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                     startActivity(intent6);
                     break;
                 case R.id.mine_fankui:
-                    Toast.makeText(getActivity(), "反馈", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "用户反馈", Toast.LENGTH_SHORT).show();
                     Intent intent7=new Intent(getActivity(), FankuiActivity.class);
                     startActivity(intent7);
                     break;

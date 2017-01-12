@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -38,26 +39,23 @@ public class PhotoChange extends AppCompatActivity {
     private static final int CODE_GALLERY_REQUEST = 0xa0;
     private static final int CODE_CAMERA_REQUEST = 0xa1;
     private static final int CODE_RESULT_REQUEST = 0xa2;
-    // 裁剪后图片的宽(X)和高(Y),480 X 480的正方形。
-    private static int output_X = 2;
-    private static int output_Y = 2;
-    private String pic_path,extr;
 
+    private String pic_path,extr;
+    //创建一个以当前时间为名称的文件
+    File tempFile = new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //获取头像
-        PermisionUtils.verifyStoragePermissions(this);
-         extr = Environment.getExternalStorageDirectory().toString();
+        PermisionUtils.verifyStoragePermissions(this);//动态添加权限
+        extr = Environment.getExternalStorageDirectory().getAbsolutePath();
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
-        Log.i("qsd","pic_path1"+pic_path);
-        if (pic_path!=null){
-            Log.i("qsd","pic_path2"+pic_path);
-            Bitmap getphoto = TouXiangCache.getphoto( pic_path);
-            //headImage.setImageBitmap(getphoto);
-        }
         setContentView(R.layout.activity_photo_change);
         initView();
+        if (pic_path!=null){
+            Bitmap getphoto = TouXiangCache.getphoto( pic_path);
+            headImage.setImageBitmap(getphoto);
+        }
 
     }
 
@@ -95,9 +93,9 @@ public class PhotoChange extends AppCompatActivity {
         Log.i("qsd","拍照");
         Intent intentFromCapture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // 判断存储卡是否可用，存储照片文件
-        if (hasSDcard()) {
-            intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(), IMAGE_FILE_NAME)));
-        }
+            intentFromCapture.putExtra(MediaStore.EXTRA_OUTPUT,
+                    Uri.fromFile(tempFile));
+            Log.i("qsd","保存图片地址"+tempFile);
         startActivityForResult(intentFromCapture, CODE_CAMERA_REQUEST);
     }
     @Override
@@ -108,14 +106,13 @@ public class PhotoChange extends AppCompatActivity {
         }
         switch (requestCode){
             case CODE_GALLERY_REQUEST:
-                cropRawPhoto(intent.getData());
+                if (intent != null)
+                cropRawPhoto(intent.getData(),250);
                 break;
             case CODE_CAMERA_REQUEST:
                 if (hasSDcard()){
                     Toast.makeText(this, "正在调用相机", Toast.LENGTH_SHORT).show();
-                    File tempFile = new File( extr+"/storage/sdcard0/", IMAGE_FILE_NAME);
-                    cropRawPhoto(Uri.fromFile(tempFile));
-
+                    cropRawPhoto(Uri.fromFile(tempFile),250);
                 }else{
                     Toast.makeText(this, "没有SD卡", Toast.LENGTH_SHORT).show();
                 }
@@ -126,24 +123,16 @@ public class PhotoChange extends AppCompatActivity {
                     setImageToHeadView(intent);
                 }
                 break;
-            case 3:
-                Bitmap photo1 = intent.getParcelableExtra("data");
-                if(photo1!=null){
-                    headImage.setImageBitmap(photo1);
-                }
+
         }
         super.onActivityResult(requestCode,resultCode,intent);
 
     }
 
-//    private void doCropPhoto(Bitmap data) {
-//        Intent intent = getCropImageIntent(data);
-//        startActivityForResult(intent, 3);
-//    }
     /**
      * 裁剪原始的图片
      */
-    public void cropRawPhoto(Uri uri) {
+    public void cropRawPhoto(Uri uri,int size) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(uri, "image/*");
         // 设置裁剪
@@ -152,14 +141,14 @@ public class PhotoChange extends AppCompatActivity {
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
         // outputX , outputY : 裁剪图片宽高
-        intent.putExtra("outputX", output_X);
-        intent.putExtra("outputY", output_Y);
+        intent.putExtra("outputX", size);
+        intent.putExtra("outputY", size);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, CODE_RESULT_REQUEST);
     }
 
     //提取保存的图片后，设置头像
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+
     private void setImageToHeadView(Intent intent) {
         Bundle bundle=intent.getExtras();
         Log.i("qsd",bundle.getParcelable("data")+"1111222");
@@ -167,8 +156,7 @@ public class PhotoChange extends AppCompatActivity {
             final Bitmap photo=bundle.getParcelable("data");
             headImage.setImageBitmap(photo);
             bp=photo;
-            pic_path=IMAGE_FILE_NAME;
-//            //把图片保存到sd卡中
+            TouXiangCache.saveMyBitmap(bp,pic_path);
             PermisionUtils.verifyStoragePermissions(this);
             String touxiang = SearchDB.TouXiangDb(this, pic_path);//
             if (touxiang==null){
@@ -176,18 +164,11 @@ public class PhotoChange extends AppCompatActivity {
                 SharedPreferences.Editor edit = sharedPreferences.edit();
                 edit.putString("pic_path",pic_path).commit();
             }
-            Log.i("qsd","bitMappath-----"+pic_path);
-
-            TouXiangCache.saveMyBitmap(bp,pic_path);
-            Log.i("qsd","保存成功1");
-
-
+            Log.i("qsd","bitMappath-----"+touxiang);
 
         }
 
     }
-
-
     private boolean hasSDcard() {
         String state= Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)){

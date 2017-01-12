@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.example.qsd.edictionary.R;
 
 /**
- * A simple {@link Fragment} subclass.
+ * 记忆法的其他课程
  */
 public class DetialsCourse extends Fragment {
 
@@ -23,7 +23,7 @@ public class DetialsCourse extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_detials_course, container, false);
     }
 

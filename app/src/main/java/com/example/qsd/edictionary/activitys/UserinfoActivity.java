@@ -38,14 +38,14 @@ public class UserinfoActivity extends AppCompatActivity implements View.OnClickL
         Log.i("qsd","name"+name);
         phone_=SearchDB.createPh(this,"userName");
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
+
+        setContentView(R.layout.activity_userinfo);
+        initView();
         if (pic_path!=null){
             Log.i("qsd","pic_path3"+pic_path);
             Bitmap getphoto = TouXiangCache.getphoto(pic_path);
-            //head.setImageBitmap(getphoto);
+            head.setImageBitmap(getphoto);
         }
-        setContentView(R.layout.activity_userinfo);
-        Log.i("qsd", Environment.getExternalStorageDirectory()+"123");
-        initView();
         initOnClick();
     }
 

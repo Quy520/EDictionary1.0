@@ -26,11 +26,8 @@ public class SubscribeFragment extends Fragment {
     View view;
     private ViewPager viewPager;
     private TabLayout tab;
-
     public SubscribeFragment() {
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

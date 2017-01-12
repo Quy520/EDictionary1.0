@@ -31,11 +31,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
-    <!-- 分享编辑页 -->
-    <activity
-        android:name="com.umeng.socialize.editorpage.ShareActivity"
-        android:excludeFromRecents="true"
-        android:theme="@style/Theme.UMDefault" />
+
 
     <application
         android:name=".activitys.APP"
@@ -71,9 +67,6 @@
         <activity android:name=".activitys.SettingActivity" />
         <activity android:name=".activitys.FankuiActivity" />
 
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
         <activity android:name=".activitys.PhotoChange" />
         <activity android:name=".activitys.ChangeNewphone" />
         <activity android:name=".activitys.ChangePass" />
@@ -87,7 +80,18 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="58466e9a82b635752f0010f4" />
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
+        <!-- 分享编辑页 -->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
 
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"

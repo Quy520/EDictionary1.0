@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,11 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qsd.edictionary.R;
+import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.fragment.ExplainFragment;
 import com.example.qsd.edictionary.fragment.IntroduceFragment;
 import com.example.qsd.edictionary.fragment.OtherCourseFragment;
 import com.example.qsd.edictionary.fragment.WordListFragment;
+import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
+import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -30,8 +35,16 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMVideo;
 import com.umeng.socialize.shareboard.ShareBoardConfig;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static com.umeng.socialize.utils.ContextUtil.getContext;
 /**
@@ -49,18 +62,46 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
     View view;
     private String mp4url = "http://flv2.bn.netease.com/videolib3/1612/01/jEyBQ0772/SD/jEyBQ0772-mobile.mp4";
     private String mp4_icom = "http://vimg2.ws.126.net/image/snapshot/2016/12/2/5/VC6900J25.jpg";
-    private String stringValue;
+    private String wordDetail,wordVideoUrl;
+    private int  payType,wordPrice ,wordID;
     private TextView price,GoBuy;
+    private int userID=2;
+    private String wordtype="word";
     private ExplainFragment explainFragment;
     private VideoSuperPlayer videoSuperPlayer;
+    private  Intent intent;
+    Handler handler1=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x111) {
+                Toast.makeText(context, "订阅成功", Toast.LENGTH_SHORT).show();
+                play.setClickable(true);
+                price.setVisibility(view.GONE);
+                GoBuy.setVisibility(view.GONE);
+                play.setVisibility(View.VISIBLE);
+                return;
+            }
+            if (msg.what == 0x222) {
+                Toast.makeText(context, "订阅失败，余额不足", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (msg.what == 0x333) {
+                Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+        }
+
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words_vedio_play);
-        Intent intent=getIntent();
-        stringValue=intent.getStringExtra("DETAILS");
-        Log.i("qsd1","获取单词传过来的detail"+stringValue);
-        explainFragment=ExplainFragment.newInstance(stringValue);
+         intent=getIntent();
+        wordDetail=intent.getStringExtra("wordDetail");
+        Log.i("qsd1","获取单词传过来的detail"+wordDetail);
+        explainFragment=ExplainFragment.newInstance(wordDetail);
         initView();
         initOnClick();
 
@@ -77,6 +118,50 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
         bitmapUtils.display(icon,mp4_icom);
         play.setOnClickListener(new MyOnClick(mp4url,videoSuperPlayer));
         videoSuperPlayer.setVideoPlayCallback(new MyVideoCallback(play,videoSuperPlayer));
+        GoBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                subAPI(userID,wordID,wordtype,wordPrice);
+            }
+        });
+    }
+
+    private void subAPI(int userID, int wordID, String wordtype, int wordPrice) {
+        Log.i("qsd","单词ID"+wordID);
+        OkHttpClient okHttpClient=new OkHttpClient();
+        RequestBody requestBody=new FormBody
+                .Builder()
+                .add("userID",userID+"")
+                .add("productID",wordID+"")
+                .add("type",wordtype)
+                .add("money",wordPrice+"")
+                .build();
+        okhttp3.Request request=new okhttp3.Request.Builder()
+                .url(UrlString.URL_LOGIN+"subAPI")
+                .post(requestBody)
+                .build();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String string=response.body().string();
+                Log.i("qsd","VediePalyActity"+string);
+                CodeBean codeBean=new Gson().fromJson(string,CodeBean.class);
+                String code = codeBean.getCode();
+                Log.i("qsd",code+"RegisterActivity");
+                if (code.equals("SUCCESS")){
+                    handler1.sendEmptyMessage(0x111);//发送消息
+                } else if (code.equals("NOTSUFFICIENTFUNDS")){
+                    handler1.sendEmptyMessage(0x222);//发送消息
+                }else{
+                    handler1.sendEmptyMessage(0x333);//发送消息
+                }
+            }
+        });
+
     }
 
     class MyOnClick implements View.OnClickListener {
@@ -191,6 +276,25 @@ public class WordsVedioPlayActivity extends AppCompatActivity {
         play= (ImageView) findViewById(R.id.vedio_play);
         price= (TextView) findViewById(R.id.worddetail_price);
         GoBuy= (TextView) findViewById(R.id.textView3);
+         intent=getIntent();
+         payType = intent.getIntExtra("payType", 0);
+         wordPrice = intent.getIntExtra("wordPrice", 0);
+         wordID = intent.getIntExtra("wordID", 0);
+        wordVideoUrl = intent.getStringExtra("wordVideoUrl");
+        Log.i("qsd","单词传递过来的信息"+"是否购买"+payType+"单词价格"+wordPrice+"单词ID"+wordID);
+        if (payType==1){
+            play.setVisibility(View.VISIBLE);
+            price.setVisibility(View.GONE);
+            GoBuy.setVisibility(View.GONE);
+            mp4url=wordVideoUrl;
+
+        }else{
+            play.setClickable(false);
+            play.setVisibility(View.GONE);
+            mp4url=wordVideoUrl;
+            price.setText("需花费"+wordPrice+"学豆");
+
+        }
 
         list.add(explainFragment);
         list.add(new WordListFragment());

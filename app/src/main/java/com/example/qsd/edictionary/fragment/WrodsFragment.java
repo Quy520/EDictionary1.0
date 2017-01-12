@@ -49,32 +49,25 @@ public class WrodsFragment extends Fragment {
     private  List<WordsBean.DataBean> wordsBeanData;
     private WordsAdapter wordsAdapter;
     private RecyclerView recyclerView;
-
-
     @Override
     public void onCreate(@NonNull Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         activity=getActivity();
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_wrods,container,false);
     }
 
     @Override
     public void onViewCreated(View  view , @Nullable Bundle saveInstanceState){
         super.onViewCreated(view,saveInstanceState);
+        initView(view);
+        initData();
 
-            initView(view);
-            initData();
     }
-
     private void initData() {
-
         OkHttpClient okHttpClient=new OkHttpClient();
         RequestBody requestBody=new FormBody
                 .Builder()
@@ -95,7 +88,6 @@ public class WrodsFragment extends Fragment {
                 WordsBean wordsBean=new Gson().fromJson(s,WordsBean.class);
                 wordsBeanData = wordsBean.getData();
                 Log.i("qsd",wordsBeanData+"记单词页面2");
-//
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

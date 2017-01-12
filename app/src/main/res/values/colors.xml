@@ -32,4 +32,6 @@
     <color name="gold_yanse">#b17e27</color>
     <color name="gold_button">#ffcc55</color>
 
+    <color name="sub_button">#cccc</color>
+
 </resources>

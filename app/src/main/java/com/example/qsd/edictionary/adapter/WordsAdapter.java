@@ -33,22 +33,17 @@ public class WordsAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder>
     private List<WordsBean.DataBean> wordsBeanData;
     private List<WordsBean.DataBean.SectionDetailBean> sectionDetail;
     private WordsGrideViewAdapter wordsGrideViewAdapter;
-    Handler handler=new Handler();
 
     public WordsAdapter(Context context, List<WordsBean.DataBean> wordsBeanData){
         this.mcontext=context;
         this.wordsBeanData=wordsBeanData;
-
     }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
         view= LayoutInflater.from(mcontext).inflate(R.layout.item_words,parent,false);
         return new FirstViewHolder(view);
-
     }
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         FirstViewHolder fholder= (FirstViewHolder) holder;

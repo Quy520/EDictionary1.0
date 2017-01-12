@@ -50,8 +50,8 @@
             android:layout_height="wrap_content"
             android:text="@string/register_yanzhen"
             android:textColor="@color/white"
-            android:layout_alignBaseline="@+id/et_phone"
-            android:layout_alignBottom="@+id/et_phone"
+            android:layout_alignBaseline="@+id/forget_phone"
+            android:layout_alignBottom="@+id/forget_phone"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:id="@+id/forget_check" />

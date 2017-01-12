@@ -10,15 +10,13 @@ import android.view.ViewGroup;
 import com.example.qsd.edictionary.R;
 
 /**
- *本节说明
+ *记单词本节说明
  */
 public class IntroduceFragment extends Fragment {
-
 
     public IntroduceFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

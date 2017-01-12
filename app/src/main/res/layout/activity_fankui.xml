@@ -16,7 +16,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/txt_title"
-                android:text="帮助与反馈"
+                android:text="用户反馈"
                 android:textSize="20sp"
                 android:drawablePadding="5dp"
                 android:textColor="@color/color_white"
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:enabled="true"
         android:gravity="top"
-        android:hint="请填写你的宝贵意见"
+        android:hint="请填写你的宝贵意见，一旦被采纳，会有奖励哦"
         android:inputType="textMultiLine"
         android:minLines="8"
         android:maxLines="18"

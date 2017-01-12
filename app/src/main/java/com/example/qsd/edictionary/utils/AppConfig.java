@@ -33,12 +33,4 @@ public class AppConfig {
         editor.commit();
     }
 
-    /**
-     * 清空
-     */
-    public void clear() {
-        Editor editor = innerConfig.edit();
-        editor.clear();
-        editor.commit();
-    }
 }

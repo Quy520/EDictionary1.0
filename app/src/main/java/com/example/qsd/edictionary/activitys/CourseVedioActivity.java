@@ -4,6 +4,7 @@ package com.example.qsd.edictionary.activitys;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +31,8 @@ import com.example.qsd.edictionary.fragment.OtherCourseFragment;
 import com.example.qsd.edictionary.fragment.WordListFragment;
 
 import com.example.qsd.edictionary.urlAPI.UrlString;
+import com.example.qsd.edictionary.utils.SearchDB;
+import com.example.qsd.edictionary.utils.SharedpreferencesUtils;
 import com.example.qsd.edictionary.videoview.VideoSuperPlayer;
 import com.google.gson.Gson;
 import com.lidroid.xutils.BitmapUtils;
@@ -74,7 +77,8 @@ public class CourseVedioActivity extends AppCompatActivity {
     private int productType,videoPrice,courseID ;
     private int userID=2;
     private String typecourse="k12";
-
+    private int studyBean,cost;
+    private SharedPreferences sharedPreferences;
     Handler handler1=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -84,6 +88,14 @@ public class CourseVedioActivity extends AppCompatActivity {
                 price.setVisibility(view.GONE);
                 GoBuy.setVisibility(view.GONE);
                 play.setVisibility(View.VISIBLE);
+                studyBean= SearchDB.StudyBeanDb(context,"studyBean");
+                cost=SearchDB.CostDb(context,"costStudyBean");
+                studyBean=studyBean-videoPrice;
+                cost=cost+videoPrice;//支付成功后的学习豆和消费学豆
+                SharedpreferencesUtils.SaveStudyCode(context,studyBean,cost);
+                sharedPreferences=context.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
+                SharedPreferences. Editor userinfo = sharedPreferences.edit();
+                userinfo.putString("SUCCESS","SUCCESS").commit();
                 return;
             }
             if (msg.what == 0x222) {
@@ -295,16 +307,11 @@ public class CourseVedioActivity extends AppCompatActivity {
             play.setVisibility(View.VISIBLE);
             price.setVisibility(View.GONE);
             GoBuy.setVisibility(View.GONE);
-
         }else{
             play.setClickable(false);
             play.setVisibility(View.GONE);
             price.setText("需花费"+videoPrice+"学豆");
-
         }
-
-
-
         list.add(new IntroduceFragment());
         list.add(new WordListFragment());
         list.add(new OtherCourseFragment());
@@ -339,17 +346,11 @@ public class CourseVedioActivity extends AppCompatActivity {
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
         Log.d("result", "onActivityResult");
     }
-
     @Override
     public void onDestroy(){
         APP.setMediaPlayerNull();
         super.onDestroy();
 
     }
-
-
-
-
-
 }
 

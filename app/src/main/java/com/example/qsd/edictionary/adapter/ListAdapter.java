@@ -59,7 +59,7 @@ public class ListAdapter extends BaseAdapter {
         }
         Holder.textView.setText(wordData.get(position).getWord());
         Holder.button.setText(wordData.get(position).getWordPrice()+"");
-        Holder.relativeLayout.setTag(wordData.get(position).getWordID()+"");//设置listitem标志
+        Holder.relativeLayout.setTag(position+"");//设置listitem标志
        // Holder.relativeLayout.setTag(wordData.get(position).getWordDetail());
         Holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override

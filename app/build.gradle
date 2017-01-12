@@ -5,6 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.example.qsd.edictionary"
+
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
@@ -13,24 +14,19 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
-            // signingConfig signingConfigs.debug
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        debug {
-//            minifyEnabled true
-//            signingConfig signingConfigs.debug
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
+
     }
-//    signingConfigs {
-//        debug {
-//            storeFile file('debug.keystore')
-//            storePassword "qianshide"
-//            keyAlias "androiddebugkey"
-//            keyPassword "qianshide"
-//        }
-//    }
+    signingConfigs {
+        release {
+            storeFile file('jyds.jks')
+            storePassword "qianshide"
+            keyAlias "jyds"
+            keyPassword "qianshide"
+        }
+    }
     productFlavors {
     }
 }
@@ -60,7 +56,7 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     testCompile 'junit:junit:4.12'
-    compile files('libs/alipaySdk-20161129.jar')
+    //compile files('libs/alipaySdk-20161129.jar')
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.google.code.gson:gson:2.8.0'
     compile files('libs/MobCommons-2016.1201.1839.jar')
@@ -68,4 +64,5 @@ dependencies {
     compile name: 'SMSSDK-2.1.3', ext: 'aar'
     compile name: 'SMSSDKGUI-2.1.3', ext: 'aar'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile files('libs/alipaySdk-20161129.jar')
 }

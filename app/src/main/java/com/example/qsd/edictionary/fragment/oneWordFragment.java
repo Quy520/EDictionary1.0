@@ -11,6 +11,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import com.example.qsd.edictionary.adapter.GetWordsAdapter;
 import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.bean.CourseVedioBean;
 import com.example.qsd.edictionary.bean.GetWordsBean;
+import com.example.qsd.edictionary.costomProgressDialog.CustomProgressDialog;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.google.gson.Gson;
 
@@ -62,7 +64,8 @@ public class oneWordFragment extends Fragment {
     private int coursePrice=0;
    private int payStudyBean1=0;
     private String type="words";
-
+    private SwipeRefreshLayout refreshLayout;
+    private CustomProgressDialog customProgressDialog;
     private List<GetWordsBean.DataBean> data;
     Handler handler=new Handler() {
         @Override
@@ -76,7 +79,6 @@ public class oneWordFragment extends Fragment {
                 Toast.makeText(activity, "购买失败", Toast.LENGTH_SHORT).show();
                 return;
             }
-
         }
     };
 
@@ -98,6 +100,7 @@ public class oneWordFragment extends Fragment {
     public void onCreate(@NonNull Bundle saveInstanceState){
         super.onCreate(saveInstanceState);
         activity=getActivity();
+        customProgressDialog=new CustomProgressDialog(activity,"数据加载中....请稍后",R.drawable.donghua_frame);
     }
 
     private void initData(int userID, String classifyID) {
@@ -127,15 +130,12 @@ public class oneWordFragment extends Fragment {
                 Log.i("qsd2",data.size()+"记单词单词详细数据");
                 for (int i=0;i<data.size();i++){
                     for (int j=0;j<data.get(i).getWordData().size();j++) {
-                        //Log.i("qsd","查看金钱的大小"+data.size()+"里面"+data.get(i).getWordData().size());
-                        coursePrice = data.get(i).getWordData().get(j).getWordPrice();
-                        Log.i("qsd","查看金钱的大小"+coursePrice);
-                        payStudyBean1 = coursePrice+payStudyBean1;
-                        Log.i("qsd","查看金钱的大小2"+payStudyBean1);
+                        if (data.get(i).getWordData().get(j).getPayType()==0){
+                            coursePrice = data.get(i).getWordData().get(j).getWordPrice();
+                            payStudyBean1 = coursePrice+payStudyBean1;
+                        }
 
                     }
-
-                    Log.i("qsd","查看金钱的大小3"+payStudyBean);
                 }
                 payStudyBean=payStudyBean1+payStudyBean;
 
@@ -145,17 +145,17 @@ public class oneWordFragment extends Fragment {
                         textView.setText("一次性订五年级所有单词仅需"+payStudyBean+"学豆");
                     }
                 });
+
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         getwordsAdapter.setList(data);
+                        refreshLayout.setRefreshing(false);
+                        customProgressDialog.dismiss();
                     }
                 });
             }
-
         });
-
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -169,18 +169,28 @@ public class oneWordFragment extends Fragment {
         super.onViewCreated(view,saveInstanceState);
         initView(view);
         if (getArguments()!=null){
-           // if (getArguments().getString("KEY")!= null && getArguments().getString("KEY").length() != 0){
                 classifyID = getArguments().getString("KEY");
                 Log.i("qsd",classifyID+"onword传递过来的类型id");
 
-          //  }
         }
         initData(userID,classifyID);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                clearData();
+                initData(userID, classifyID);
+                customProgressDialog.show();
+            }
+        });
 
         onClick();
 
+    }
 
-
+    private void clearData() {
+        payStudyBean=0;
+        payStudyBean1=0;
+        data.clear();
     }
 
     private void onClick() {
@@ -251,6 +261,7 @@ public class oneWordFragment extends Fragment {
         button= (Button) view.findViewById(R.id.words_subbAllButton);
         textView= (TextView) view.findViewById(R.id.words_text);
         recyclerView= (RecyclerView) view.findViewById(R.id.onewords_recycle);
+        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.oneword_swpier);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(getwordsAdapter);
 
