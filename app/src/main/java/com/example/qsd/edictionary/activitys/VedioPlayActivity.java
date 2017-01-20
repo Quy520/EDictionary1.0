@@ -29,6 +29,7 @@ import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.fragment.DetialsCourse;
 import com.example.qsd.edictionary.fragment.DetialsFragment;
+import com.example.qsd.edictionary.fragment.MemoryFragment;
 import com.example.qsd.edictionary.fragment.VideoFragment;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.SearchDB;
@@ -92,6 +93,9 @@ public class VedioPlayActivity extends AppCompatActivity implements View.OnClick
                 price_tv.setVisibility(view.GONE);
                 Gobuy.setVisibility(view.GONE);
                 play.setVisibility(View.VISIBLE);
+                Message message=new Message();
+                message.what=1;
+                MemoryFragment.refresh.sendMessage(message);
                 studyBean= SearchDB.StudyBeanDb(getContext(),"studyBean");
                 cost=SearchDB.CostDb(getContext(),"costStudyBean");
                 studyBean=studyBean-price;

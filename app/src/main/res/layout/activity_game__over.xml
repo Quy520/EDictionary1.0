@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_game__over"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.qsd.edictionary.activitys.Game_Over">
+
+    <android.support.v7.widget.Toolbar
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txt_title"
+                android:text="记忆法小游戏"
+                android:textSize="20sp"
+                android:drawablePadding="5dp"
+                android:textColor="@color/color_white"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:text="很抱歉"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:id="@+id/congratelation" />
+    <TextView
+        android:layout_below="@+id/congratelation"
+        android:text="您没有通过练习"
+        android:textSize="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/congratelation2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/game_over"
+        android:layout_below="@+id/congratelation2"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/congratelation3" />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/congratelation3"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/congratelation4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请继续努力"/>
+
+    <Button
+        android:background="@drawable/button_bd"
+        android:id="@+id/gameover_fanhui"
+        android:layout_width="250dp"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_below="@+id/gameover_continue"
+        android:layout_alignLeft="@+id/gameover_continue"
+        android:layout_alignStart="@+id/gameover_continue" />
+
+    <Button
+        android:background="@drawable/button_bd"
+        android:id="@+id/gameover_continue"
+        android:layout_width="250dp"
+        android:text="继续"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:layout_below="@+id/congratelation4"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

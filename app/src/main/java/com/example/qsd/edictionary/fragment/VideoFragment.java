@@ -58,71 +58,45 @@ import okhttp3.Response;
  */
 public class VideoFragment extends Fragment {
 
-    private SwipeRefreshLayout refreshLayout;
+    static SwipeRefreshLayout refreshLayout;
     private Button sub_words,sub_vedio;
     private Context context;
-    private RecyclerView recyclerView;
-    private LinearLayout linearLayout;
-    private  CourseVedioBean vedioBean;
-    private int userID=2;
+    static RecyclerView recyclerView;
+    static LinearLayout linearLayout;
+    static   CourseVedioBean vedioBean;
+    static int userID=2;
     private  String Code="NOVIDE0";
-    private Activity activity;
+    static Activity activity;
     private SharedPreferences sharedPreferences;
-    List<CourseVedioBean.DataBean> data;
-    private CourseVedioAdapter vedioAdapter;
-    private CustomProgressDialog customProgressDialog;
-
+    static List<CourseVedioBean.DataBean> data;
+    static CourseVedioAdapter vedioAdapter;
+    static CustomProgressDialog customProgressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         activity=getActivity();
         customProgressDialog=new CustomProgressDialog(activity,"数据加载中....请稍后",R.drawable.donghua_frame);
         return inflater.inflate(R.layout.fragment_video,container,false);
-
     }
     @Override
     public void onViewCreated(View  view , @Nullable Bundle saveInstanceState){
         super.onViewCreated(view,saveInstanceState);
-        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.sub_swipe);
-        linearLayout= (LinearLayout) view.findViewById(R.id.sub_linear);
-        recyclerView= (RecyclerView) view.findViewById(R.id.sub_fragment_vedio);
-        sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-        Code= sharedPreferences.getString("SUCCESS", "NOVIDE0");
-        Log.i("qsd1",Code+"HANDLER3判断订阅是否成功");
-        if (Code.equals("NOVIDEO")){
-            recyclerView.setVisibility(View.GONE);
-            linearLayout.setVisibility(View.VISIBLE);
-            Log.i("qsd1",Code+"HANDLER4判断订阅是失败");
-        }else{
-            Log.i("qsd1",Code+"HANDLER4判断订阅是成功");
-            initData(userID);
-            initView(view);
 
-        }
+        initView(view);
+        refreshLayout.setVisibility(View.GONE);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if (Code.equals("NOVIDEO")){
-                    return;
-                }else{
-                    clearData();
                     initData(userID);
                     customProgressDialog.show();
-                }
-
             }
         });
 
     }
-    private void clearData() {
+    static void clearData() {
         data.clear();
     }
-
-
-
-    private void initData(int userID) {
-        data=new ArrayList<>();
-        vedioAdapter=new CourseVedioAdapter(activity,data);
+    static void initData(int userID) {
         recyclerView.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(vedioAdapter);
         OkHttpClient okHttpClient=new OkHttpClient();
@@ -137,7 +111,6 @@ public class VideoFragment extends Fragment {
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -148,10 +121,6 @@ public class VideoFragment extends Fragment {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Code = vedioBean.getCode();
-                        sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor userinfo = sharedPreferences.edit();
-                        userinfo.putString("SUCCESS",Code).commit();
                         vedioAdapter.setList(data);
                         vedioAdapter.notifyDataSetChanged();
                         customProgressDialog.dismiss();
@@ -159,25 +128,21 @@ public class VideoFragment extends Fragment {
                     }
                 });
 
-
-
             }
 
         });
 
     }
-
     private void initView(View view) {
         context=getContext();
-        sub_words= (Button) view.findViewById(R.id.sub_word);
-        sub_vedio= (Button) view.findViewById(R.id.sub_view);
-        if (Code.equals("NOVIDE0")){
-            recyclerView.setVisibility(View.GONE);
-            linearLayout.setVisibility(View.VISIBLE);
-        }else{
-            recyclerView.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(View.GONE);
-        }
+        data=new ArrayList<>();
+        vedioAdapter=new CourseVedioAdapter(activity,data);
+        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.sub_swipe);
+        linearLayout= (LinearLayout) view.findViewById(R.id.sub_linear);
+        recyclerView= (RecyclerView) view.findViewById(R.id.sub_fragment_vedio);
+//        sub_words= (Button) view.findViewById(R.id.sub_word);
+//        sub_vedio= (Button) view.findViewById(R.id.sub_view);
+
         vedioAdapter.setOnItemClickListener(new CourseVedioAdapter.onRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View v, String tag) {
@@ -199,5 +164,23 @@ public class VideoFragment extends Fragment {
         });
 
     }
+    public static Handler refresh=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+            switch (what){
+                case 2:
+                    clearData();
+                    initData(userID);
+                    linearLayout.setVisibility(View.GONE);
+                    refreshLayout.setVisibility(View.VISIBLE);
+                    customProgressDialog.show();
+                    break;
+            }
+
+        }
+    };
+
 
 }

@@ -40,13 +40,6 @@ public class WordsDetailsActivity extends AppCompatActivity {
        // words_VedioFragment words_vedioFragment=new words_VedioFragment(stringValue);
         fragment= words_VedioFragment.newInstance(stringValue);//传递数据
         oneWordFragment =oneWordFragment.newInstance(stringValue);
-//        if(!fragment.isAdded()&&!oneWordFragment.isAdded()){
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.wordsdetails_pager,fragment)
-//                .add(R.id.wordsdetails_pager,oneWordFragment)
-//                .commit();
-//        }
 
         Toast.makeText(this, stringValue, Toast.LENGTH_SHORT).show();
         initView();

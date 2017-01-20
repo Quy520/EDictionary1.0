@@ -51,20 +51,20 @@ import okhttp3.Response;
  * 记单词年纪的视屏fragment
  */
 public class words_VedioFragment extends Fragment {
-    private Activity activity;
-    private int userID=2;
-    private List<CourseVedioBean.DataBean> data;
-    private CourseVedioAdapter vedioAdapter;
-    private RecyclerView recyclerView;
-    private RelativeLayout relativeLayout;
+    static Activity activity;
+    static int userID=2;
+    static List<CourseVedioBean.DataBean> data;
+    static CourseVedioAdapter vedioAdapter;
+    static RecyclerView recyclerView;
+    static RelativeLayout relativeLayout;
     private Button button;
-    private String classifyID;
-    private int payStudyBean=0;
+    static String classifyID;
+    static int payStudyBean=0;
     private String type="k12";
-    private TextView textView;
+    static TextView textView;
     private SharedPreferences sharedPreferences;
-    private SwipeRefreshLayout refreshLayout;
-    private CustomProgressDialog customProgressDialog;
+    static SwipeRefreshLayout refreshLayout;
+    static CustomProgressDialog customProgressDialog;
     //接受数据
     Handler handler=new Handler() {
         @Override
@@ -75,6 +75,9 @@ public class words_VedioFragment extends Fragment {
                 sharedPreferences=activity.getSharedPreferences("useInfo", Context.MODE_PRIVATE);
                 SharedPreferences. Editor userinfo = sharedPreferences.edit();
                 userinfo.putString("SUCCESS","SUCCESS").commit();
+                clearData();
+                customProgressDialog.show();
+                initData(userID, classifyID);
                 return;
             }
             if (msg.what == 0x222) {
@@ -95,7 +98,7 @@ public class words_VedioFragment extends Fragment {
         activity=getActivity();
         customProgressDialog=new CustomProgressDialog(activity,"数据加载中....请稍后",R.drawable.donghua_frame);
     }
-    private void initData(int userID,String classifyID) {
+    static void initData(int userID,String classifyID) {
         OkHttpClient okHttpClient=new OkHttpClient();
         Log.i("qsd",userID+"vedio单词页面传递过来的类型id"+classifyID);
         RequestBody requestBody=new FormBody
@@ -167,7 +170,7 @@ public class words_VedioFragment extends Fragment {
         onClick();
     }
 
-    private void clearData() {
+    static void clearData() {
         payStudyBean=0;
         data.clear();
     }
@@ -266,5 +269,21 @@ public class words_VedioFragment extends Fragment {
 
 
     }
+
+    public static Handler refresh=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+            switch (what){
+                case 1:
+                    clearData();
+                    initData(userID, classifyID);
+                    customProgressDialog.show();
+                    break;
+            }
+
+        }
+    };
 
 }

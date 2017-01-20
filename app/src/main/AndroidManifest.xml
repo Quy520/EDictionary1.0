@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <!-- QQ、QQ空间所需权限 -->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
@@ -25,13 +24,12 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-    <!--短信验证 -->
+    <!-- 短信验证 -->
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
-
-
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
     <application
         android:name=".activitys.APP"
@@ -66,7 +64,6 @@
         <activity android:name=".activitys.AboutActivity" />
         <activity android:name=".activitys.SettingActivity" />
         <activity android:name=".activitys.FankuiActivity" />
-
         <activity android:name=".activitys.PhotoChange" />
         <activity android:name=".activitys.ChangeNewphone" />
         <activity android:name=".activitys.ChangePass" />
@@ -80,6 +77,7 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="58466e9a82b635752f0010f4" />
+
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -92,7 +90,6 @@
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.UMDefault" />
-
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
@@ -111,22 +108,29 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!-- 短信验证-->
+        <!-- 短信验证 -->
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <receiver android:name=".broadcastReceiver.SMSBroadcastReceiver">
-            <intent-filter >
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
+
         <activity android:name=".activitys.CourseVedioActivity" />
         <activity android:name=".activitys.WordsDetailsActivity" />
         <activity android:name=".activitys.WordsVedioPlayActivity" />
         <activity android:name=".activitys.RechargeMoneyActivity" />
-        <activity android:name=".activitys.RechargeDetail"></activity>
+        <activity android:name=".activitys.RechargeDetail" />
+        <activity android:name=".activitys.GameGreadActivity" />
+        <activity android:name=".activitys.PlayGameActivity" />
+        <activity android:name=".activitys.Game_Over" />
+        <activity android:name=".activitys.Game_SuccessActivity" />
+        <activity android:name=".activitys.GamejieguoActivity"></activity>
     </application>
 
 </manifest>

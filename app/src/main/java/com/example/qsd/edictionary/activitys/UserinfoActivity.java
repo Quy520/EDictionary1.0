@@ -38,7 +38,6 @@ public class UserinfoActivity extends AppCompatActivity implements View.OnClickL
         Log.i("qsd","name"+name);
         phone_=SearchDB.createPh(this,"userName");
         pic_path=SearchDB.TouXiangDb(this,IMAGE_FILE_NAME);
-
         setContentView(R.layout.activity_userinfo);
         initView();
         if (pic_path!=null){

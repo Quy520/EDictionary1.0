@@ -78,7 +78,6 @@ public class WelcomeActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.i("qsd",position+"--"+positionOffset);
             }
-
             @Override
             public void onPageSelected(int position) {
                 if (position==images.length-1){

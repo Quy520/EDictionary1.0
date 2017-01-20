@@ -18,7 +18,7 @@
     <color name="biz_audio_progress_second">#6b6666</color>
 
     <color name="default_bg">#aa000000</color>
-    <color name="select_color">#00b2ff</color>
+    <color name="select_color">#ff9900</color>
     <color name="normal_color">#ffffffff</color>
     <color name="divider_color">#55504a</color>
     <!--special color-->
@@ -31,7 +31,6 @@
     <color name="text_content">#333333</color>
     <color name="gold_yanse">#b17e27</color>
     <color name="gold_button">#ffcc55</color>
-
     <color name="sub_button">#cccc</color>
 
 </resources>

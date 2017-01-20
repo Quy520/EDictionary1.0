@@ -73,6 +73,9 @@ public class oneWordFragment extends Fragment {
             // TODO Auto-generated method stub
             if (msg.what == 0x111) {
                 Toast.makeText(activity, "购买成功", Toast.LENGTH_SHORT).show();
+                clearData();
+                customProgressDialog.show();
+                initData(userID, classifyID);
                 return;
             }
             if (msg.what == 0x222) {

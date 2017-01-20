@@ -27,9 +27,12 @@ import com.example.qsd.edictionary.R;
 import com.example.qsd.edictionary.adapter.SubAdapter;
 import com.example.qsd.edictionary.bean.CodeBean;
 import com.example.qsd.edictionary.fragment.IntroduceFragment;
+import com.example.qsd.edictionary.fragment.MemoryFragment;
 import com.example.qsd.edictionary.fragment.OtherCourseFragment;
+import com.example.qsd.edictionary.fragment.VideoFragment;
 import com.example.qsd.edictionary.fragment.WordListFragment;
 
+import com.example.qsd.edictionary.fragment.words_VedioFragment;
 import com.example.qsd.edictionary.urlAPI.UrlString;
 import com.example.qsd.edictionary.utils.SearchDB;
 import com.example.qsd.edictionary.utils.SharedpreferencesUtils;
@@ -79,6 +82,7 @@ public class CourseVedioActivity extends AppCompatActivity {
     private String typecourse="k12";
     private int studyBean,cost;
     private SharedPreferences sharedPreferences;
+    private Message message1,message2;
     Handler handler1=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -88,6 +92,12 @@ public class CourseVedioActivity extends AppCompatActivity {
                 price.setVisibility(view.GONE);
                 GoBuy.setVisibility(view.GONE);
                 play.setVisibility(View.VISIBLE);
+                 message1=new Message();
+                message1.what=1;
+                words_VedioFragment.refresh.sendMessage(message1);
+                message2=new Message();
+                message2.what=2;
+                VideoFragment.refresh.sendMessage(message2);
                 studyBean= SearchDB.StudyBeanDb(context,"studyBean");
                 cost=SearchDB.CostDb(context,"costStudyBean");
                 studyBean=studyBean-videoPrice;
@@ -198,9 +208,6 @@ public class CourseVedioActivity extends AppCompatActivity {
             play.setVisibility(View.GONE);
             player.loadAndPlay(APP.getMediaPlayer(),mp4url,0,false);
             Log.i("qsd","mp4地址"+mp4url);
-
-
-
         }
     }
 

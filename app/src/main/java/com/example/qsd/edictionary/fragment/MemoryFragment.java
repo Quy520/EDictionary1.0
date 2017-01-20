@@ -59,40 +59,39 @@ import okhttp3.Response;
  * 记忆法界面
  */
 public class MemoryFragment extends Fragment {
-    private Activity activity;
-    private RecyclerView recyclerView;
-    private  LinearLayoutManager linearLayoutManager;
-    private RelativeLayout relativeLayout;
-    private MemoryAdapter memoryAdapter;
-    private Button button;
-    private List<MemoryDownBean.DataBean> DownBeanData;
-    private List<MemoryUpBean.DataBean> Updata;
-    private int userID=2;
-    private int payStudyBean=0;
-    private String type="memory";
-    private String Title;
-    private TextView textView;
-    private SwipeRefreshLayout refreshLayout;
-    private CustomProgressDialog customProgressDialog;
-    private SharedPreferences sharedPreferences;
-    private int studyBean,cost;
+    static Activity activity;
+    static RecyclerView recyclerView;
+    static  LinearLayoutManager linearLayoutManager;
+    static RelativeLayout relativeLayout;
+    static MemoryAdapter memoryAdapter;
+    static Button button;
+    static List<MemoryDownBean.DataBean> DownBeanData;
+    static List<MemoryUpBean.DataBean> Updata;
+    static int userID=2;
+    static int payStudyBean=0;
+    static String type="memory";
+    static String Title;
+    static TextView textView;
+    static SwipeRefreshLayout refreshLayout;
+    static CustomProgressDialog customProgressDialog;
+    static SharedPreferences sharedPreferences;
+    static int studyBean,cost;
 
-    Handler handler=new Handler() {
+   static Handler handler=new Handler() {
         @Override
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
             if (msg.what == 0x111) {
                 Toast.makeText(activity, "购买成功", Toast.LENGTH_SHORT).show();
-                clearData();
-                customProgressDialog.show();
-                initData();
                 studyBean= SearchDB.StudyBeanDb(activity,"studyBean");
                 cost=SearchDB.CostDb(activity,"costStudyBean");
                 studyBean=studyBean-payStudyBean;
                 cost=cost+payStudyBean;//支付成功后的学习豆和消费学豆
                 SharedpreferencesUtils.SaveStudyCode(activity,studyBean,cost);
+                clearData();
+                customProgressDialog.show();
+                initData();
                 relativeLayout.setVisibility(View.GONE);
-
                 return;
             }
             if (msg.what == 0x222) {
@@ -123,7 +122,7 @@ public class MemoryFragment extends Fragment {
 
     }
 
-    private void initData() {
+    static void initData() {
         //memoryAdapter=new MemoryAdapter(activity,DownBeanData,Updata);
         //先获取记忆法课程
         payStudyBean=0;
@@ -171,7 +170,7 @@ public class MemoryFragment extends Fragment {
 
     }
 
-    private void LoadDown() {
+    static void LoadDown() {
         OkHttpClient okHttpClient=new OkHttpClient();
         RequestBody requestBody=new FormBody
                 .Builder()
@@ -232,7 +231,7 @@ public class MemoryFragment extends Fragment {
        initData();
     }
 
-    private void clearData() {
+    static void clearData() {
         DownBeanData.clear();
         payStudyBean=0;
         Updata.clear();
@@ -348,5 +347,19 @@ public class MemoryFragment extends Fragment {
         });
 
     }
+    public static Handler refresh=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int what = msg.what;
+            switch (what){
+                case 1:
+                    clearData();
+                    customProgressDialog.show();
+                    initData();
+                    break;
+            }
 
+        }
+    };
 }
